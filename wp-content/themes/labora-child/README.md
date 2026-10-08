@@ -25,6 +25,10 @@ after changing it (`--overwrite-settings` also resets each form's Additional Set
 Validation, repeat blocking, the honeypot, redirects, and analytics events come from the Lead Guard plugin.
 `template-parts/demo-form.php` shows the homepage form card and its confirmation panel; CF7 styling is in `child.css`.
 
+After a send, both forms open the **Thank you** page (`lead_guard_redirect: /thank-you/`). `forms-setup` creates that
+page (published, noindex in Yoast); its layout is the parent's `page-thank-you.php`, personalized by `pages.js` with
+the visitor's first name and request type (copied from Lead Guard's sessionStorage by `inc/forms.php`).
+
 `child.css` and `child.js` are only loaded once they contain code (their header comments do not count), so empty
 files add no request.
 

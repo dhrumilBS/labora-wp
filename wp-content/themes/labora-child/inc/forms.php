@@ -2,7 +2,8 @@
 /**
  * The Labora site's Contact Form 7 forms, defined in code so they are versioned and identical on every environment.
  *
- *   wp labora forms-setup                        create or update the forms in CF7 (keeps Additional Settings edits)
+ *   wp labora forms-setup                        create or update the forms in CF7 (keeps Additional Settings edits),
+ *                                                and the Thank you page they open after a send
  *   wp labora forms-setup --overwrite-settings   also reset each form's Additional Settings to the defaults below
  *   <?php echo labora_form( 'demo' ); ?>         print a form in a template ('demo' = Book a demo, 'contact')
  *
@@ -54,7 +55,7 @@ function labora_form_definitions(): array {
 			'# Lead Guard and CF7 settings for this form. The full list is documented below this box.',
 			'skip_mail: on',
 			'lead_guard_event: ' . $event,
-			'# lead_guard_redirect: /thank-you/   (remove the # once the thank-you page is live)',
+			'lead_guard_redirect: /thank-you/',
 		);
 		foreach ( $required as $field => $message ) {
 			$lines[] = "lead_guard_required_{$field}: {$message}";
@@ -144,8 +145,41 @@ function labora_forms_setup( bool $overwrite_settings = false ): array {
 		$ids[ $key ] = (int) $form->save();
 	}
 	update_option( LABORA_FORMS_OPTION, $ids, false );
+	labora_thank_you_page();
 	return $ids;
 }
+
+/**
+ * The page the forms open after a send (lead_guard_redirect: /thank-you/). Its layout is the parent's
+ * page-thank-you.php; it is created once, published, and set to noindex in Yoast (also keeps it out of the sitemap).
+ */
+function labora_thank_you_page(): int {
+	$page = get_page_by_path( 'thank-you' );
+	$id   = $page ? (int) $page->ID : (int) wp_insert_post( array(
+		'post_type'    => 'page',
+		'post_status'  => 'publish',
+		'post_title'   => 'Thank you',
+		'post_name'    => 'thank-you',
+		'post_content' => '',
+		'comment_status' => 'closed',
+	) );
+	if ( $id && ! $page ) {
+		update_post_meta( $id, '_yoast_wpseo_meta-robots-noindex', '1' );
+		update_post_meta( $id, '_yoast_wpseo_metadesc', 'Your message has reached the Labora team.' );
+	}
+	return $id;
+}
+
+/**
+ * Thank-you page: the theme's pages.js reads sessionStorage "labora_thanks" ({ form: 'demo'|'contact', topic, name, ts }).
+ * Lead Guard leaves "lead_guard_sent" ({ form: <form title slug>, ... }), so copy it across before pages.js runs.
+ */
+add_action( 'wp_enqueue_scripts', function () {
+	if ( ! is_page( 'thank-you' ) || ! wp_script_is( 'labora-pages', 'enqueued' ) ) {
+		return;
+	}
+	wp_add_inline_script( 'labora-pages', "try{var s=JSON.parse(sessionStorage.getItem('lead_guard_sent'));if(s&&s.form){s.form=s.form==='book-a-demo'?'demo':'contact';sessionStorage.setItem('labora_thanks',JSON.stringify(s));sessionStorage.removeItem('lead_guard_sent');}}catch(e){}", 'before' );
+}, 30 );
 
 /** True when a CF7 form is one of these site forms. */
 function labora_is_site_form( $form ): bool {
