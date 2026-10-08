@@ -10,6 +10,8 @@ $ErrorActionPreference = 'Stop'
 $Root  = Split-Path -Parent $PSScriptRoot
 $Php   = if ($env:PHP_BIN) { $env:PHP_BIN } else { 'D:\xampp\php\php.exe' }
 $WpCli = if ($env:WP_CLI_PHAR) { $env:WP_CLI_PHAR } else { 'D:\xampp\tools\wp-cli.phar' }
+$MysqlBin = if ($env:MYSQL_BIN) { $env:MYSQL_BIN } else { 'D:\xampp\mysql\bin' }   # mysqldump for WP-CLI
+if (Test-Path $MysqlBin) { $env:Path = "$MysqlBin;$env:Path" }
 $OutDir = Join-Path $Root 'backups'
 New-Item -ItemType Directory -Force $OutDir | Out-Null
 

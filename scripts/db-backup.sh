@@ -9,6 +9,9 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WP="${WP_CLI:-/d/xampp/tools/wp}"
+# mysqldump/mysql for WP-CLI: XAMPP's folder by default; set MYSQL_BIN elsewhere, or have them on PATH
+MYSQL_BIN="${MYSQL_BIN:-/d/xampp/mysql/bin}"
+[ -d "$MYSQL_BIN" ] && export PATH="$MYSQL_BIN:$PATH"
 KEEP="${KEEP:-14}"
 OUT_DIR="$ROOT/backups"
 STAMP="$(date +%Y-%m-%d-%H%M)"
