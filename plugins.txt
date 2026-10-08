@@ -1,0 +1,15 @@
+# Third-party plugins for the Labora site. Installed by scripts/install-plugins.sh (not committed to git).
+# <slug>                <version|latest|zip>  <active|inactive>
+
+# Forms and leads
+contact-form-7          6.1.7    active      # 6.2 needs PHP 8.3; local XAMPP has 8.2. Use "latest" once PHP is 8.3+.
+cf7-database            latest   active      # "Database for Contact Form 7" by Ninja Team (CF7 Database Lite)
+handl-utm-grabber-v3    zip      active      # Premium (HandL UTM Grabber v3): put the zip in backups/plugins/
+
+# SEO and content
+wordpress-seo           latest   active      # Yoast SEO
+secure-custom-fields    latest   active      # SCF, free fields for editable templates
+
+# Production only: installed but inactive locally. Configure on the live server (see config/production/).
+wp-super-cache          latest   inactive
+wordfence               latest   inactive

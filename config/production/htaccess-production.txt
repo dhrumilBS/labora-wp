@@ -1,0 +1,56 @@
+# Labora on WordPress: recommended .htaccess for an Apache live server (save as .htaccess in the web root).
+# WP Super Cache adds its own block above "# BEGIN WordPress" when caching is turned on.
+
+# ---- Security headers ----
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" "expr=%{HTTPS} == 'on'"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ---- Block sensitive files ----
+<FilesMatch "^(wp-config\.php|readme\.html|license\.txt|xmlrpc\.php|debug\.log)$">
+  Require all denied
+</FilesMatch>
+RedirectMatch 404 /\.(?!well-known)
+RedirectMatch 404 ^/(config|scripts|backups)/
+
+# ---- Long cache for static files ----
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+# ---- HTTPS and www ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off [OR]
+  RewriteCond %{HTTP_HOST} !^www\. [NC]
+  RewriteRule ^ https://www.labora.example%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+# END WordPress
+
+# Block PHP inside uploads: put this in wp-content/uploads/.htaccess
+#   <FilesMatch "\.(php|phtml|phar)$">
+#     Require all denied
+#   </FilesMatch>

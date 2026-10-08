@@ -1,0 +1,34 @@
+# Allow-list: everything is ignored unless listed below.
+# WordPress core, uploads, wp-config.php (database credentials, keys), logs, and database dumps never go to git.
+/*
+!/.gitignore
+!/.gitattributes
+!/README.md
+!/config/
+!/scripts/
+!/plugins.txt
+
+/wp-content/*
+!/wp-content/
+!/wp-content/themes/
+/wp-content/themes/*
+!/wp-content/themes/labora/
+!/wp-content/plugins/
+/wp-content/plugins/*
+# Custom plugins (ours). Third-party plugins are listed in plugins.txt and reinstalled by scripts/install-plugins.sh.
+!/wp-content/plugins/labora-forms/
+# The reusable cookie-consent plugin is added here once it is named.
+!/wp-content/mu-plugins/
+
+# Never commit secrets, local overrides, dumps, or build leftovers, even inside allowed folders
+*.sql
+*.sql.gz
+*.log
+.env
+.env.*
+!.env.example
+*.local.php
+!*.example.php
+node_modules/
+.DS_Store
+Thumbs.db
