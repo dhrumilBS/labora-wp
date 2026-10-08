@@ -395,8 +395,9 @@
   /* ---------- Cookie consent ----------
      One first-party cookie (labora_consent) stores the visitor's choice. Nothing else is set today.
      Future scripts that need consent are added as <script type="text/plain" data-consent="analytics" src="...">
-     and only run once that category is allowed. API: window.laboraConsent.get() / .has('analytics') / .open() */
-  var consent = (function () {
+     and only run once that category is allowed. API: window.laboraConsent.get() / .has('analytics') / .open()
+     When a consent plugin is active (TrustLayer Consent sets window.TrustLayer in <head>), it replaces this banner. */
+  var consent = window.TrustLayer ? null : (function () {
     var NAME = 'labora_consent', VERSION = 1, MAX_AGE = 180 * 24 * 3600;
     // What each category is for and exactly what it stores. Keep in sync with the cookie policy page.
     var CATS = [
@@ -547,7 +548,7 @@
     });
     return { get: read, has: function (c) { var v = read(); return !!(v && v[c]); }, open: function () { open({ customize: true }); } };
   })();
-  window.laboraConsent = consent;
+  if (consent) window.laboraConsent = consent;
 
   /* ---------- Footer year ---------- */
   var year = $('[data-year]');

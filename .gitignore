@@ -7,6 +7,8 @@
 !/config/
 !/scripts/
 !/plugins.txt
+!/package.json
+!/package-lock.json
 
 /wp-content/*
 !/wp-content/
@@ -18,7 +20,7 @@
 /wp-content/plugins/*
 # Custom plugins (ours). Third-party plugins are listed in plugins.txt and reinstalled by scripts/install-plugins.sh.
 !/wp-content/plugins/lead-guard-cf7/
-# The reusable cookie-consent plugin is added here once it is named.
+!/wp-content/plugins/trustlayer-consent/
 !/wp-content/mu-plugins/
 
 # Never commit secrets, local overrides, dumps, or build leftovers, even inside allowed folders

@@ -14,6 +14,8 @@ Only code and configuration that are safe to share. Everything else is ignored b
 | `wp-content/themes/labora/` | Parent theme: the design converted from the HTML site. Design files are in `assets/` (CSS, JS, fonts, images, video) |
 | `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions), including the site's two CF7 forms defined in code (`inc/forms.php`, `wp labora forms-setup`). No email is sent (`skip_mail: on`); leads are stored by Database for Contact Form 7. See its README |
 | `wp-content/plugins/lead-guard-cf7/` | **Lead Guard for Contact Form 7**: reusable on any CF7 site: phone normalization, email checks, one submission per person per window, honeypot, per-form thank-you redirect and analytics event, form address without `#wpcf7-...`. Settings: Contact > Lead Guard; per-form lines are documented under each form's Additional Settings. See its README |
+| `wp-content/plugins/trustlayer-consent/` | **TrustLayer Consent**: reusable cookie consent for any site: categories, preferences center, opt-in or opt-out by region (CDN headers, then MaxMind), Do Not Sell or Share and GPC, script and embed blocking, Google Consent Mode v2, consent log (12 months), import/export. Menu: TrustLayer. See its README. The Labora look and wording are set in the child theme (`inc/consent.php`, `child.css`) |
+| `package.json`, `scripts/build-assets.mjs` | Builds the minified CSS and JS of the theme and of TrustLayer: `npm install && npm run build` |
 | `wp-content/mu-plugins/` | Must-use plugins, if any |
 | `plugins.txt` | The third-party plugins and versions this site uses (installed by a script, not committed) |
 | `scripts/` | Database backup and restore, plugin install |
@@ -39,6 +41,7 @@ scripts/install-plugins.sh
 wp theme activate labora-child
 wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
 wp plugin activate lead-guard-cf7 && wp labora forms-setup   # the CF7 forms
+wp plugin activate trustlayer-consent                          # cookie consent (settings: TrustLayer)
 ```
 
 ## Backups
@@ -96,3 +99,13 @@ as the converted design.
 
 Each page is converted only after its WordPress structure (what is editable, what is fixed) is approved.
 The theme reuses the HTML site's CSS and JS files as they are; page templates output the same markup.
+
+After editing a theme or TrustLayer `.css`/`.js` source file, rebuild its minified copy (same tools and versions as
+the HTML site, so unchanged files come out byte for byte the same):
+
+```bash
+npm install && npm run build
+```
+
+One change from the HTML files: `main.js` skips its built-in cookie banner when TrustLayer Consent is active
+(`window.TrustLayer` is set in `<head>`).

@@ -28,3 +28,13 @@
 /* After a successful send, the card shows the confirmation panel instead of the form */
 [data-lead-guard-wrap].is-sent > :not(.form-status) { display: none; }
 [data-lead-guard-wrap].is-sent .form-status { display: block; }
+
+/* ---------- TrustLayer Consent (inc/consent.php): the banner in the Labora design, as the theme's built-in one ---------- */
+.tlc, .tlc-reopen, .tlc-embed {
+  --tlc-bg: #fff; --tlc-text: var(--text); --tlc-heading: var(--ink); --tlc-muted: var(--muted);
+  --tlc-border: var(--line); --tlc-border-strong: var(--line-strong);
+  --tlc-accent: var(--green); --tlc-accent-strong: var(--green-hover); --tlc-focus-ring: var(--mint);
+  --tlc-radius: var(--r-xl); --tlc-shadow: var(--shadow-float); --tlc-knob-shadow: 0 1px 2px rgba(13, 58, 51, .25); --tlc-ease: var(--ease);
+  --tlc-heading-weight: 650; --tlc-heading-leading: 1.12; --tlc-heading-tracking: -.025em;
+  --tlc-max-h-sm: calc(100vh - var(--header-h) - var(--header-gap) - 1.75rem); /* clear of the header on phones */
+}

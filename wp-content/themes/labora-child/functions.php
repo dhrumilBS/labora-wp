@@ -56,3 +56,4 @@ add_action( 'wp_enqueue_scripts', function () {
 
 // Site-specific PHP
 require LABORA_CHILD_DIR . '/inc/forms.php'; // the site's Contact Form 7 forms (wp labora forms-setup, labora_form())
+require LABORA_CHILD_DIR . '/inc/consent.php'; // TrustLayer Consent defaults for this site (banner wording, buttons, categories)

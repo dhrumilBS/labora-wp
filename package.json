@@ -1,0 +1,14 @@
+{
+  "name": "labora-wp",
+  "private": true,
+  "description": "Build tools for the Labora WordPress theme and the TrustLayer Consent plugin (minified CSS and JS).",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-assets.mjs"
+  },
+  "devDependencies": {
+    "clean-css": "5.3.3",
+    "lenis": "1.3.26",
+    "terser": "5.51.2"
+  }
+}

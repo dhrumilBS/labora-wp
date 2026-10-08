@@ -29,6 +29,13 @@ After a send, both forms open the **Thank you** page (`lead_guard_redirect: /tha
 page (published, noindex in Yoast); its layout is the parent's `page-thank-you.php`, personalized by `pages.js` with
 the visitor's first name and request type (copied from Lead Guard's sessionStorage by `inc/forms.php`).
 
+## Cookie consent
+
+The TrustLayer Consent plugin shows the banner. `inc/consent.php` sets its defaults for this site (the wording of
+the theme's banner, theme buttons, the footer's "Cookie settings" button, no functional category yet) and the end
+of `child.css` maps its CSS variables to the design tokens, so it looks like the theme's own banner. Anything
+changed in TrustLayer > Settings wins over these defaults.
+
 `child.css` and `child.js` are only loaded once they contain code (their header comments do not count), so empty
 files add no request.
 

@@ -1,0 +1,32 @@
+/* TrustLayer Consent admin */
+.tlc-admin .tlc-intro { max-width: 860px; font-size: 14px; }
+.tlc-admin .tlc-card { max-width: 1100px; margin: 16px 0; padding: 12px 20px 16px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; }
+.tlc-admin .tlc-card h2 { margin-top: .6em; }
+.tlc-badge { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 10px; background: #f0f6fc; color: #135e96; font-size: 11px; font-weight: 600; vertical-align: middle; }
+.tlc-chip { display: inline-block; margin: 0 4px 4px 0; padding: 1px 8px; border-radius: 10px; background: #f0f0f1; color: #50575e; font-size: 12px; }
+.tlc-chip.is-on { background: #edfaef; color: #00450c; }
+.tlc-chip.is-off { background: #fcf0f1; color: #8a2424; text-decoration: line-through; }
+.tlc-error { color: #b32d2e; }
+.tlc-colors { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px 16px; max-width: 760px; }
+.tlc-colors label { display: flex; align-items: center; gap: 6px; }
+.tlc-colors input[type="color"] { width: 40px; height: 30px; padding: 0 2px; }
+.tlc-cat-card-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; margin: 8px 0 4px; }
+.tlc-cat-id { font-size: 14px; font-weight: 600; }
+.tlc-gcm { margin: 8px 0 12px; }
+.tlc-gcm legend { margin-bottom: 4px; font-weight: 600; }
+.tlc-gcm label { display: inline-block; margin: 0 12px 4px 0; }
+.tlc-cookies input { width: 100%; }
+.tlc-cookies th:last-child, .tlc-repeat th:last-child { width: 70px; }
+.tlc-auto-row td { color: #646970; font-style: italic; }
+.tlc-repeat { max-width: 860px; }
+.tlc-presets { max-width: 1100px; }
+.tlc-presets code { font-size: 12px; }
+.tlc-stats { display: flex; flex-wrap: wrap; gap: 12px; margin: 16px 0; }
+.tlc-stats div { min-width: 140px; padding: 12px 16px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; }
+.tlc-stats strong { display: block; font-size: 20px; line-height: 1.3; }
+.tlc-stats span { color: #646970; }
+.tlc-status th { width: 220px; }
+.tlc-dev td:first-child { width: 55%; }
+.tlc-dev code { white-space: pre-wrap; word-break: break-word; }
+.tlc-code { max-width: 1100px; max-height: 360px; overflow: auto; padding: 12px; background: #f6f7f7; border: 1px solid #dcdcde; white-space: pre-wrap; word-break: break-all; }
+.tlc-ua { cursor: help; }
