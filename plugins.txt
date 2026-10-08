@@ -4,7 +4,7 @@
 # Forms and leads
 contact-form-7          latest   active      # 6.2+ needs PHP 8.3
 cf7-database            latest   active      # "Database for Contact Form 7" by Ninja Team (CF7 Database Lite)
-handl-utm-grabber-v3    zip      active      # Premium (v3.0.55 here): zip in backups/plugins/. Logs harmless PHP 8.3 deprecation notices (vendor code)
+handl-utm-grabber-v3    zip      active      # Premium (v3.0.55 here): zip in backups/plugins/. After install or update: scripts/apply-patches.sh
 
 # SEO and content
 wordpress-seo           latest   active      # Yoast SEO

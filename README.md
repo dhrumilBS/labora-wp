@@ -62,7 +62,13 @@ scripts/db-restore.sh backups/labora-wp-2026-10-08-1700.sql.gz [https://www.labo
 See `plugins.txt`. Notes:
 - Contact Form 7 6.2 and later need PHP 8.3, so the live server must run PHP 8.3 or newer.
 - HandL UTM Grabber v3 is a premium plugin: put its zip in `backups/plugins/handl-utm-grabber-v3.zip` and run the install script.
-  It logs PHP 8.3 deprecation notices from its own code (harmless; they go to the debug log only).
+  It needs its license key activated to capture UTMs, and it saves its cookies as `Secure`, so tracking only works over HTTPS.
+- **Local fixes to third-party plugins** live in `scripts/patches/` and are applied by `scripts/apply-patches.sh`.
+  **Run it after every update of a patched plugin** (an update replaces the fixed files). Each patch is safe to run twice,
+  refuses to change code it does not recognize, and leaves the untouched vendor file next to the original as `*.orig`.
+  - `handl-utm-grabber-v3.php` (tested on 3.0.55): fixes the PHP 8.2+ `${var}` deprecation, moves its ~40 Contact Form 7
+    field buttons to CF7's tag-generator API v2, stops `SERVER_NAME` warnings outside web requests (WP-CLI, cron),
+    fixes a JavaScript error on every page when the referrer cookie is missing, and lets cookies work on IP-address hosts.
 - WP Super Cache and Wordfence are installed but inactive locally; production settings are in `config/production/README.md`.
 
 ## This machine (XAMPP)

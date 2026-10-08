@@ -22,4 +22,5 @@ sed 's/#.*//' plugins.txt | grep -v -E '^\s*$' | while read -r slug version stat
   # shellcheck disable=SC2086
   "$WP" plugin install $src --force $flag
 done
+"$(dirname "$0")/apply-patches.sh"
 "$WP" plugin list --fields=name,status,version
