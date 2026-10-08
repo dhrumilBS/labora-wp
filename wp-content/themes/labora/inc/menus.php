@@ -27,6 +27,7 @@ add_action( 'after_setup_theme', function () {
 	) );
 } );
 
+if ( ! function_exists( 'labora_menu_tree' ) ) :
 /**
  * Menu items for a location as a tree: [ ['item' => WP_Post, 'children' => [...]], ... ]. Empty if unassigned.
  */
@@ -53,14 +54,18 @@ function labora_menu_tree( string $location ): array {
 	};
 	return $build( 0 );
 }
+endif;
 
+if ( ! function_exists( 'labora_menu_name' ) ) :
 /** Name of the menu assigned to a location (used as the footer column heading). */
 function labora_menu_name( string $location ): string {
 	$locations = get_nav_menu_locations();
 	$menu      = empty( $locations[ $location ] ) ? null : wp_get_nav_menu_object( $locations[ $location ] );
 	return $menu ? $menu->name : '';
 }
+endif;
 
+if ( ! function_exists( 'labora_menu_url' ) ) :
 /** Link target for a menu item: homepage-section links become "#section" on the homepage. */
 function labora_menu_url( WP_Post $item ): string {
 	$url = (string) $item->url;
@@ -72,7 +77,9 @@ function labora_menu_url( WP_Post $item ): string {
 	}
 	return $url;
 }
+endif;
 
+if ( ! function_exists( 'labora_menu_icon' ) ) :
 /** Icon name from an item's CSS classes (icon-flask -> flask), or ''. */
 function labora_menu_icon( WP_Post $item ): string {
 	foreach ( (array) $item->classes as $class ) {
@@ -82,12 +89,16 @@ function labora_menu_icon( WP_Post $item ): string {
 	}
 	return '';
 }
+endif;
 
+if ( ! function_exists( 'labora_menu_current' ) ) :
 /** aria-current="page" for the current page's item. */
 function labora_menu_current( WP_Post $item ): string {
 	return in_array( 'current-menu-item', (array) $item->classes, true ) ? ' aria-current="page"' : '';
 }
+endif;
 
+if ( ! function_exists( 'labora_primary_nav' ) ) :
 /** Desktop navigation, same markup as the HTML site. */
 function labora_primary_nav(): void {
 	$tree = labora_menu_tree( 'primary' );
@@ -134,7 +145,9 @@ function labora_primary_nav(): void {
 	}
 	echo "    </nav>\n";
 }
+endif;
 
+if ( ! function_exists( 'labora_mobile_nav_items' ) ) :
 /** Mobile menu links (the panel and its buttons are in header.php). */
 function labora_mobile_nav_items(): void {
 	foreach ( labora_menu_tree( 'primary' ) as $node ) {
@@ -150,7 +163,9 @@ function labora_mobile_nav_items(): void {
 		}
 	}
 }
+endif;
 
+if ( ! function_exists( 'labora_footer_col' ) ) :
 /** A footer column: <nav class="footer-col"><h2>Menu name</h2><ul>...</ul></nav>. */
 function labora_footer_col( string $location ): void {
 	$tree = labora_menu_tree( $location );
@@ -164,10 +179,13 @@ function labora_footer_col( string $location ): void {
 	}
 	echo "</ul></nav>\n";
 }
+endif;
 
+if ( ! function_exists( 'labora_footer_legal_items' ) ) :
 /** Bottom-row links (Privacy, Terms, Cookies) as <li> items. */
 function labora_footer_legal_items(): void {
 	foreach ( labora_menu_tree( 'footer_legal' ) as $node ) {
 		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( labora_menu_url( $node['item'] ) ), labora_menu_current( $node['item'] ), esc_html( $node['item']->title ) );
 	}
 }
+endif;

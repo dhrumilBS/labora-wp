@@ -13,6 +13,7 @@
 !/wp-content/themes/
 /wp-content/themes/*
 !/wp-content/themes/labora/
+!/wp-content/themes/labora-child/
 !/wp-content/plugins/
 /wp-content/plugins/*
 # Custom plugins (ours). Third-party plugins are listed in plugins.txt and reinstalled by scripts/install-plugins.sh.

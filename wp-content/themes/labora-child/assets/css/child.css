@@ -1,0 +1,5 @@
+/*
+ * Labora Child: CSS overrides. Loaded after the parent theme's styles.css, pages.css, and blog.css,
+ * so a rule here with the same selector wins. Use the parent's design tokens (var(--ink), var(--green),
+ * var(--line), var(--r-lg), var(--fs-h2) ...) to stay on the design system.
+ */

@@ -12,17 +12,25 @@
 
 defined( 'ABSPATH' ) || exit;
 
-/** URL of a file in the theme's assets folder. */
+if ( ! function_exists( 'labora_asset' ) ) :
+/**
+ * URL of a file in assets/. The child theme's copy wins when it exists (same path under labora-child/assets/),
+ * so a child can replace any image, font, script, or stylesheet without editing the parent.
+ */
 function labora_asset( string $path ): string {
-	return LABORA_URI . '/assets/' . ltrim( $path, '/' );
+	return get_theme_file_uri( 'assets/' . ltrim( $path, '/' ) );
 }
+endif;
 
-/** Version string for a theme asset: its modification time, or the theme version if the file is missing. */
+if ( ! function_exists( 'labora_asset_version' ) ) :
+/** Version string for an asset: its modification time (child copy first), or the theme version if it is missing. */
 function labora_asset_version( string $path ): string {
-	$file = LABORA_DIR . '/assets/' . ltrim( $path, '/' );
+	$file = get_theme_file_path( 'assets/' . ltrim( $path, '/' ) );
 	return file_exists( $file ) ? (string) filemtime( $file ) : LABORA_VERSION;
 }
+endif;
 
+if ( ! function_exists( 'labora_enqueue_bundle' ) ) :
 /** Enqueue one of the extra CSS/JS bundles (pages, blog) from a template. */
 function labora_enqueue_bundle( string $name ): void {
 	$css = "css/{$name}.min.css";
@@ -30,6 +38,7 @@ function labora_enqueue_bundle( string $name ): void {
 	wp_enqueue_style( "labora-{$name}", labora_asset( $css ), array( 'labora' ), labora_asset_version( $css ) );
 	wp_enqueue_script( "labora-{$name}", labora_asset( $js ), array( 'labora' ), labora_asset_version( $js ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 }
+endif;
 
 add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'labora', labora_asset( 'css/styles.min.css' ), array(), labora_asset_version( 'css/styles.min.css' ) );

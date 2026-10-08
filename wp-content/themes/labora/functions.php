@@ -7,7 +7,9 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'LABORA_VERSION', wp_get_theme()->get( 'Version' ) );
+// Parent theme paths (constant even when the Labora Child theme is active). For files a child may override,
+// use get_theme_file_path() / get_theme_file_uri() or labora_asset(), which look in the child first.
+define( 'LABORA_VERSION', wp_get_theme( 'labora' )->get( 'Version' ) );
 define( 'LABORA_DIR', get_template_directory() );
 define( 'LABORA_URI', get_template_directory_uri() );
 

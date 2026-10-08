@@ -1,0 +1,15 @@
+/*
+Theme Name: Labora Child
+Theme URI: http://192.168.0.25/labora-wp/
+Author: Labora
+Description: Child theme of Labora. Site-specific changes go here (CSS overrides, template overrides, extra functions), so the parent theme can be updated without losing them. The design itself lives in the parent theme's assets.
+Template: labora
+Version: 1.0.0
+Requires at least: 7.0
+Tested up to: 7.1
+Requires PHP: 8.3
+Text Domain: labora-child
+License: Proprietary
+*/
+
+/* Write overrides in assets/css/child.css (loaded after the parent theme's CSS), not here. */

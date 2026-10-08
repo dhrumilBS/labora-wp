@@ -34,7 +34,7 @@ add_filter( 'wpseo_schema_graph', function ( $graph ) {
 	if ( ! is_front_page() ) {
 		return $graph;
 	}
-	$file  = LABORA_DIR . '/data/home-schema.json';
+	$file  = get_theme_file_path( 'data/home-schema.json' ); // child theme's copy wins
 	$extra = file_exists( $file ) ? json_decode( (string) file_get_contents( $file ), true ) : null;
 	if ( ! is_array( $extra ) ) {
 		return $graph;

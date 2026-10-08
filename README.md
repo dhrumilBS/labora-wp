@@ -11,7 +11,8 @@ Only code and configuration that are safe to share. Everything else is ignored b
 
 | Path | What it is |
 |---|---|
-| `wp-content/themes/labora/` | The Labora theme. Design files are in `assets/` (CSS, JS, fonts, images, video), as on the HTML site |
+| `wp-content/themes/labora/` | Parent theme: the design converted from the HTML site. Design files are in `assets/` (CSS, JS, fonts, images, video) |
+| `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions); see its README |
 | `wp-content/plugins/labora-forms/` | Contact Form 7 additions: phone and email validation, 24-hour duplicate check (added with the forms) |
 | `wp-content/mu-plugins/` | Must-use plugins, if any |
 | `plugins.txt` | The third-party plugins and versions this site uses (installed by a script, not committed) |
@@ -35,7 +36,8 @@ cp config/wp-config.example.php wp-config.php        # then fill in the database
 wp config shuffle-salts
 scripts/db-restore.sh backups/<latest dump>.sql.gz http://192.168.0.25/labora-wp   # or: wp core install ...
 scripts/install-plugins.sh
-wp theme activate labora
+wp theme activate labora-child
+wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
 ```
 
 ## Backups
@@ -79,6 +81,9 @@ See `plugins.txt`. Notes:
 - `httpd-xampp.conf` loads PHP 8.3's extension libraries (ICU 72 for intl, libsodium, libssh2, nghttp2, and brotlidec for curl).
 
 ## Development workflow
+
+Make site changes in the child theme (`wp-content/themes/labora-child`, see its README); keep the parent theme
+as the converted design.
 
 Each page is converted only after its WordPress structure (what is editable, what is fixed) is approved.
 The theme reuses the HTML site's CSS and JS files as they are; page templates output the same markup.
