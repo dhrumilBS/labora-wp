@@ -13,7 +13,7 @@ Only code and configuration that are safe to share. Everything else is ignored b
 |---|---|
 | `wp-content/themes/labora/` | Parent theme: the design converted from the HTML site. Design files are in `assets/` (CSS, JS, fonts, images, video) |
 | `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions); see its README |
-| `wp-content/plugins/labora-forms/` | Contact Form 7 additions: phone and email validation, 24-hour duplicate check (added with the forms) |
+| `wp-content/plugins/labora-forms/` | The site's Contact Form 7 forms (defined in code) and their validation: phone normalization, email checks, one submission per 24 hours, honeypot. No email is sent (`skip_mail: on`); leads are stored. See its README |
 | `wp-content/mu-plugins/` | Must-use plugins, if any |
 | `plugins.txt` | The third-party plugins and versions this site uses (installed by a script, not committed) |
 | `scripts/` | Database backup and restore, plugin install |
@@ -38,6 +38,7 @@ scripts/db-restore.sh backups/<latest dump>.sql.gz http://192.168.0.25/labora-wp
 scripts/install-plugins.sh
 wp theme activate labora-child
 wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
+wp plugin activate labora-forms && wp labora-forms setup   # the CF7 forms
 ```
 
 ## Backups
@@ -78,6 +79,7 @@ See `plugins.txt`. Notes:
 - PHP was upgraded from 8.2.12 to 8.3.35 on Oct 8, 2026. The old PHP is kept at `D:\xampp\php-8.2.12`.
   To switch back: stop Apache, rename `D:\xampp\php` to `php-8.3.35` and `php-8.2.12` to `php`, then restore
   `D:\xampp\apache\conf\extra\httpd-xampp.conf.bak-2026-10-08`.
+- OPcache is on (`php.ini`, `revalidate_freq=0` so file edits show immediately): pages went from about 1.5 s to 0.5 s locally.
 - `httpd-xampp.conf` loads PHP 8.3's extension libraries (ICU 72 for intl, libsodium, libssh2, nghttp2, and brotlidec for curl).
 
 ## Development workflow

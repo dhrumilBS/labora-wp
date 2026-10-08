@@ -3,3 +3,25 @@
  * so a rule here with the same selector wins. Use the parent's design tokens (var(--ink), var(--green),
  * var(--line), var(--r-lg), var(--fs-h2) ...) to stay on the design system.
  */
+
+/* ---------- Contact Form 7 forms (Labora Forms plugin): same look as the HTML site's forms ---------- */
+.labora-form .wpcf7-form-control-wrap { display: block; }
+/* CF7 wraps each control in a <span>: make the control a block so no text-baseline gap appears under it */
+.labora-form .wpcf7-form-control-wrap > :is(input, select, textarea) { display: block; }
+/* The privacy note sits just after the <form> here (inside it on the HTML site): keep its own size and spacing */
+[data-labora-form-wrap] > .form-note { margin-bottom: 0; font-size: .8rem; }
+/* Field error: same as the HTML form's .field .err */
+.labora-form .wpcf7-not-valid-tip { display: block; margin-top: .4rem; font-size: .8rem; font-weight: 700; color: var(--rose); }
+.labora-form .field .wpcf7-not-valid { border-color: var(--rose); }
+.labora-form .field .wpcf7-not-valid:focus { box-shadow: 0 0 0 4px var(--rose-soft); }
+/* Submit: a full-width button, with CF7's spinner inside it on the right */
+.labora-form .form-submit { position: relative; }
+.labora-form .form-submit .btn { width: 100%; }
+.labora-form .wpcf7-spinner { position: absolute; top: 50%; right: 1rem; margin: 0; transform: translateY(-50%); background-color: rgba(255, 255, 255, .45); }
+.labora-form .wpcf7-spinner::before { background-color: var(--green); }
+/* Form message (errors, spam, duplicate): same as the HTML form's .form-error */
+.wpcf7 form.labora-form .wpcf7-response-output { margin: 1rem 0 0; padding: .75rem 1rem; border: 0; border-radius: var(--r-sm); background: var(--rose-soft); color: var(--rose); font-size: .9rem; font-weight: 700; line-height: 1.5; }
+.wpcf7 form.labora-form.sent .wpcf7-response-output { background: var(--mint); color: var(--green-hover); }
+/* After a successful send, the card shows the confirmation panel instead of the form */
+[data-labora-form-wrap].is-sent > :not(.form-status) { display: none; }
+[data-labora-form-wrap].is-sent .form-status { display: block; }
