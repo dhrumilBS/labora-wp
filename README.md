@@ -24,7 +24,8 @@ database dumps (they contain form leads), logs, `.env` files, and API keys.
 
 ## Local setup from scratch
 
-Requirements: PHP 8.2+ (8.3 recommended), MariaDB 10.4+ or MySQL 8, Apache with mod_rewrite, and WP-CLI.
+Requirements: PHP 8.3+ (Contact Form 7 6.2 needs it), MariaDB 10.4+ or MySQL 8, Apache with mod_rewrite, and WP-CLI.
+PHP extensions: gd, intl, zip, sodium, curl, openssl, mysqli, mbstring, exif, fileinfo.
 On this machine WP-CLI is `D:\xampp\tools\wp.bat` (Windows) or `/d/xampp/tools/wp` (Git Bash).
 
 ```bash
@@ -59,9 +60,17 @@ scripts/db-restore.sh backups/labora-wp-2026-10-08-1700.sql.gz [https://www.labo
 ## Plugins
 
 See `plugins.txt`. Notes:
-- Contact Form 7 is held at 6.1.x locally because 6.2 needs PHP 8.3 (XAMPP has 8.2.12). Use the latest on the live server.
+- Contact Form 7 6.2 and later need PHP 8.3, so the live server must run PHP 8.3 or newer.
 - HandL UTM Grabber v3 is a premium plugin: put its zip in `backups/plugins/handl-utm-grabber-v3.zip` and run the install script.
+  It logs PHP 8.3 deprecation notices from its own code (harmless; they go to the debug log only).
 - WP Super Cache and Wordfence are installed but inactive locally; production settings are in `config/production/README.md`.
+
+## This machine (XAMPP)
+
+- PHP was upgraded from 8.2.12 to 8.3.35 on Oct 8, 2026. The old PHP is kept at `D:\xampp\php-8.2.12`.
+  To switch back: stop Apache, rename `D:\xampp\php` to `php-8.3.35` and `php-8.2.12` to `php`, then restore
+  `D:\xampp\apache\conf\extra\httpd-xampp.conf.bak-2026-10-08`.
+- `httpd-xampp.conf` loads PHP 8.3's extension libraries (ICU 72 for intl, libsodium, libssh2, nghttp2, and brotlidec for curl).
 
 ## Development workflow
 
