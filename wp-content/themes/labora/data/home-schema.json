@@ -1,0 +1,116 @@
+[
+ {
+  "@type": "SoftwareApplication",
+  "@id": "https://www.labora.example/#software",
+  "name": "Labora",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Laboratory Management Software",
+  "operatingSystem": "Web browser",
+  "description": "Laboratory management software for diagnostic labs: pathology, radiology, ECG and cardiology reporting, sample tracking, turnaround monitoring, home collection, multi-center management, and business insights.",
+  "featureList": [
+   "Pathology lab management",
+   "Barcode sample tracking",
+   "Turnaround time (TAT) tracking and alerts",
+   "Radiology reporting templates (USG, X-ray, CT, MRI)",
+   "ECG, 2D echo, and treadmill reporting",
+   "Digital signature of reports",
+   "Home sample collection with live tracking",
+   "Multi-center and outsource lab management",
+   "Business insights and referral tracking"
+  ],
+  "screenshot": [
+   "https://www.labora.example/assets/img/screens/dashboard-1600.webp",
+   "https://www.labora.example/assets/img/screens/sample-tracking-1600.webp",
+   "https://www.labora.example/assets/img/screens/turnaround-tracking-1600.webp",
+   "https://www.labora.example/assets/img/screens/pathology-imaging-reporting-1600.webp",
+   "https://www.labora.example/assets/img/screens/home-collection-1600.webp",
+   "https://www.labora.example/assets/img/screens/business-insights-1600.webp"
+  ],
+  "publisher": {
+   "@id": "https://www.labora.example/#organization"
+  }
+ },
+ {
+  "@type": "VideoObject",
+  "@id": "https://www.labora.example/#product-tour",
+  "name": "Labora product tour: one patient, registration to signed report",
+  "description": "Follow one patient through Labora: test registration priced from the lab's list, barcode sample tracking to a rack slot, result approval with e-signature, and ultrasound reporting from templates.",
+  "thumbnailUrl": "https://www.labora.example/assets/video/labora-tour-v3-poster-1600.webp",
+  "uploadDate": "2026-10-01",
+  "duration": "PT1M5S",
+  "contentUrl": "https://www.labora.example/assets/video/labora-tour-v3-1080.mp4",
+  "publisher": {
+   "@id": "https://www.labora.example/#organization"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "What is laboratory management software?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Laboratory management software runs the daily operations of a lab in one system: patient registration, sample collection and tracking, testing, report writing and approval, delivery to patients and doctors, and billing. For diagnostic labs it replaces paper registers, spreadsheets, and separate tools for pathology, radiology, and accounts."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "What is the difference between LIMS, LIS, and laboratory management software?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "A LIS (laboratory information system) is usually patient-centered and built for clinical and diagnostic labs. A LIMS is usually sample-centered and common in research and industrial labs. Labora is laboratory management software for diagnostic labs: it covers what a LIS does and adds radiology reporting, home collection, multi-center management, and business insights."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can Labora handle both pathology and radiology?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Pathology, ultrasound, X-ray, CT, MRI, ECG, 2D echo, and treadmill reporting all happen in the same system, on the same patient case, so a patient with a blood test and a scan has one record and one bill."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How does Labora track samples?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Each tube gets a barcode. Scanning it matches the tube to the right patient and test, records each step (registered, collected, received, in testing, reported), and shows the exact rack and slot where it is stored. Samples that cannot be used, for example hemolysed ones, are held or rejected with the reason recorded."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How does turnaround time (TAT) tracking work?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Every case has a target time. Labora shows the time elapsed against that target, flags cases that are at risk or past target, and sends alerts so the team can act. Delays are logged with a reason, and you can see the share of reports delivered on time."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I manage multiple centers and collection points?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Branches, collection centers, and home collection run in one system. You can switch between centers and compare activity and revenue across all of them."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can Labora connect with lab analyzers and other systems?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Labora is designed to connect with lab instruments and other systems through its integration layer and API. Which connections are available depends on your analyzers and setup, so the best next step is to review your equipment list with our team in a demo."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can Labora be configured for my lab's tests and workflows?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Tests, report templates, turnaround targets, centers, user roles, and permissions are configured to match how your lab works, and the setup can grow as you add centers and services."
+    }
+   }
+  ]
+ }
+]
