@@ -13,7 +13,8 @@ Only code and configuration that are safe to share. Everything else is ignored b
 |---|---|
 | `wp-content/themes/labora/` | Parent theme: the design converted from the HTML site. Design files are in `assets/` (CSS, JS, fonts, images, video) |
 | `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions); see its README |
-| `wp-content/plugins/labora-forms/` | The site's Contact Form 7 forms (defined in code) and their validation: phone normalization, email checks, one submission per 24 hours, honeypot. No email is sent (`skip_mail: on`); leads are stored. See its README |
+| `wp-content/plugins/lead-guard-cf7/` | **Lead Guard for Contact Form 7**: reusable validation for any CF7 site (phone normalization, email checks, one submission per person per window, honeypot). Settings: Contact > Lead Guard. See its README |
+| `wp-content/plugins/labora-forms/` | Labora's own CF7 forms, defined in code (`wp labora-forms setup`), plus the confirmation panel and thank-you behavior. No email is sent (`skip_mail: on`); leads are stored |
 | `wp-content/mu-plugins/` | Must-use plugins, if any |
 | `plugins.txt` | The third-party plugins and versions this site uses (installed by a script, not committed) |
 | `scripts/` | Database backup and restore, plugin install |
@@ -38,7 +39,7 @@ scripts/db-restore.sh backups/<latest dump>.sql.gz http://192.168.0.25/labora-wp
 scripts/install-plugins.sh
 wp theme activate labora-child
 wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
-wp plugin activate labora-forms && wp labora-forms setup   # the CF7 forms
+wp plugin activate lead-guard-cf7 labora-forms && wp labora-forms setup   # the CF7 forms
 ```
 
 ## Backups
@@ -81,6 +82,13 @@ See `plugins.txt`. Notes:
   `D:\xampp\apache\conf\extra\httpd-xampp.conf.bak-2026-10-08`.
 - OPcache is on (`php.ini`, `revalidate_freq=0` so file edits show immediately): pages went from about 1.5 s to 0.5 s locally.
 - `httpd-xampp.conf` loads PHP 8.3's extension libraries (ICU 72 for intl, libsodium, libssh2, nghttp2, and brotlidec for curl).
+
+## Git Bash note
+
+Git Bash rewrites command arguments that start with "/" into Windows paths. `wp rewrite structure '/%postname%/'`
+once saved `C:/Program Files/Git/%postname%/`, which broke post, category, and tag URLs. Set such values from PHP
+instead, for example: `wp eval 'global $wp_rewrite; $wp_rewrite->set_permalink_structure( chr(47) . "%postname%" . chr(47) );'`
+then `wp rewrite flush`.
 
 ## Development workflow
 

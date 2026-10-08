@@ -5,6 +5,8 @@
  */
 
 /* ---------- Contact Form 7 forms (Labora Forms plugin): same look as the HTML site's forms ---------- */
+/* Fields keep their label and input at the top when a neighbor in the same row shows an error (no stretching) */
+.labora-form .field { align-content: start; }
 .labora-form .wpcf7-form-control-wrap { display: block; }
 /* CF7 wraps each control in a <span>: make the control a block so no text-baseline gap appears under it */
 .labora-form .wpcf7-form-control-wrap > :is(input, select, textarea) { display: block; }
@@ -19,9 +21,10 @@
 .labora-form .form-submit .btn { width: 100%; }
 .labora-form .wpcf7-spinner { position: absolute; top: 50%; right: 1rem; margin: 0; transform: translateY(-50%); background-color: rgba(255, 255, 255, .45); }
 .labora-form .wpcf7-spinner::before { background-color: var(--green); }
-/* Form message (errors, spam, duplicate): same as the HTML form's .form-error */
+/* Form message (field errors summary, spam, repeat submission): the HTML form's .form-error design */
 .wpcf7 form.labora-form .wpcf7-response-output { margin: 1rem 0 0; padding: .75rem 1rem; border: 0; border-radius: var(--r-sm); background: var(--rose-soft); color: var(--rose); font-size: .9rem; font-weight: 700; line-height: 1.5; }
-.wpcf7 form.labora-form.sent .wpcf7-response-output { background: var(--mint); color: var(--green-hover); }
+/* Only errors use the message box; a successful send shows the confirmation panel instead */
+.wpcf7 form.labora-form.sent .wpcf7-response-output { display: none; }
 /* After a successful send, the card shows the confirmation panel instead of the form */
 [data-labora-form-wrap].is-sent > :not(.form-status) { display: none; }
 [data-labora-form-wrap].is-sent .form-status { display: block; }

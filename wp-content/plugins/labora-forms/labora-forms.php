@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name:       Labora Forms
- * Description:       Contact Form 7 forms for the Labora site with strict validation: phone validation and normalization (E.164), email checks (format, temporary inboxes, mail domain), one submission per email or phone per 24 hours with a clear message, and a honeypot spam trap. Forms are defined in code (wp labora-forms setup).
+ * Description:       The Labora site's Contact Form 7 forms, defined in code (wp labora-forms setup), with the theme helper labora_forms_render() and what happens after a send (confirmation panel, dataLayer event, thank-you page). Validation comes from Lead Guard for Contact Form 7.
  * Version:           1.0.0
  * Requires at least: 7.0
  * Requires PHP:      8.3
- * Requires Plugins:  contact-form-7
+ * Requires Plugins:  contact-form-7, lead-guard-cf7
  * Author:            Labora
  * Text Domain:       labora-forms
  * License:           Proprietary
@@ -19,27 +19,15 @@ define( 'LABORA_FORMS_VERSION', '1.0.0' );
 define( 'LABORA_FORMS_FILE', __FILE__ );
 define( 'LABORA_FORMS_DIR', __DIR__ );
 
-require LABORA_FORMS_DIR . '/includes/class-phone.php';
-require LABORA_FORMS_DIR . '/includes/class-email.php';
-require LABORA_FORMS_DIR . '/includes/class-duplicates.php';
-require LABORA_FORMS_DIR . '/includes/class-validation.php';
 require LABORA_FORMS_DIR . '/includes/class-forms.php';
-
-register_activation_hook( __FILE__, array( 'Labora_Forms_Duplicates', 'install' ) );
-register_deactivation_hook( __FILE__, function () {
-	wp_clear_scheduled_hook( Labora_Forms_Duplicates::CRON_HOOK );
-} );
 
 add_action( 'plugins_loaded', function () {
 	if ( ! defined( 'WPCF7_VERSION' ) ) {
 		return; // Contact Form 7 is required (WordPress enforces it through "Requires Plugins")
 	}
-	Labora_Forms_Duplicates::maybe_install();
-	Labora_Forms_Validation::init();
 	add_filter( 'wpcf7_form_additional_atts', array( 'Labora_Forms_Forms', 'form_atts' ) );
 	// Our form templates are written as exact HTML: no automatic <p>/<br> from CF7 (other CF7 forms keep it)
 	add_filter( 'wpcf7_autop_or_not', array( 'Labora_Forms_Forms', 'autop' ) );
-	add_action( Labora_Forms_Duplicates::CRON_HOOK, array( 'Labora_Forms_Duplicates', 'prune' ) );
 } );
 
 // Contact Form 7 loads its CSS and JS on every page by default. Load them only where a form is rendered,
@@ -79,7 +67,6 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		if ( ! defined( 'WPCF7_VERSION' ) ) {
 			WP_CLI::error( 'Contact Form 7 is not active.' );
 		}
-		Labora_Forms_Duplicates::install();
 		foreach ( Labora_Forms_Forms::setup( ! empty( $assoc['overwrite-settings'] ) ) as $key => $id ) {
 			WP_CLI::log( sprintf( '%-8s CF7 form #%d (%s)', $key, $id, wpcf7_contact_form( $id )->hash() ) );
 		}

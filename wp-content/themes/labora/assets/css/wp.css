@@ -1,0 +1,48 @@
+/*
+ * WordPress-only styles for the templates that the HTML site did not have (page.php, single.php, home.php,
+ * archive.php, search.php): editor content (alignments, captions, embeds), page spacing, pagination, search.
+ * The design itself comes from styles.css + pages.css / blog.css; this file only fills WordPress gaps.
+ */
+
+/* ---------- Generic page (page.php) ---------- */
+.wp-page-body { padding-block: clamp(2.5rem, 1.5rem + 3vw, 4rem) var(--section); }
+.wp-page-body .lg-prose { margin-inline: 0; }
+.wp-page-body .lg-prose > * + * { margin-top: 1rem; }
+.wp-page-body .lg-prose h2 { margin-top: 2.5rem; }
+.wp-page-body .lg-prose h3 { margin-top: 1.75rem; font-size: 1.15rem; }
+
+/* ---------- Editor content inside .lg-prose and .prose ---------- */
+:is(.lg-prose, .prose) img { max-width: 100%; height: auto; border-radius: var(--r-md); }
+:is(.lg-prose, .prose) .wp-block-image, :is(.lg-prose, .prose) figure { margin: 2rem 0; }
+:is(.lg-prose, .prose) figcaption, .wp-caption-text { margin-top: .6rem; font-size: var(--fs-sm); color: var(--muted); }
+:is(.lg-prose, .prose) .alignleft { float: left; margin: .3rem 1.5rem 1rem 0; }
+:is(.lg-prose, .prose) .alignright { float: right; margin: .3rem 0 1rem 1.5rem; }
+:is(.lg-prose, .prose) .aligncenter { display: block; margin-inline: auto; }
+@media (max-width: 560px) { body :is(.lg-prose, .prose) :is(.alignleft, .alignright) { float: none; margin: 1.5rem 0; } } /* "body" outranks WordPress's inline .wp-block-image rules */ /* no narrow text column beside an image on phones */
+:is(.lg-prose, .prose) .wp-block-embed iframe, :is(.lg-prose, .prose) iframe { max-width: 100%; }
+:is(.lg-prose, .prose) .wp-block-button__link { display: inline-flex; padding: .75rem 1.4rem; border-radius: 12px; background: var(--green); color: #fff; font-weight: 650; text-decoration: none; }
+:is(.lg-prose, .prose) table { width: 100%; border-collapse: collapse; }
+:is(.lg-prose, .prose) th, :is(.lg-prose, .prose) td { padding: .7rem .75rem .7rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+.sticky, .bypostauthor, .gallery-caption { /* WordPress core classes: no special styling */ }
+
+/* ---------- Single post (single.php) ---------- */
+.wp-single .prose { max-width: 720px; margin: clamp(2.5rem, 2rem + 2vw, 4rem) auto 0; }
+.wp-single .article-cover img { width: 100%; height: 100%; object-fit: cover; }
+
+.wp-single .prose .article-foot { clear: both; } /* starts below a floated image */
+
+/* ---------- Lists: blog home, archives, search ---------- */
+.wp-list .posts-head { margin-top: 0; }
+.wp-list .cover:empty { background: var(--panel); }
+.wp-empty { padding: 3rem 0; border-top: 1px solid var(--ink); }
+.wp-empty h2 { font-size: var(--fs-h2); }
+.wp-empty p { margin-top: .75rem; color: var(--muted); }
+.pager a.prev .icon, .pager .prev .icon { transform: rotate(90deg); }
+.pager a.next .icon, .pager .next .icon { transform: rotate(-90deg); }
+.pager .dots { border: 0; }
+
+/* ---------- Search form (searchform.php) ---------- */
+.wp-search { display: flex; gap: .6rem; max-width: 560px; margin-top: 1.75rem; }
+.wp-search input[type="search"] { flex: 1; min-width: 0; min-height: 48px; padding: .7rem 1rem; border: 1px solid var(--line-strong); border-radius: 12px; background: #fff; font-size: 1rem; }
+.wp-search input[type="search"]:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--mint); }
+@media (max-width: 560px) { .wp-search { flex-direction: column; } }

@@ -20,7 +20,6 @@ final class Labora_Forms_Forms {
 	/** Form definitions: title, CF7 form template, additional settings, analytics event. */
 	public static function definitions(): array {
 		$centers   = '"1" "2–5" "6–20" "More than 20"';
-		$honeypot  = '<div class="hp" aria-hidden="true"><label for="%1$s-website">Leave this field empty</label>[text website id:%1$s-website tabindex:-1 autocomplete:off]</div>';
 		$settings  = function ( array $required, string $event ) {
 			$lines = array(
 				'skip_mail: on',
@@ -29,7 +28,7 @@ final class Labora_Forms_Forms {
 				'labora_thanks: ',
 			);
 			foreach ( $required as $field => $message ) {
-				$lines[] = "labora_required_{$field}: {$message}";
+				$lines[] = "lead_guard_required_{$field}: {$message}"; // read by Lead Guard for Contact Form 7
 			}
 			return implode( "\n", $lines );
 		};
@@ -47,7 +46,6 @@ final class Labora_Forms_Forms {
 					'  <div class="field field--full"><label for="f-size">Number of centers</label>[select* centers id:f-size first_as_label "Select one" ' . $centers . ']</div>',
 					'  <div class="field field--full"><label for="f-msg">What would you like to see? <span class="opt">(optional)</span></label>[textarea message id:f-msg x3]</div>',
 					'</div>',
-					sprintf( $honeypot, 'f' ),
 					'<div class="form-submit">[submit class:btn class:btn--primary class:btn--lg "Book a demo"]</div>',
 				) ),
 				'settings' => $settings( array(
@@ -58,10 +56,11 @@ final class Labora_Forms_Forms {
 					'centers'  => 'Choose the number of centers.',
 				), 'demo_request_submitted' ),
 				'messages' => array(
-					'mail_sent_ok'     => "Demo request received. Thanks. We'll email you shortly to schedule a time that works for your team.",
-					'validation_error' => 'Please check the highlighted fields and try again.',
-					'invalid_email'    => 'Enter a valid email address, for example name@yourlab.com.',
-					'invalid_tel'      => 'Enter a valid phone number, for example (512) 555-0123 or +44 20 7946 0958.',
+					'mail_sent_ok'     => "Demo request received. We'll email you shortly.",
+					'validation_error' => 'Please check the highlighted fields.',
+					'spam'             => 'Your message could not be sent. Please try again.',
+					'invalid_email'    => 'Enter a valid email address.',
+					'invalid_tel'      => 'Enter a valid phone number.',
 				),
 				'mail_subject' => 'Demo request from [full_name] ([company])',
 				'mail_body'    => "Name: [full_name]\nEmail: [email]\nLab or organization: [company]\nType of lab: [lab_type]\nCenters: [centers]\n\nWhat they want to see:\n[message]",
@@ -80,7 +79,6 @@ final class Labora_Forms_Forms {
 					'  <div class="field field--full"><label for="c-msg">Message <span class="opt">(optional)</span></label>[textarea message id:c-msg x4]</div>',
 					'</div>',
 					'[hidden plan id:c-plan][hidden modules id:c-modules]',
-					sprintf( $honeypot, 'c' ),
 					'<div class="form-submit">[submit class:btn class:btn--primary class:btn--lg "Send message"]</div>',
 				) ),
 				'settings' => $settings( array(
@@ -91,10 +89,11 @@ final class Labora_Forms_Forms {
 					'centers' => 'Choose the number of centers.',
 				), 'contact_submitted' ),
 				'messages' => array(
-					'mail_sent_ok'     => 'Message received. Thanks. We will reply by email to the address you gave us.',
-					'validation_error' => 'Please check the highlighted fields and try again.',
-					'invalid_email'    => 'Enter a valid email address, for example name@yourlab.com.',
-					'invalid_tel'      => 'Enter a valid phone number, for example (512) 555-0123 or +44 20 7946 0958.',
+					'mail_sent_ok'     => "Message received. We'll reply by email.",
+					'validation_error' => 'Please check the highlighted fields.',
+					'spam'             => 'Your message could not be sent. Please try again.',
+					'invalid_email'    => 'Enter a valid email address.',
+					'invalid_tel'      => 'Enter a valid phone number.',
 				),
 				'mail_subject' => '[topic] from [full_name] ([company])',
 				'mail_body'    => "Name: [full_name]\nEmail: [email]\nPhone: [phone]\nLab or organization: [company]\nTopic: [topic]\nCenters: [centers]\nPlan: [plan]\nModules: [modules]\n\nMessage:\n[message]",

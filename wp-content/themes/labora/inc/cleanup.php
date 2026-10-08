@@ -34,3 +34,8 @@ add_action( 'wp_enqueue_scripts', function () {
 
 // No XML-RPC (not needed; a common attack target)
 add_filter( 'xmlrpc_enabled', '__return_false' );
+
+// WordPress sends /login/, /admin/, and /dashboard/ to its own admin screens. On this site "Sign in" (/login/) is
+// the product's sign-in, so those shortcuts are turned off: /login/ shows the "coming soon" 404 page until the
+// product sign-in exists, and the WordPress admin stays at /wp-admin/ only.
+remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
