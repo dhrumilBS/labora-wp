@@ -12,9 +12,8 @@ Only code and configuration that are safe to share. Everything else is ignored b
 | Path | What it is |
 |---|---|
 | `wp-content/themes/labora/` | Parent theme: the design converted from the HTML site. Design files are in `assets/` (CSS, JS, fonts, images, video) |
-| `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions); see its README |
-| `wp-content/plugins/lead-guard-cf7/` | **Lead Guard for Contact Form 7**: reusable validation for any CF7 site (phone normalization, email checks, one submission per person per window, honeypot). Settings: Contact > Lead Guard. See its README |
-| `wp-content/plugins/labora-forms/` | Labora's own CF7 forms, defined in code (`wp labora-forms setup`), plus the confirmation panel and thank-you behavior. No email is sent (`skip_mail: on`); leads are stored |
+| `wp-content/themes/labora-child/` | **Active theme.** Site-specific changes go here (CSS overrides, template copies, functions), including the site's two CF7 forms defined in code (`inc/forms.php`, `wp labora forms-setup`). No email is sent (`skip_mail: on`); leads are stored by Database for Contact Form 7. See its README |
+| `wp-content/plugins/lead-guard-cf7/` | **Lead Guard for Contact Form 7**: reusable on any CF7 site: phone normalization, email checks, one submission per person per window, honeypot, per-form thank-you redirect and analytics event, form address without `#wpcf7-...`. Settings: Contact > Lead Guard; per-form lines are documented under each form's Additional Settings. See its README |
 | `wp-content/mu-plugins/` | Must-use plugins, if any |
 | `plugins.txt` | The third-party plugins and versions this site uses (installed by a script, not committed) |
 | `scripts/` | Database backup and restore, plugin install |
@@ -39,7 +38,7 @@ scripts/db-restore.sh backups/<latest dump>.sql.gz http://192.168.0.25/labora-wp
 scripts/install-plugins.sh
 wp theme activate labora-child
 wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
-wp plugin activate lead-guard-cf7 labora-forms && wp labora-forms setup   # the CF7 forms
+wp plugin activate lead-guard-cf7 && wp labora forms-setup   # the CF7 forms
 ```
 
 ## Backups

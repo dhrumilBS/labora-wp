@@ -4,14 +4,14 @@
  * var(--line), var(--r-lg), var(--fs-h2) ...) to stay on the design system.
  */
 
-/* ---------- Contact Form 7 forms (Labora Forms plugin): same look as the HTML site's forms ---------- */
+/* ---------- Contact Form 7 forms (child theme inc/forms.php + Lead Guard): same look as the HTML site's forms ---------- */
 /* Fields keep their label and input at the top when a neighbor in the same row shows an error (no stretching) */
 .labora-form .field { align-content: start; }
 .labora-form .wpcf7-form-control-wrap { display: block; }
 /* CF7 wraps each control in a <span>: make the control a block so no text-baseline gap appears under it */
 .labora-form .wpcf7-form-control-wrap > :is(input, select, textarea) { display: block; }
 /* The privacy note sits just after the <form> here (inside it on the HTML site): keep its own size and spacing */
-[data-labora-form-wrap] > .form-note { margin-bottom: 0; font-size: .8rem; }
+[data-lead-guard-wrap] > .form-note { margin-bottom: 0; font-size: .8rem; }
 /* Field error: same as the HTML form's .field .err */
 .labora-form .wpcf7-not-valid-tip { display: block; margin-top: .4rem; font-size: .8rem; font-weight: 700; color: var(--rose); }
 .labora-form .field .wpcf7-not-valid { border-color: var(--rose); }
@@ -26,5 +26,5 @@
 /* Only errors use the message box; a successful send shows the confirmation panel instead */
 .wpcf7 form.labora-form.sent .wpcf7-response-output { display: none; }
 /* After a successful send, the card shows the confirmation panel instead of the form */
-[data-labora-form-wrap].is-sent > :not(.form-status) { display: none; }
-[data-labora-form-wrap].is-sent .form-status { display: block; }
+[data-lead-guard-wrap].is-sent > :not(.form-status) { display: none; }
+[data-lead-guard-wrap].is-sent .form-status { display: block; }

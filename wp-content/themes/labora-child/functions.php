@@ -54,5 +54,5 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 }, 20 );
 
-// Site-specific PHP: add files under inc/ and require them here, e.g.
-// require LABORA_CHILD_DIR . '/inc/forms.php';
+// Site-specific PHP
+require LABORA_CHILD_DIR . '/inc/forms.php'; // the site's Contact Form 7 forms (wp labora forms-setup, labora_form())

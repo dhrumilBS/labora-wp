@@ -18,13 +18,33 @@ Requires: WordPress 6.4+, PHP 8.1+, Contact Form 7. Settings: **Contact > Lead G
 CF7's own phone rule (looser, one generic message) is removed from the form schema when phone checks are on, on the
 server and in the browser, so the checks above apply.
 
+Also on every form:
+
+- **Clean address**: CF7 points each form at `#wpcf7-f123-o1`, so that part ends up in the address bar (and the page
+  jumps to it) after a submission without JavaScript. Lead Guard removes it.
+- **Confirmation hook for themes**: put `data-lead-guard-wrap` on an element around the form and a hidden element
+  with `data-lead-guard-status` inside it. After a successful send the wrapper gets the class `is-sent` and the
+  status element is shown and focused (without scrolling). Style `.is-sent` to hide the form if you want.
+
+Messages: the ones above are on the Lead Guard settings page. CF7's own messages (sent, spam, validation error,
+invalid email or phone, required field ...) are on each form's **Messages** tab; Lead Guard does not duplicate them.
+
 ## Per-form settings (Additional Settings tab of a form)
 
+Each form's Additional Settings tab shows this list under the box, with that form's required field names.
+
 ```
-lead_guard: off                              # turn every check off for this form
-lead_guard_duplicates: off                   # allow repeat submissions on this form
+lead_guard: off                                    # turn every check off for this form
+lead_guard_duplicates: off                         # allow repeat submissions on this form
 lead_guard_required_your-name: Enter your name.    # message when that required field is empty
+lead_guard_redirect: /thank-you/                   # open this page after a successful send (path or full URL)
+lead_guard_delay: 1500                             # ms before the redirect, so the confirmation is seen (0 = at once)
+lead_guard_event: demo_request_submitted           # push {event, form, topic} to window.dataLayer after a send
+skip_mail: on                                      # CF7's own: store the submission but send no email
 ```
+
+Before a redirect, the plugin writes `sessionStorage.lead_guard_sent` = `{form, id, name, topic, ts}` (first name
+only, from the first `*name*` field), so a thank-you page can greet the visitor.
 
 ## For developers
 

@@ -16,6 +16,15 @@ so it can be updated or rebuilt without losing site-specific work.
 | A theme function | Define a function with the same name in this theme's `functions.php` (or a file it requires). The parent's template functions are wrapped in `function_exists()`, and the child's `functions.php` loads first |
 | New features | Add a file under `inc/` and `require` it from `functions.php` |
 
+## Forms
+
+`inc/forms.php` defines the site's Contact Form 7 forms (Book a demo, Contact) in code: fields matching the HTML
+site's markup, the site's wording for every CF7 message, and default Additional Settings. Run `wp labora forms-setup`
+after changing it (`--overwrite-settings` also resets each form's Additional Settings). Print a form with
+`labora_form( 'demo' )` or `labora_form( 'contact' )`; CF7's CSS and JS load only on pages that do this.
+Validation, repeat blocking, the honeypot, redirects, and analytics events come from the Lead Guard plugin.
+`template-parts/demo-form.php` shows the homepage form card and its confirmation panel; CF7 styling is in `child.css`.
+
 `child.css` and `child.js` are only loaded once they contain code (their header comments do not count), so empty
 files add no request.
 

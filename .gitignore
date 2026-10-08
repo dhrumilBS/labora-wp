@@ -17,7 +17,6 @@
 !/wp-content/plugins/
 /wp-content/plugins/*
 # Custom plugins (ours). Third-party plugins are listed in plugins.txt and reinstalled by scripts/install-plugins.sh.
-!/wp-content/plugins/labora-forms/
 !/wp-content/plugins/lead-guard-cf7/
 # The reusable cookie-consent plugin is added here once it is named.
 !/wp-content/mu-plugins/
