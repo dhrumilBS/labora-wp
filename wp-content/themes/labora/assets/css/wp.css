@@ -21,15 +21,11 @@
 @media (max-width: 560px) { body :is(.lg-prose, .prose) :is(.alignleft, .alignright) { float: none; margin: 1.5rem 0; } } /* "body" outranks WordPress's inline .wp-block-image rules */ /* no narrow text column beside an image on phones */
 :is(.lg-prose, .prose) .wp-block-embed iframe, :is(.lg-prose, .prose) iframe { max-width: 100%; }
 :is(.lg-prose, .prose) .wp-block-button__link { display: inline-flex; padding: .75rem 1.4rem; border-radius: 12px; background: var(--green); color: #fff; font-weight: 650; text-decoration: none; }
-:is(.lg-prose, .prose) table { width: 100%; border-collapse: collapse; }
-:is(.lg-prose, .prose) th, :is(.lg-prose, .prose) td { padding: .7rem .75rem .7rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+:is(.lg-prose, .prose) table:not(.data-table) { width: 100%; border-collapse: collapse; }
+:is(.lg-prose, .prose) table:not(.data-table) :is(th, td) { padding: .7rem .75rem .7rem 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
 .sticky, .bypostauthor, .gallery-caption { /* WordPress core classes: no special styling */ }
 
-/* ---------- Single post (single.php) ---------- */
-.wp-single .prose { max-width: 720px; margin: clamp(2.5rem, 2rem + 2vw, 4rem) auto 0; }
-.wp-single .article-cover img { width: 100%; height: 100%; object-fit: cover; }
-
-.wp-single .prose .article-foot { clear: both; } /* starts below a floated image */
+/* Single posts, the blog page, and topics: assets/css/wp-blog.css */
 
 /* ---------- Lists: blog home, archives, search ---------- */
 .wp-list .posts-head { margin-top: 0; }

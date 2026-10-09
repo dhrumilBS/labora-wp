@@ -29,6 +29,25 @@ After a send, both forms open the **Thank you** page (`lead_guard_redirect: /tha
 page (published, noindex in Yoast); its layout is the parent's `page-thank-you.php`, personalized by `pages.js` with
 the visitor's first name and request type (copied from Lead Guard's sessionStorage by `inc/forms.php`).
 
+## Blog
+
+Templates (parent theme): `home.php` (blog page), `archive.php` (topics and tags), `single.php` (posts); code in
+`inc/blog.php`, fields in `inc/blog-fields.php`, article blocks in `inc/blog-blocks.php`.
+
+| What | Where |
+|---|---|
+| Blog page heading, text, featured post, "Most read" | Pages > Blog (fields under the editor) |
+| Newsletter box texts | Labora Settings > Newsletter; sign-ups: Contact > Database (form "Newsletter") |
+| Per post: cover screenshot or featured image, reading time, "Reviewed by", box under the contents | "Article" box beside the editor |
+| Topics and their order | Posts > Categories ("Order in the topic filter"; the description is shown and used for search) |
+| Author box | Users > the author (Biographical Info, "Role line", "Show the Labora logo") |
+| Article components | Block inserter > "Labora article": Key takeaways, Note/tip/warning, Book a demo box, Key numbers, Before and after, Questions and answers. Lists: "Checklist" style; tables: "Data table" style |
+
+URLs: posts `/blog/<slug>/`, topics `/blog/topic/<slug>/`, tags `/blog/tag/<slug>/`.
+`wp labora blog-setup` (`inc/blog-setup.php`) creates all of that and the articles in `data/blog/` (`posts.json` +
+one HTML file each, with a few extra tags converted to blocks; see the file's header). Run it on a new install;
+`--overwrite` replaces the articles with the files' version.
+
 ## Cookie consent
 
 The TrustLayer Consent plugin shows the banner. `inc/consent.php` sets its defaults for this site (the wording of

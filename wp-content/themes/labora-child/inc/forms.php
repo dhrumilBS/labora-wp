@@ -5,7 +5,8 @@
  *   wp labora forms-setup                        create or update the forms in CF7 (keeps Additional Settings edits),
  *                                                and the Thank you page they open after a send
  *   wp labora forms-setup --overwrite-settings   also reset each form's Additional Settings to the defaults below
- *   <?php echo labora_form( 'demo' ); ?>         print a form in a template ('demo' = Book a demo, 'contact')
+ *   <?php echo labora_form( 'demo' ); ?>         print a form in a template ('demo' = Book a demo, 'contact',
+ *                                                'newsletter' = the blog's newsletter box)
  *
  * Validation, the honeypot, the repeat check, the thank-you redirect, and the analytics event come from the
  * Lead Guard for Contact Form 7 plugin (per-form lines in Additional Settings; see that tab in the CF7 editor).
@@ -50,19 +51,30 @@ function labora_form_messages(): array {
 /** Form definitions. */
 function labora_form_definitions(): array {
 	$centers  = '"1" "2–5" "6–20" "More than 20"';
-	$settings = function ( string $event, array $required ) {
+	$settings = function ( string $event, array $required, bool $thank_you = true ) {
 		$lines = array(
 			'# Lead Guard and CF7 settings for this form. The full list is documented below this box.',
 			'skip_mail: on',
 			'lead_guard_event: ' . $event,
-			'lead_guard_redirect: /thank-you/',
 		);
+		if ( $thank_you ) {
+			$lines[] = 'lead_guard_redirect: /thank-you/';
+		}
 		foreach ( $required as $field => $message ) {
 			$lines[] = "lead_guard_required_{$field}: {$message}";
 		}
 		return implode( "\n", $lines );
 	};
 	return array(
+		'newsletter' => array(
+			'title'        => 'Newsletter',
+			// Same markup as the HTML site's .nl-form: hidden label, email field, button
+			'form'         => '<label class="sr-only" for="nl-email">Work email</label>[email* email id:nl-email autocomplete:email placeholder "you@yourlab.com"][submit class:btn class:btn--lg "Subscribe"]',
+			'settings'     => $settings( 'newsletter_subscribed', array( 'email' => 'Enter a valid work email.' ), false ),
+			'sent'         => 'You are subscribed. Watch your inbox for the next issue.',
+			'mail_subject' => 'Newsletter sign-up: [email]',
+			'mail_body'    => 'Email: [email]',
+		),
 		'demo'    => array(
 			'title'        => 'Book a demo',
 			'form'         => implode( "\n", array(
@@ -132,7 +144,7 @@ function labora_forms_setup( bool $overwrite_settings = false ): array {
 			'sender'             => '[_site_title] <' . $admin . '>',
 			'recipient'          => $admin,
 			'body'               => $def['mail_body'] . "\n\n--\nSent from [_site_title] ([_url])",
-			'additional_headers' => 'Reply-To: [full_name] <[email]>',
+			'additional_headers' => str_contains( $def['form'], 'full_name' ) ? 'Reply-To: [full_name] <[email]>' : 'Reply-To: [email]',
 			'use_html'           => false,
 		) );
 		$p['mail_2']['active'] = false;
@@ -233,3 +245,8 @@ if ( defined( 'WP_CLI' ) && WP_CLI ) {
 		WP_CLI::success( 'Forms are up to date.' );
 	} );
 }
+
+// The blog's newsletter box (parent template-parts/blog/newsletter.php) shows this form
+add_filter( 'labora_newsletter_form', function ( $html ) {
+	return defined( 'WPCF7_VERSION' ) ? labora_form( 'newsletter', array( 'html_id' => 'labora-newsletter', 'html_class' => 'nl-form' ) ) : $html;
+} );

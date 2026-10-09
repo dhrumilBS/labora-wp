@@ -38,6 +38,7 @@
     };
 
     topics.forEach(function (btn) {
+      if (!btn.hasAttribute('data-filter')) return; // topic links (WordPress, more than one page) just navigate
       btn.addEventListener('click', function () {
         active = btn.getAttribute('data-filter');
         topics.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });

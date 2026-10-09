@@ -1,0 +1,129 @@
+[
+  {
+    "slug": "how-to-cut-lab-turnaround-time",
+    "title": "How to cut turnaround time in a diagnostic lab",
+    "excerpt": "A practical guide to measuring TAT the same way every time, finding where the hours really go, and catching delays before the doctor calls.",
+    "date": "2026-10-05",
+    "topics": [
+      "turnaround",
+      "operations",
+      "reporting"
+    ],
+    "cover_screen": "turnaround-tracking",
+    "toc_cta_title": "See TAT tracking live",
+    "toc_cta_text": "Watch elapsed time against target for every case in your lab.",
+    "seo_title": "How to Cut Lab Turnaround Time (TAT): A Practical Guide %%sep%% %%sitename%%",
+    "seo_description": "A practical guide to measuring TAT the same way every time, finding where the hours really go, and catching delays before the doctor calls.",
+    "focus_keyphrase": "lab turnaround time"
+  },
+  {
+    "slug": "barcode-sample-tracking",
+    "title": "Barcode sample tracking, from front desk to rack slot",
+    "excerpt": "What to scan, when to scan it, and how a single tube record ends the daily hunt for a missing sample.",
+    "date": "2026-09-29",
+    "topics": [
+      "operations",
+      "turnaround"
+    ],
+    "cover_screen": "sample-tracking",
+    "toc_cta_title": "See sample tracking live",
+    "toc_cta_text": "Scan a tube and see its patient, tests, every handoff, and its rack slot.",
+    "seo_title": "Barcode Sample Tracking for Diagnostic Labs: What to Scan and When %%sep%% %%sitename%%",
+    "seo_description": "What to scan, when to scan it, and how one barcode record per tube ends the daily hunt for missing samples in a diagnostic lab.",
+    "focus_keyphrase": "barcode sample tracking"
+  },
+  {
+    "slug": "home-collection-patients-trust",
+    "title": "Home sample collection patients actually trust",
+    "excerpt": "Live arrival times, clear prep instructions, and handoffs that keep samples moving from the doorstep to the bench.",
+    "date": "2026-09-22",
+    "topics": [
+      "home-collection",
+      "operations"
+    ],
+    "cover_screen": "home-collection",
+    "toc_cta_title": "See home collection live",
+    "toc_cta_text": "Bookings, routes, live arrival times, and patient messages in one place.",
+    "seo_title": "Home Sample Collection Patients Trust: A Guide for Labs %%sep%% %%sitename%%",
+    "seo_description": "How diagnostic labs run home sample collection patients trust: clear booking and prep, live arrival times, safe transport, and handoffs to the bench.",
+    "focus_keyphrase": "home sample collection"
+  },
+  {
+    "slug": "pathology-and-radiology-in-one-system",
+    "title": "Pathology and radiology in one system: what changes for reporting doctors",
+    "excerpt": "Why one patient case across lab and imaging makes review, sign-off, and delivery faster for everyone involved.",
+    "date": "2026-09-15",
+    "topics": [
+      "reporting"
+    ],
+    "cover_screen": "pathology-imaging-reporting",
+    "toc_cta_title": "See reporting live",
+    "toc_cta_text": "Lab results and imaging reports for the same patient, side by side.",
+    "seo_title": "Pathology and Radiology in One System: What Changes for Reporting %%sep%% %%sitename%%",
+    "seo_description": "What changes for reporting doctors when pathology and radiology share one patient case: context at review, one sign-off flow, and one delivery.",
+    "focus_keyphrase": "pathology and radiology reporting"
+  },
+  {
+    "slug": "revenue-by-center-and-referrer",
+    "title": "Reading your revenue by center, day, and referring doctor",
+    "excerpt": "The handful of numbers a lab owner should check every week, and what each one tells you to do next.",
+    "date": "2026-09-08",
+    "topics": [
+      "growth"
+    ],
+    "cover_screen": "business-insights",
+    "toc_cta_title": "See business insights live",
+    "toc_cta_text": "Revenue, dues, and referrals by center and by day, from the same records your team works in.",
+    "seo_title": "Lab Revenue by Center, Day, and Referring Doctor: What to Check Weekly %%sep%% %%sitename%%",
+    "seo_description": "The handful of revenue numbers a diagnostic lab owner should check every week, by center, day, test, and referring doctor, and what each tells you to do.",
+    "focus_keyphrase": "lab revenue by referring doctor"
+  },
+  {
+    "slug": "digital-signatures-for-lab-reports",
+    "title": "Digital signatures for lab reports: what to set up first",
+    "excerpt": "Roles, review steps, and release rules that let doctors sign with confidence and send reports in one click.",
+    "date": "2026-09-01",
+    "topics": [
+      "reporting"
+    ],
+    "cover_screen": "pathology-imaging-reporting",
+    "cover_right": 1,
+    "toc_cta_title": "See sign-off live",
+    "toc_cta_text": "Review, sign, and send a report in one click, with every step recorded.",
+    "seo_title": "Digital Signatures for Lab Reports: What to Set Up First %%sep%% %%sitename%%",
+    "seo_description": "Roles, review steps, and release rules to set up before diagnostic lab doctors sign reports digitally and send them to patients in one click.",
+    "focus_keyphrase": "digital signature lab reports"
+  },
+  {
+    "slug": "product-update-ultrasound-templates",
+    "title": "Product update: ultrasound templates and faster sign-off",
+    "excerpt": "A tour of the new template library for ultrasound, X-ray, CT, and MRI, plus quicker review and signing.",
+    "date": "2026-08-25",
+    "topics": [
+      "product",
+      "reporting"
+    ],
+    "cover_screen": "dashboard",
+    "toc_cta_title": "See the templates live",
+    "toc_cta_text": "Open a template for your most common study and finish a report in minutes.",
+    "seo_title": "Product Update: Ultrasound Templates and Faster Sign-off %%sep%% %%sitename%%",
+    "seo_description": "Labora's template library for ultrasound, X-ray, CT, and MRI reports, and a quicker review and signing flow for reporting doctors.",
+    "focus_keyphrase": "ultrasound report templates"
+  },
+  {
+    "slug": "choosing-laboratory-management-software",
+    "title": "Choosing laboratory management software: a buyer checklist for 2026",
+    "excerpt": "The questions to ask about sample tracking, reporting, integrations, data migration, and rollout before you sign.",
+    "date": "2026-08-18",
+    "topics": [
+      "guides"
+    ],
+    "cover_screen": "dashboard",
+    "cover_right": 1,
+    "toc_cta_title": "Bring this checklist to a demo",
+    "toc_cta_text": "We will answer every question on it with your own tests and workflow.",
+    "seo_title": "Choosing Laboratory Management Software: A 2026 Buyer Checklist %%sep%% %%sitename%%",
+    "seo_description": "The questions to ask about sample tracking, reporting, integrations, data migration, security, and rollout before choosing laboratory management software.",
+    "focus_keyphrase": "laboratory management software"
+  }
+]

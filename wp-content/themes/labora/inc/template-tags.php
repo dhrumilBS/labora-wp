@@ -9,23 +9,33 @@
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'labora_reading_time' ) ) :
-/** "7 min read" for a post (about 225 words a minute). */
+/** "7 min read" (the post's reading time field, or counted from the text; see labora_read_minutes()). */
 function labora_reading_time( $post = null ): string {
-	$words = str_word_count( wp_strip_all_tags( (string) get_post_field( 'post_content', $post ) ) );
 	/* translators: %d: minutes */
-	return sprintf( __( '%d min read', 'labora' ), max( 1, (int) round( $words / 225 ) ) );
+	return sprintf( __( '%d min read', 'labora' ), labora_read_minutes( $post ) );
 }
 endif;
 
 if ( ! function_exists( 'labora_byline' ) ) :
-/** Author, date, and reading time, as on the HTML blog. */
-function labora_byline( $post = null ): string {
+/**
+ * Author, date, and reading time, as on the HTML blog. With $updated, a post edited more than a day after it was
+ * published also shows "Updated <date>".
+ */
+function labora_byline( $post = null, bool $updated = false ): string {
 	$post = get_post( $post );
+	$user = (int) $post->post_author;
+	$mod  = '';
+	if ( $updated && get_post_modified_time( 'U', true, $post ) - get_post_time( 'U', true, $post ) > DAY_IN_SECONDS ) {
+		/* translators: %s: date */
+		$mod = sprintf( ' &middot; <time datetime="%1$s">%2$s</time>', esc_attr( get_the_modified_date( 'c', $post ) ), esc_html( sprintf( __( 'Updated %s', 'labora' ), get_the_modified_date( '', $post ) ) ) );
+	}
 	return sprintf(
-		'<span class="byline"><span class="avatar" aria-hidden="true"><svg><use href="#logo-mark"/></svg></span><span><strong>%1$s</strong><span><time datetime="%2$s">%3$s</time> &middot; %4$s</span></span></span>',
-		esc_html( get_the_author_meta( 'display_name', (int) $post->post_author ) ?: 'Labora Team' ),
-		esc_attr( get_the_date( 'c', $post ) ),
-		esc_html( get_the_date( '', $post ) ),
+		'<span class="byline">%1$s<span><strong>%2$s</strong><span><time datetime="%3$s">%4$s</time>%5$s &middot; %6$s</span></span></span>',
+		labora_author_avatar( $user ),
+		esc_html( get_the_author_meta( 'display_name', $user ) ?: 'Labora Team' ),
+		esc_attr( get_the_date( 'Y-m-d', $post ) ),
+		esc_html( get_the_date( 'M j, Y', $post ) ),
+		$mod,
 		esc_html( labora_reading_time( $post ) )
 	);
 }
@@ -46,23 +56,27 @@ function labora_primary_category( $post = null ): ?WP_Term {
 endif;
 
 if ( ! function_exists( 'labora_post_card' ) ) :
-/** A post card for grids (home, archive, search). */
-function labora_post_card( $post = null ): void {
+/** A post card (blog page, topics, search, related posts): the HTML blog's .post. */
+function labora_post_card( $post = null, string $sizes = '(max-width: 720px) calc(100vw - 40px), (max-width: 1024px) 46vw, 380px', bool $eager = false ): void {
 	$post = get_post( $post );
 	$cat  = labora_primary_category( $post );
-	?>
-	<a class="post reveal" href="<?php echo esc_url( get_permalink( $post ) ); ?>">
-		<div class="cover"><?php
-		if ( has_post_thumbnail( $post ) ) {
-			echo get_the_post_thumbnail( $post, 'medium_large', array( 'alt' => '', 'loading' => 'lazy', 'sizes' => '(max-width: 720px) calc(100vw - 40px), (max-width: 1024px) 46vw, 380px' ) );
-		}
-		?></div>
-		<span class="meta"><?php if ( $cat ) : ?><span><?php echo esc_html( $cat->name ); ?></span><span class="dot-sep" aria-hidden="true"></span><?php endif; ?><span><?php echo esc_html( labora_reading_time( $post ) ); ?></span></span>
-		<h3><?php echo esc_html( get_the_title( $post ) ); ?></h3>
-		<?php if ( has_excerpt( $post ) || $post->post_content ) : ?><p><?php echo esc_html( wp_trim_words( get_the_excerpt( $post ), 28 ) ); ?></p><?php endif; ?>
-		<?php echo labora_byline( $post ); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-	</a>
-	<?php
+	printf(
+		'<a class="post reveal" href="%1$s" data-topic="%2$s">
+          %3$s
+          <span class="meta">%4$s<span>%5$s</span></span>
+          <h3>%6$s</h3>
+          <p>%7$s</p>
+          %8$s
+        </a>',
+		esc_url( get_permalink( $post ) ),
+		esc_attr( $cat ? $cat->slug : '' ),
+		labora_post_cover( $post, $sizes, $eager ), // phpcs:ignore WordPress.Security.EscapeOutput
+		$cat ? '<span>' . esc_html( $cat->name ) . '</span><span class="dot-sep" aria-hidden="true"></span>' : '',
+		esc_html( labora_reading_time( $post ) ),
+		esc_html( get_the_title( $post ) ),
+		esc_html( has_excerpt( $post ) ? get_the_excerpt( $post ) : wp_trim_words( get_the_excerpt( $post ), 28 ) ),
+		labora_byline( $post ) // phpcs:ignore WordPress.Security.EscapeOutput
+	);
 }
 endif;
 
@@ -86,5 +100,8 @@ if ( ! function_exists( 'labora_template_assets' ) ) :
 function labora_template_assets( string $bundle ): void {
 	labora_enqueue_bundle( $bundle );
 	wp_enqueue_style( 'labora-wp', labora_asset( 'css/wp.css' ), array( 'labora-' . $bundle ), labora_asset_version( 'css/wp.css' ) );
+	if ( 'blog' === $bundle ) {
+		wp_enqueue_style( 'labora-wp-blog', labora_asset( 'css/wp-blog.css' ), array( 'labora-wp' ), labora_asset_version( 'css/wp-blog.css' ) );
+	}
 }
 endif;

@@ -43,6 +43,8 @@ function labora_setting_defaults(): array {
 		'start_label'     => 'Get started',
 		'start_url'       => '/signup/',
 		'copyright'       => '{company}. All rights reserved.',
+		'newsletter_title' => 'Lab operations, in your inbox',
+		'newsletter_text'  => 'One practical email a month on turnaround, sample tracking, reporting, and growing a multi-center lab. No spam, unsubscribe anytime.',
 	) );
 }
 endif;
@@ -179,6 +181,11 @@ add_action( 'acf/init', function () {
 			$tab( 'footer', __( 'Footer', 'labora' ) ),
 			array( 'key' => 'field_labora_footer_note', 'label' => '', 'name' => '', 'type' => 'message', 'message' => __( 'Footer link columns are widgets: Appearance > Widgets > Footer columns. Each "Labora: Menu column" widget shows one menu. The bottom links are the "Footer: bottom links (Legal)" menu.', 'labora' ) ),
 			$txt( 'copyright', __( 'Copyright line', 'labora' ), __( 'After "© year". {company} is replaced with the company name.', 'labora' ) ),
+
+			$tab( 'newsletter', __( 'Newsletter', 'labora' ) ),
+			array( 'key' => 'field_labora_nl_note', 'label' => '', 'name' => '', 'type' => 'message', 'message' => __( 'The newsletter box on the blog page and under every post. Sign-ups are saved in Contact > Database (no email is sent); the form is "Newsletter" in Contact.', 'labora' ) ),
+			$txt( 'newsletter_title', __( 'Heading', 'labora' ) ),
+			$txt( 'newsletter_text', __( 'Text', 'labora' ), '', 'textarea' ) + array( 'rows' => 2 ),
 		),
 	) );
 } );

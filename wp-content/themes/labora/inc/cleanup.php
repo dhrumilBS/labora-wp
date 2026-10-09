@@ -39,3 +39,6 @@ add_filter( 'xmlrpc_enabled', '__return_false' );
 // the product's sign-in, so those shortcuts are turned off: /login/ shows the "coming soon" 404 page until the
 // product sign-in exists, and the WordPress admin stays at /wp-admin/ only.
 remove_action( 'template_redirect', 'wp_redirect_admin_locations', 1000 );
+
+// Keep text exactly as written: no automatic curly quotes or dashes (the HTML site uses straight quotes)
+add_filter( 'run_wptexturize', '__return_false' );

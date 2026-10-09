@@ -1,0 +1,56 @@
+<takeaways>
+  <li>Decide who may sign which reports before anyone signs digitally.</li>
+  <li>Keep review and signing as separate, recorded steps.</li>
+  <li>Set release rules: a signed report goes out at once, an unsigned one never does.</li>
+  <li>Record every change after signing, with the person, the time, and the reason.</li>
+  <li>Test the flow on real cases before go-live.</li>
+</takeaways>
+
+<h2 id="why-it-matters">Why signatures are the last bottleneck</h2>
+<p>In many labs, the slowest part of a report's journey is the last few steps. Results are validated in the morning, but the report waits for a doctor to come to the lab, sign a printout, and hand it to the front desk. Digital signatures remove that wait. Done well, they also make the lab safer, because every signature is tied to a named, authorized doctor and recorded.</p>
+<p>The technology is the easy part. What matters is setting up the rules first, so doctors sign with confidence and nobody wonders whether a report should have gone out.</p>
+
+<h2 id="roles">Decide who signs what</h2>
+<p>Start with a simple map of which doctors may sign which reports. Most labs already have these rules on paper; digital signing makes them enforceable.</p>
+<table>
+  <thead><tr><th>Role</th><th>Can</th><th>Cannot</th></tr></thead>
+  <tbody>
+    <tr><td>Technician</td><td>Enter results, validate runs, prepare reports</td><td>Sign or release a report</td></tr>
+    <tr><td>Reporting doctor</td><td>Review, edit findings, sign reports for their tests or modalities</td><td>Sign reports outside their authorization</td></tr>
+    <tr><td>Lab director</td><td>Sign any report, change signing rules</td><td>Change a signed report without a recorded reason</td></tr>
+    <tr><td>Front desk</td><td>See report status, resend signed reports</td><td>Open or change an unsigned report</td></tr>
+  </tbody>
+</table>
+<shot name="roles-access" alt="Labora roles and access: permissions by role and by center, including who can sign reports">Permissions are set by role and by center, so each doctor can sign only the reports they are authorized for.</shot>
+
+<h2 id="review-steps">Keep review and signing separate</h2>
+<ol>
+  <li><strong>Prepare.</strong> Results are entered and validated, or imaging findings drafted from a template.</li>
+  <li><strong>Review.</strong> The reporting doctor checks the report, with abnormal and critical results highlighted.</li>
+  <li><strong>Sign.</strong> The doctor confirms with their own credentials. The signature records who signed and when.</li>
+  <li><strong>Release.</strong> The signed report is sent to the patient and the referring doctor automatically.</li>
+</ol>
+<callout type="warning" title="Never share signing credentials">A signature is only meaningful if the person it names actually signed. Each doctor signs in as themselves; a shared login turns an audit trail into guesswork.</callout>
+
+<h2 id="release-rules">Set release rules</h2>
+<p>Write down when a report may leave the lab, and let the system apply it every time: a signed report is released at once; an unsigned report is never sent, printed for the patient, or shown in a portal. Critical results follow your critical value policy, such as a phone call to the referring doctor, in addition to the signed report.</p>
+
+<h2 id="after-signing">Changes after signing</h2>
+<p>Sometimes a signed report must change: a typing error, an added comment, a corrected result. Make that a recorded amendment, not a quiet edit. The amended report shows that it was changed, the original is kept, and the record shows who made the change, when, and why. Patients and doctors receive the amended version with a clear note.</p>
+
+<h2 id="before-go-live">Before go-live</h2>
+<ul class="checklist">
+  <li>Every reporting doctor has their own login and signing permission</li>
+  <li>Permissions match your written signing rules, by test and modality</li>
+  <li>Unsigned reports cannot be sent, printed, or viewed by patients</li>
+  <li>Amendments keep the original and record the reason</li>
+  <li>A week of real cases has been reviewed, signed, and delivered in testing</li>
+</ul>
+
+<demo title="See review and sign-off in one click" label="Book a demo">Watch a report move from validation to signature to delivery, with every step recorded.</demo>
+
+<faq>
+  <qa question="Is a digital signature on a lab report legally valid?">Electronic signatures are widely accepted for lab reports, but requirements depend on your state, accreditation, and the type of report. Confirm the rules that apply to your lab with your lab director and compliance adviser before go-live.</qa>
+  <qa question="Can a doctor sign reports remotely?">Yes, if your policy allows it. The doctor signs in as themselves from any approved device, reviews the report, and signs. The record shows who signed, when, and from where they signed in.</qa>
+  <qa question="What happens if a signed report needs a correction?">It is amended, not overwritten. The original is kept, the amended report is marked as changed, and the person, time, and reason are recorded.</qa>
+</faq>

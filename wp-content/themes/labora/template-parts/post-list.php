@@ -1,14 +1,15 @@
 <?php
 /**
  * Post listing used by home.php, archive.php, search.php, and index.php: the HTML blog hub's hero, card grid, and
- * pagination. $args: label (eyebrow), title, lead, search (bool: show the search form).
+ * pagination. $args: label (eyebrow), title, lead, search (bool: show the search form), topics (bool: the topic links
+ * and search of the blog, with `current` = the term ID), newsletter (bool).
  *
  * @package Labora
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$labora_args = wp_parse_args( $args ?? array(), array( 'label' => '', 'title' => '', 'lead' => '', 'search' => false ) );
+$labora_args = wp_parse_args( $args ?? array(), array( 'label' => '', 'title' => '', 'lead' => '', 'search' => false, 'topics' => false, 'current' => 0, 'newsletter' => false ) );
 global $wp_query;
 ?>
 <main id="main" class="blog-main wp-list">
@@ -18,6 +19,7 @@ global $wp_query;
       <h1 id="list-title"><?php echo esc_html( $labora_args['title'] ); ?></h1>
       <?php if ( $labora_args['lead'] ) : ?><div class="lead"><?php echo wp_kses_post( wpautop( $labora_args['lead'] ) ); ?></div><?php endif; ?>
       <?php if ( $labora_args['search'] ) { get_search_form(); } ?>
+      <?php if ( $labora_args['topics'] ) { get_template_part( 'template-parts/blog/tools', null, array( 'mode' => 'links', 'current' => (int) $labora_args['current'] ) ); } ?>
     </div>
   </section>
 
@@ -32,11 +34,12 @@ global $wp_query;
         ?>
       </span>
     </div>
-    <div class="post-grid">
+    <div class="post-grid" data-posts>
       <?php
       while ( have_posts() ) :
         the_post();
-        labora_post_card();
+        // The first card is the largest image on screen at load: no lazy loading for it
+        labora_post_card( null, '(max-width: 720px) calc(100vw - 40px), (max-width: 1024px) 46vw, 380px', 0 === $wp_query->current_post );
       endwhile;
       ?>
     </div>
@@ -47,5 +50,6 @@ global $wp_query;
       <p><?php echo is_search() ? esc_html__( 'No articles match your search. Try a different word.', 'labora' ) : esc_html__( 'There are no articles to show.', 'labora' ); ?></p>
     </div>
     <?php endif; ?>
+    <?php if ( $labora_args['newsletter'] ) { get_template_part( 'template-parts/blog/newsletter' ); } ?>
   </div>
 </main>

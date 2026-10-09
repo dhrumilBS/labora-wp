@@ -38,3 +38,17 @@
   --tlc-heading-weight: 650; --tlc-heading-leading: 1.12; --tlc-heading-tracking: -.025em;
   --tlc-max-h-sm: calc(100vh - var(--header-h) - var(--header-gap) - 1.75rem); /* clear of the header on phones */
 }
+
+/* ---------- Newsletter box (Contact Form 7 "Newsletter" form): the HTML site's .nl-form and .nl-msg ---------- */
+.wpcf7 form.nl-form { flex-wrap: wrap; align-items: flex-start; }
+.nl-form .wpcf7-form-control-wrap { flex: 1; min-width: 0; }
+.nl-form .wpcf7-form-control-wrap input { width: 100%; }
+.nl-form .wpcf7-not-valid-tip { color: #f3b3ae; } /* the rose text, readable on the dark box */
+.nl-form .wpcf7-spinner { position: absolute; top: 26px; right: 1rem; margin: 0; transform: translateY(-50%); }
+/* The message on its own line, as text (not the light box used on the other forms) */
+.wpcf7 form.nl-form .wpcf7-response-output,
+.wpcf7 form.labora-form.nl-form.sent .wpcf7-response-output { display: block; flex-basis: 100%; margin: .15rem 0 0; padding: 0; border: 0; background: none; color: #f3b3ae; font-size: var(--fs-sm); font-weight: 700; min-height: 1.4em; }
+.wpcf7 form.nl-form.init .wpcf7-response-output { display: none; }
+.wpcf7 form.labora-form.nl-form.sent .wpcf7-response-output { color: var(--green-bright); }
+.nl-form input.wpcf7-submit { flex: none; min-width: 0; padding: .75rem 1.4rem; border-color: transparent; } /* a button, not a text field (blog.css styles every input in .nl-form) */
+@media (max-width: 720px) { .wpcf7 form.nl-form { align-items: stretch; } } /* phones: field and button full width, as on the HTML site */

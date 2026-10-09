@@ -1,0 +1,76 @@
+/*
+ * Blog additions for WordPress (loaded after blog.css on the blog page, topics, and posts, and in the editor).
+ * blog.css is the HTML site's file, unchanged; this file styles only what WordPress adds:
+ * topic links, the article blocks that the HTML article did not have (notes and warnings, key numbers,
+ * before and after, questions and answers), "Reviewed by", and the layout without a table of contents.
+ * Same rules as the rest of the design: ruled lines, monospace labels, design tokens only.
+ */
+
+/* ---------- Topic links (topic pages, or a blog with more than one page) ---------- */
+a.topic { display: inline-flex; align-items: center; text-decoration: none; }
+a.topic:hover { color: var(--ink); }
+.topic[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+form.search { margin: 0; }
+
+/* ---------- Byline and author photos (team accounts show the logo) ---------- */
+.avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+/* ---------- Article hero: "Reviewed by" ---------- */
+.article-hero .reviewed { display: flex; align-items: center; gap: .4rem; margin-top: .9rem; font-size: var(--fs-sm); font-weight: 600; color: var(--muted); }
+.article-hero .reviewed .icon { color: var(--green); }
+
+/* Images in posts: the HTML article's figure (wp.css's generic page values are for plain pages) */
+.prose figure, .prose .wp-block-image { margin: 2.25rem 0; }
+.prose .wp-block-image img { border-radius: var(--r-lg); }
+.prose figcaption { margin-top: .75rem; }
+
+/* Posts without <h2> headings: no table of contents, the text column alone */
+.article-layout--no-toc { grid-template-columns: minmax(0, 720px); }
+.prose .article-foot { clear: both; } /* starts below a floated image */
+
+/* ---------- Note, tip, warning (the HTML article's .callout is the tip) ---------- */
+.callout--note { border-left-color: var(--ink); }
+.callout--warning { border-left-color: var(--amber); }
+.callout > div > p + p { margin-top: .6rem; }
+
+/* ---------- Data table: a note under it ---------- */
+.prose .table-note { margin-top: .6rem; font-size: var(--fs-sm); color: var(--muted); }
+
+/* ---------- Key numbers ---------- */
+.prose .stat-row { margin: 2.5rem 0; }
+.stat-row dl { display: grid; grid-template-columns: repeat(var(--stat-cols, 3), minmax(0, 1fr)); margin: 0; border-top: 1px solid var(--ink); }
+.stat-row .stat { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: .4rem; padding: 1.1rem 1.25rem 0 0; }
+.stat-row .stat + .stat { padding-left: 1.25rem; border-left: 1px solid var(--line); }
+.stat-row dd { margin: 0; font-size: clamp(1.8rem, 1.45rem + 1.1vw, 2.35rem); font-weight: 650; line-height: 1.1; letter-spacing: -.03em; color: var(--ink); }
+.stat-row dt { font-size: .95rem; line-height: 1.45; color: var(--muted); }
+.stat-row figcaption { margin-top: 1rem; }
+
+/* ---------- Before and after (like the homepage's "What changes") ---------- */
+.prose .compare { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); margin: 2.5rem 0; border-top: 1px solid var(--ink); }
+.compare-col { padding: 1.1rem 1.5rem 0 0; }
+.compare-col + .compare-col { padding: 1.1rem 0 0 1.5rem; border-left: 1px solid var(--line); }
+.prose .compare-label { margin: 0 0 .75rem; font: 600 var(--fs-xs)/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.compare-col--after .compare-label { color: var(--green); }
+.prose .compare ul { margin: 0; gap: .6rem; font-size: 1rem; line-height: 1.6; }
+.compare-col:not(.compare-col--after) li { color: var(--muted); }
+.compare-col--after li { color: var(--ink); }
+.prose .compare-col--after li::before { top: .62em; left: .2rem; width: 6px; height: 6px; border-radius: 50%; }
+
+/* ---------- Questions and answers (the homepage FAQ's accordion) ---------- */
+.prose .article-faq { margin-top: 3.25rem; border-top: 1px solid var(--ink); }
+.prose .article-faq h2 { margin: 1.5rem 0 .25rem; }
+.prose .article-faq summary h3 { margin: 0; font-size: inherit; }
+.prose .article-faq .faq-answer { font-size: 1.02rem; line-height: 1.7; }
+.prose .article-faq .faq-answer > * + * { margin-top: .75rem; }
+
+/* Empty article blocks in the editor */
+.labora-block-empty { padding: 1rem 1.25rem; border: 1px dashed var(--line-strong); border-radius: var(--r-sm); color: var(--muted); font-size: .95rem; }
+
+@media (max-width: 640px) {
+  .stat-row dl { grid-template-columns: 1fr 1fr; }
+  .stat-row .stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .stat-row .stat:nth-child(n + 3) { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .prose .compare { grid-template-columns: 1fr; }
+  .compare-col + .compare-col { margin-top: 1.25rem; padding: 1.1rem 0 0; border-left: 0; border-top: 1px solid var(--line); }
+  .prose .article-faq .faq-answer { padding-right: 0; }
+}
