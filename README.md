@@ -39,7 +39,7 @@ wp config shuffle-salts
 scripts/db-restore.sh backups/<latest dump>.sql.gz http://192.168.0.25/labora-wp   # or: wp core install ...
 scripts/install-plugins.sh
 wp theme activate labora-child
-wp labora seed-menus                                 # assigns the menus (creates them on a fresh database)
+wp labora seed-menus                                 # menus and footer widgets (creates them on a fresh database)
 wp plugin activate lead-guard-cf7 && wp labora forms-setup   # the CF7 forms
 wp plugin activate trustlayer-consent                          # cookie consent (settings: TrustLayer)
 ```

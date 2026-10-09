@@ -42,5 +42,14 @@ files add no request.
 Note: `front-page.php` in the parent builds its image URLs from the parent's `assets/` folder. To swap an image on the
 homepage, copy `front-page.php` here and change it, or replace the image in the parent.
 
-After switching themes, menu assignments belong to the active theme: run `wp labora seed-menus` (it keeps existing
-menus and only assigns them) or set them in Appearance > Menus > Manage Locations.
+## Where site-wide content is edited
+
+| What | Where |
+|---|---|
+| Company name and footer description, contact/sales/security email, phone, address, social profiles, header buttons, copyright line | **Labora Settings** (admin menu). Empty fields use the HTML site's values |
+| Header and mobile menu | Appearance > Menus, "Primary" location |
+| Footer link columns | Appearance > Widgets > **Footer columns**: one "Labora: Menu column" widget per column (heading + menu) |
+| Footer bottom links | Appearance > Menus, "Footer: bottom links (Legal)" location; then "Cookie settings" and, for US visitors, "Do Not Sell or Share My Personal Information" (TrustLayer) |
+
+After switching themes, menu locations and widgets belong to the active theme: run `wp labora seed-menus` (it keeps
+existing menus, assigns them, and fills the footer widgets if empty) or set them in Appearance > Menus and Widgets.

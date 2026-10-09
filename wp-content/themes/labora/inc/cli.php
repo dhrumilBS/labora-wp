@@ -2,7 +2,9 @@
 /**
  * WP-CLI commands for setting up the site content the theme expects.
  *
- *   wp labora seed-menus [--force]   Create the header and footer menus from the HTML site and assign them.
+ *   wp labora seed-menus [--force]   Create the header and footer menus from the HTML site, assign the header and
+ *                                    bottom-links menus, and put the four footer columns into the "Footer columns"
+ *                                    widget area (one "Labora: Menu column" widget each, if the area is empty).
  *                                    Existing menus with the same names are left alone unless --force.
  *
  * @package Labora
@@ -76,6 +78,7 @@ function labora_cli_menu_data(): array {
 WP_CLI::add_command( 'labora seed-menus', function ( $args, $assoc ) {
 	$force     = ! empty( $assoc['force'] );
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$columns   = array(); // footer columns: [ heading, menu ID ], shown by widgets
 
 	foreach ( labora_cli_menu_data() as $location => list( $name, $items ) ) {
 		$menu = wp_get_nav_menu_object( $name );
@@ -109,8 +112,19 @@ WP_CLI::add_command( 'labora seed-menus', function ( $args, $assoc ) {
 			$menu = wp_get_nav_menu_object( $menu_id );
 			WP_CLI::log( "Created menu \"$name\"." );
 		}
-		$locations[ $location ] = $menu->term_id;
+		if ( in_array( $location, array( 'footer_platform', 'footer_solutions', 'footer_resources', 'footer_company' ), true ) ) {
+			$columns[] = array( $name, $menu->term_id );
+			unset( $locations[ $location ] ); // these were menu locations before the footer used widgets
+		} else {
+			$locations[ $location ] = $menu->term_id;
+		}
 	}
 	set_theme_mod( 'nav_menu_locations', $locations );
-	WP_CLI::success( 'Menus assigned to their locations.' );
+	if ( $force || ! is_active_sidebar( LABORA_FOOTER_SIDEBAR ) ) {
+		labora_seed_footer_widgets( $columns );
+		WP_CLI::log( 'Footer columns: ' . count( $columns ) . ' "Labora: Menu column" widgets.' );
+	} else {
+		WP_CLI::log( 'Footer columns already have widgets, kept (use --force to replace them).' );
+	}
+	WP_CLI::success( 'Menus assigned.' );
 } );

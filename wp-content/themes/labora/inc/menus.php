@@ -7,9 +7,10 @@
  *    dropdown. In a dropdown, each item's Description (enable it under Screen Options) is the line under its title,
  *    and its icon is set in CSS Classes as icon-<name>, e.g. icon-flask (names: see template-parts/sprite.php).
  *    A dropdown whose items have no descriptions renders in the narrow style (like Solutions).
- *  - Footer columns: one menu per location. The column heading is the menu's name.
+ *  - Footer link columns are widgets (Appearance > Widgets > Footer columns), each showing one menu (inc/widgets.php).
+ *    The footer's bottom row is the "Footer: bottom links (Legal)" location.
  *  - Links to homepage sections (https://site/#demo) become plain #demo links on the homepage itself.
- * Buttons, the logo, and the footer text are fixed in header.php / footer.php.
+ * Header buttons and footer texts: Labora Settings (inc/settings.php).
  *
  * @package Labora
  */
@@ -19,10 +20,6 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'after_setup_theme', function () {
 	register_nav_menus( array(
 		'primary'          => __( 'Primary (header and mobile menu)', 'labora' ),
-		'footer_platform'  => __( 'Footer: column 1 (Platform)', 'labora' ),
-		'footer_solutions' => __( 'Footer: column 2 (Solutions)', 'labora' ),
-		'footer_resources' => __( 'Footer: column 3 (Resources)', 'labora' ),
-		'footer_company'   => __( 'Footer: column 4 (Company)', 'labora' ),
 		'footer_legal'     => __( 'Footer: bottom links (Legal)', 'labora' ),
 	) );
 } );
@@ -165,27 +162,25 @@ function labora_mobile_nav_items(): void {
 }
 endif;
 
-if ( ! function_exists( 'labora_footer_col' ) ) :
-/** A footer column: <nav class="footer-col"><h2>Menu name</h2><ul>...</ul></nav>. */
-function labora_footer_col( string $location ): void {
-	$tree = labora_menu_tree( $location );
-	if ( ! $tree ) {
-		return;
-	}
-	$name = labora_menu_name( $location );
-	printf( '      <nav class="footer-col" aria-label="%1$s"><h2>%2$s</h2><ul>', esc_attr( $name ), esc_html( $name ) );
-	foreach ( $tree as $node ) {
-		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( labora_menu_url( $node['item'] ) ), labora_menu_current( $node['item'] ), esc_html( $node['item']->title ) );
-	}
-	echo "</ul></nav>\n";
-}
-endif;
-
 if ( ! function_exists( 'labora_footer_legal_items' ) ) :
 /** Bottom-row links (Privacy, Terms, Cookies) as <li> items. */
 function labora_footer_legal_items(): void {
 	foreach ( labora_menu_tree( 'footer_legal' ) as $node ) {
 		printf( '<li><a href="%s"%s>%s</a></li>', esc_url( labora_menu_url( $node['item'] ) ), labora_menu_current( $node['item'] ), esc_html( $node['item']->title ) );
 	}
+}
+endif;
+
+if ( ! function_exists( 'labora_footer_dnss_item' ) ) :
+/**
+ * "Do Not Sell or Share My Personal Information" in the footer's bottom row, when TrustLayer Consent is active.
+ * The plugin hides it for visitors it does not apply to (by default everyone outside opt-out regions such as the US)
+ * and opens its opt-out form on click. Text: TrustLayer > Settings > Texts; where it shows: the Policies tab.
+ */
+function labora_footer_dnss_item(): void {
+	if ( ! function_exists( 'tlc_setting' ) || 'never' === tlc_setting( 'policy.dnss_visibility' ) ) {
+		return;
+	}
+	printf( '<li><a href="#tlc-dnss" data-tlc-dnss>%s</a></li>', esc_html( (string) tlc_setting( 'texts.dnss_link' ) ) );
 }
 endif;
