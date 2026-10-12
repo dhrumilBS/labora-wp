@@ -1,5 +1,21 @@
 [
   {
+    "slug": "lims-go-live-plan",
+    "title": "Going live with a LIMS in 30 days: a week-by-week plan for diagnostic labs",
+    "excerpt": "How to move one center off paper registers and spreadsheets in a month: clean data, set up roles and reports, run in parallel, and stop paper on a fixed date.",
+    "date": "2026-10-09",
+    "topics": [
+      "guides",
+      "operations"
+    ],
+    "cover_screen": "patient-case",
+    "toc_cta_title": "Plan your go-live with us",
+    "toc_cta_text": "We map your test menu, centers, and reports to a 30-day plan.",
+    "seo_title": "LIMS Go-Live in 30 Days: A Week-by-Week Plan for Labs %%sep%% %%sitename%%",
+    "seo_description": "A week-by-week plan to move a diagnostic lab from paper and spreadsheets to a LIMS in 30 days, with a go-live checklist you can tick off and copy.",
+    "focus_keyphrase": "LIMS go-live"
+  },
+  {
     "slug": "how-to-cut-lab-turnaround-time",
     "title": "How to cut turnaround time in a diagnostic lab",
     "excerpt": "A practical guide to measuring TAT the same way every time, finding where the hours really go, and catching delays before the doctor calls.",

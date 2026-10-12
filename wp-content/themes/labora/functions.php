@@ -19,7 +19,8 @@ require LABORA_DIR . '/inc/cleanup.php';  // remove WordPress output the site do
 require LABORA_DIR . '/inc/helpers.php';  // small template helpers (icons, asset URLs)
 require LABORA_DIR . '/inc/blog.php';     // the blog: query, covers, topics, table of contents, block styles, structured data
 require LABORA_DIR . '/inc/blog-fields.php'; // blog fields: post, Blog page, topics, authors (SCF)
-require LABORA_DIR . '/inc/blog-blocks.php'; // article blocks: key takeaways, notes, demo box, key numbers, before/after, questions
+require LABORA_DIR . '/inc/blog-blocks.php'; // article blocks: takeaways, note boxes, CTAs, numbers, before/after, comparison table, checklist, verdict, questions
+require LABORA_DIR . '/inc/feedback.php'; // "Was this article helpful?" under every post (REST endpoint, counts in the admin)
 require LABORA_DIR . '/inc/faq.php';      // FAQ entries shared by the FAQ page and the Trust Center (structured data, [labora_email])
 require LABORA_DIR . '/inc/page-fields.php'; // fields of the FAQ page and Trust Center templates
 require LABORA_DIR . '/inc/product.php';  // Platform module and Solution templates (cards, closing box), Redirect pages

@@ -102,6 +102,8 @@ function labora_template_assets( string $bundle ): void {
 	wp_enqueue_style( 'labora-wp', labora_asset( 'css/wp.css' ), array( 'labora-' . $bundle ), labora_asset_version( 'css/wp.css' ) );
 	if ( 'blog' === $bundle ) {
 		wp_enqueue_style( 'labora-wp-blog', labora_asset( 'css/wp-blog.css' ), array( 'labora-wp' ), labora_asset_version( 'css/wp-blog.css' ) );
+		// Article blocks that need script (checklist, "Was this article helpful?"); blog.min.js stays the HTML site's file
+		wp_enqueue_script( 'labora-wp-blog', labora_asset( 'js/wp-blog.min.js' ), array( 'labora-blog' ), labora_asset_version( 'js/wp-blog.min.js' ), array( 'strategy' => 'defer', 'in_footer' => true ) );
 	}
 }
 endif;

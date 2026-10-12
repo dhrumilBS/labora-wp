@@ -1,7 +1,7 @@
 // Minify the theme's and plugins' CSS and JS. Usage: npm install && npm run build
 // Same tools and versions as the HTML site's build (scripts/build.mjs there), so output matches it byte for byte.
 //   Theme:  assets/css/{styles,pages,blog}.css  -> .min.css
-//           assets/js/main.js (with Lenis ahead) and {pages,blog}.js -> .min.js
+//           assets/js/main.js (with Lenis ahead) and {pages,blog,wp-blog}.js -> .min.js
 //   TrustLayer Consent: assets/js/consent.js, assets/css/consent.css -> .min (loaded unless SCRIPT_DEBUG)
 import { readFileSync, writeFileSync } from 'node:fs';
 import CleanCSS from 'clean-css';
@@ -29,7 +29,7 @@ for (const name of ['styles', 'pages', 'blog']) css(`${theme}/css/${name}.css`, 
 const lenisPkg = JSON.parse(readFileSync('node_modules/lenis/package.json', 'utf8'));
 const lenis = readFileSync('node_modules/lenis/dist/lenis.min.js', 'utf8').replace(/\n?\/\/# sourceMappingURL=.*$/m, '');
 await js(`${theme}/js/main.js`, `${theme}/js/main.min.js`, `/*! Lenis ${lenisPkg.version} | MIT License | (c) darkroom.engineering */\n${lenis}\n`);
-for (const name of ['pages', 'blog']) await js(`${theme}/js/${name}.js`, `${theme}/js/${name}.min.js`);
+for (const name of ['pages', 'blog', 'wp-blog']) await js(`${theme}/js/${name}.js`, `${theme}/js/${name}.min.js`);
 
 css(`${tlc}/css/consent.css`, `${tlc}/css/consent.min.css`);
 await js(`${tlc}/js/consent.js`, `${tlc}/js/consent.min.js`);

@@ -11,11 +11,19 @@
  *     existing articles are replaced with the files' version (changes made in WordPress are lost)
  *
  * Article files are HTML with a few extra tags, converted to WordPress blocks:
- *   <p> <h2 id> <h3> <ul> <ol> <ul class="checklist"> <table> <blockquote>
+ *   <p> <h2 id> <h3> <ul> <ol> <ul class="checklist|ticks|crosses"> <table> <blockquote>
  *   <shot name="turnaround-tracking" alt="...">caption</shot>     product screenshot (added to the Media Library)
  *   <takeaways title=""><li>...</li></takeaways>                  Key takeaways block
- *   <callout type="tip|note|warning" title="...">text</callout>   Note, tip, or warning block
+ *   <callout type="tip|note|warning|important|example|learn" label="" title="..." link="" link-label="">text</callout>
+ *                                                                  Note box
  *   <demo title="..." label="" url="">text</demo>                Book a demo box
+ *   <cta title text points-label primary primary-url secondary secondary-url><point>..</point></cta>
+ *                                                                  Call-to-action banner
+ *   <ctable feature c1 c2 c3 c4 highlight="1-4" note><row feature="...">yes | no | partial | text</row></ctable>
+ *                                                                  Comparison table
+ *   <checklist title intro><item detail="">...</item></checklist> Interactive checklist
+ *   <verdict eyebrow title score score-label summary best-for cta cta-url><pro>..</pro><con>..</con></verdict>
+ *                                                                  Verdict box
  *   <stats note="..."><stat value="..." label="..."></stat></stats>   Key numbers block
  *   <compare before="Today" after="With Labora"><before>..</before><after>..</after></compare>
  *   <faq title=""><qa question="...">answer</qa></faq>             Questions and answers block
@@ -146,7 +154,8 @@ function labora_blog_seed_blocks( string $html ): string {
 				$out[] = $b( 'core/heading', 3 === $level ? array( 'level' => 3 ) : array(), "\n<{$el->tagName} class=\"wp-block-heading\"" . ( $id ? " id=\"{$id}\"" : '' ) . '>' . labora_blog_seed_inner( $el ) . "</{$el->tagName}>\n" );
 				break;
 			case 'ul':
-				$out[] = $list( $el, str_contains( $attr( 'class' ), 'checklist' ) ? array( 'className' => 'is-style-checklist' ) : array() );
+				$style = preg_match( '/\b(checklist|ticks|crosses)\b/',$attr( 'class' ), $m ) ? $m[1] : '';
+				$out[] = $list( $el, $style ? array( 'className' => "is-style-{$style}" ) : array() );
 				break;
 			case 'ol':
 				$out[] = $list( $el, array( 'ordered' => true ) );
@@ -179,11 +188,14 @@ function labora_blog_seed_blocks( string $html ): string {
 				$out[]            = labora_blog_seed_acf( 'labora-takeaways', $fields );
 				break;
 			case 'callout':
-				$out[] = labora_blog_seed_acf( 'labora-callout', array(
-					'type'  => array( $attr( 'type' ) ?: 'tip', 'field_lb_callout_type' ),
-					'title' => array( $attr( 'title' ), 'field_lb_callout_title' ),
-					'text'  => array( labora_blog_seed_inner( $el ), 'field_lb_callout_text' ),
-				) );
+				$out[] = labora_blog_seed_acf( 'labora-callout', array_filter( array(
+					'type'       => array( $attr( 'type' ) ?: 'tip', 'field_lb_callout_type' ),
+					'label'      => array( $attr( 'label' ), 'field_lb_callout_label' ),
+					'title'      => array( $attr( 'title' ), 'field_lb_callout_title' ),
+					'text'       => array( labora_blog_seed_inner( $el ), 'field_lb_callout_text' ),
+					'link_url'   => array( $attr( 'link' ), 'field_lb_callout_link_url' ),
+					'link_label' => array( $attr( 'link-label' ), 'field_lb_callout_link_label' ),
+				), fn( $v, $k ) => in_array( $k, array( 'type', 'title', 'text' ), true ) || '' !== $v[0], ARRAY_FILTER_USE_BOTH ) );
 				break;
 			case 'demo':
 				$out[] = labora_blog_seed_acf( 'labora-demo', array(
@@ -229,6 +241,79 @@ function labora_blog_seed_blocks( string $html ): string {
 				}
 				$fields['items'] = array( $i, 'field_lb_faq_items' );
 				$out[]           = labora_blog_seed_acf( 'labora-faq', $fields );
+				break;
+			case 'cta':
+				$fields = array(
+					'title'               => array( $attr( 'title' ), 'field_lb_cta_title' ),
+					'text'                => array( $attr( 'text' ), 'field_lb_cta_text' ),
+					'points_label'        => array( $attr( 'points-label' ), 'field_lb_cta_points_label' ),
+					'cta_primary_label'   => array( $attr( 'primary' ), 'field_lb_cta_primary_label' ),
+					'cta_primary_url'     => array( $attr( 'primary-url' ), 'field_lb_cta_primary_url' ),
+					'cta_secondary_label' => array( $attr( 'secondary' ), 'field_lb_cta_secondary_label' ),
+					'cta_secondary_url'   => array( $attr( 'secondary-url' ), 'field_lb_cta_secondary_url' ),
+				);
+				$i = 0;
+				foreach ( $el->getElementsByTagName( 'point' ) as $pt ) {
+					$fields[ "points_{$i}_text" ] = array( labora_blog_seed_inner( $pt ), 'field_lb_cta_point' );
+					$i++;
+				}
+				$fields['points'] = array( $i, 'field_lb_cta_points' );
+				$out[]            = labora_blog_seed_acf( 'labora-cta', $fields );
+				break;
+			case 'ctable':
+				$fields = array(
+					'feature_label' => array( $attr( 'feature' ), 'field_lb_table_feature' ),
+					'highlight'     => array( $attr( 'highlight' ) ?: '0', 'field_lb_table_highlight' ),
+					'note'          => array( $attr( 'note' ), 'field_lb_table_note' ),
+				);
+				for ( $c = 1; $c <= 4; $c++ ) {
+					$fields[ "col{$c}" ] = array( $attr( "c{$c}" ), "field_lb_table_col{$c}" );
+				}
+				$i = 0;
+				foreach ( $el->getElementsByTagName( 'row' ) as $row ) {
+					$fields[ "rows_{$i}_feature" ] = array( $row->getAttribute( 'feature' ), 'field_lb_table_row_feature' );
+					foreach ( array_slice( array_map( 'trim', explode( '|', $row->textContent ) ), 0, 4 ) as $c => $cell ) {
+						$fields[ "rows_{$i}_c" . ( $c + 1 ) ] = array( $cell, 'field_lb_table_row_c' . ( $c + 1 ) );
+					}
+					$i++;
+				}
+				$fields['rows'] = array( $i, 'field_lb_table_rows' );
+				$out[]          = labora_blog_seed_acf( 'labora-table', $fields );
+				break;
+			case 'checklist':
+				$fields = array(
+					'title' => array( $attr( 'title' ), 'field_lb_checklist_title' ),
+					'intro' => array( $attr( 'intro' ), 'field_lb_checklist_intro' ),
+				);
+				$i = 0;
+				foreach ( $el->getElementsByTagName( 'item' ) as $item ) {
+					$fields[ "items_{$i}_text" ]   = array( labora_blog_seed_inner( $item ), 'field_lb_checklist_item' );
+					$fields[ "items_{$i}_detail" ] = array( $item->getAttribute( 'detail' ), 'field_lb_checklist_detail' );
+					$i++;
+				}
+				$fields['items'] = array( $i, 'field_lb_checklist_items' );
+				$out[]           = labora_blog_seed_acf( 'labora-checklist', $fields );
+				break;
+			case 'verdict':
+				$fields = array(
+					'eyebrow'           => array( $attr( 'eyebrow' ), 'field_lb_verdict_eyebrow' ),
+					'title'             => array( $attr( 'title' ), 'field_lb_verdict_title' ),
+					'score'             => array( $attr( 'score' ), 'field_lb_verdict_score' ),
+					'score_label'       => array( $attr( 'score-label' ), 'field_lb_verdict_score_label' ),
+					'summary'           => array( $attr( 'summary' ), 'field_lb_verdict_summary' ),
+					'best_for'          => array( $attr( 'best-for' ), 'field_lb_verdict_best_for' ),
+					'verdict_cta_label' => array( $attr( 'cta' ), 'field_lb_verdict_cta_label' ),
+					'verdict_cta_url'   => array( $attr( 'cta-url' ), 'field_lb_verdict_cta_url' ),
+				);
+				foreach ( array( 'pros' => 'pro', 'cons' => 'con' ) as $list => $tag ) {
+					$i = 0;
+					foreach ( $el->getElementsByTagName( $tag ) as $line ) {
+						$fields[ "{$list}_{$i}_text" ] = array( labora_blog_seed_inner( $line ), "field_lb_{$list}_text" );
+						$i++;
+					}
+					$fields[ $list ] = array( $i, "field_lb_{$list}" );
+				}
+				$out[] = labora_blog_seed_acf( 'labora-verdict', $fields );
 				break;
 			default:
 				WP_CLI::warning( "Unknown element <{$el->tagName}> left out." );

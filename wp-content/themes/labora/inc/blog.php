@@ -276,12 +276,16 @@ function labora_related_posts( $post, int $n = 3 ): array {
 
 add_action( 'init', function () {
 	register_block_style( 'core/list', array( 'name' => 'checklist', 'label' => __( 'Checklist', 'labora' ) ) );
+	register_block_style( 'core/list', array( 'name' => 'ticks', 'label' => __( 'Ticks', 'labora' ) ) );
+	register_block_style( 'core/list', array( 'name' => 'crosses', 'label' => __( 'Crosses', 'labora' ) ) );
 	register_block_style( 'core/table', array( 'name' => 'data-table', 'label' => __( 'Data table', 'labora' ) ) );
 } );
 
 /**
  * Give those blocks the HTML site's markup, so its CSS applies as it is:
  *   list "Checklist"   <ul class="checklist">
+ *   list "Ticks"       <ul class="list-ticks">   (things to do; wp-blog.css)
+ *   list "Crosses"     <ul class="list-crosses"> (mistakes to avoid; wp-blog.css)
  *   table "Data table" <div class="table-wrap"><table class="data-table">, each cell labeled with its column
  *                      (on phones every row becomes a small card)
  */
@@ -289,6 +293,9 @@ add_filter( 'render_block', function ( string $html, array $block ) {
 	$class = (string) ( $block['attrs']['className'] ?? '' );
 	if ( 'core/list' === $block['blockName'] && str_contains( $class, 'is-style-checklist' ) ) {
 		return preg_replace( '/<(ul|ol)\b([^>]*)class="/', '<$1$2class="checklist ', $html, 1 );
+	}
+	if ( 'core/list' === $block['blockName'] && preg_match( '/is-style-(ticks|crosses)/', $class, $style ) ) {
+		return preg_replace( '/<(ul|ol)\b([^>]*)class="/', '<$1$2class="list-' . $style[1] . ' ', $html, 1 );
 	}
 	if ( 'core/table' === $block['blockName'] && str_contains( $class, 'is-style-data-table' ) ) {
 		$heads = array();
@@ -318,6 +325,21 @@ add_filter( 'render_block', function ( string $html, array $block ) {
 add_action( 'after_setup_theme', function () {
 	add_theme_support( 'editor-styles' );
 	add_editor_style( array( 'assets/css/styles.min.css', 'assets/css/blog.min.css', 'assets/css/wp-blog.css', 'assets/css/editor.css' ) );
+} );
+
+// The icon sprite inside the editor canvas, so the article blocks' icons (<use href="#i-...">) show while writing
+add_action( 'enqueue_block_assets', function () {
+	if ( ! is_admin() ) {
+		return;
+	}
+	ob_start();
+	get_template_part( 'template-parts/sprite' );
+	wp_register_script( 'labora-editor-sprite', false, array(), null, array( 'in_footer' => true ) ); // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion
+	wp_enqueue_script( 'labora-editor-sprite' );
+	wp_add_inline_script( 'labora-editor-sprite', sprintf(
+		'(function(s){function add(){if(!document.body){return setTimeout(add,50);}if(!document.getElementById("labora-sprite")){var d=document.createElement("div");d.id="labora-sprite";d.innerHTML=s;document.body.prepend(d);}}add();})(%s);',
+		wp_json_encode( trim( (string) ob_get_clean() ) )
+	) );
 } );
 
 /* ---------- Search engines ---------- */

@@ -28,3 +28,12 @@ body { background: #fff; color: var(--text); font-family: var(--font); }
 .is-root-container .is-style-checklist li { padding: .95rem 1.1rem .95rem 3.1rem; border-top: 1px solid var(--line); font-size: 1.02rem; }
 .is-root-container .is-style-checklist li:first-child { border-top: 0; }
 .is-root-container .is-style-checklist li::before { left: 1.1rem; top: 1.15rem; width: 18px; height: 18px; border-radius: 6px; background: #fff; border: 1.5px solid var(--line-strong); }
+
+/* Article blocks in the editor: list items full width (the editor centers them otherwise), buttons keep their colors */
+.is-root-container .wp-block-list > li { justify-self: stretch; width: 100%; }
+.is-root-container a.btn { text-decoration: none; }
+.is-root-container a.btn--primary { color: #fff; }
+.is-root-container .final-box a.btn--primary { color: var(--ink); }
+.is-root-container .final-box a.btn--outline-light { color: #fff; }
+.is-root-container a.link-arrow { text-decoration: none; }
+.is-root-container .is-style-data-table :is(th, td) { border-inline: 0; border-top: 0; }

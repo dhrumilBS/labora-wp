@@ -3,7 +3,7 @@
  * Single post: the HTML site's article layout.
  *   hero       breadcrumbs, topic, title, excerpt, byline (with "Updated"), "Reviewed by", share, cover
  *   body       table of contents (from the <h2> headings) with a demo box, then the text and article blocks
- *   footer     topics, author box, previous / next
+ *   footer     "Was this article helpful?" (inc/feedback.php), topics, author box, previous / next
  *   after      related posts ("Keep reading"), newsletter
  * Fields: "Article" box on the post (inc/blog-fields.php). Structured data: Yoast + inc/blog.php.
  *
@@ -85,6 +85,7 @@ while ( have_posts() ) :
     <div class="prose">
       <?php echo $labora_html; // phpcs:ignore WordPress.Security.EscapeOutput -- the_content ?>
       <?php wp_link_pages( array( 'before' => '<nav class="pager" aria-label="' . esc_attr__( 'Article pages', 'labora' ) . '">', 'after' => '</nav>' ) ); ?>
+      <?php labora_helpful_box(); ?>
 
       <footer class="article-foot">
 <?php if ( $labora_cats || array_filter( $labora_tags ) ) : ?>
