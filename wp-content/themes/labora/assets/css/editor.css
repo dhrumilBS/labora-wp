@@ -37,3 +37,5 @@ body { background: #fff; color: var(--text); font-family: var(--font); }
 .is-root-container .final-box a.btn--outline-light { color: #fff; }
 .is-root-container a.link-arrow { text-decoration: none; }
 .is-root-container .is-style-data-table :is(th, td) { border-inline: 0; border-top: 0; }
+/* Links in article block previews only select the block (inc/blog.php); edit them in the block's settings */
+.is-root-container [data-type^="acf/"] a { cursor: default; }

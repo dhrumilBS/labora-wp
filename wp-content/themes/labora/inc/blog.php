@@ -340,6 +340,9 @@ add_action( 'enqueue_block_assets', function () {
 		'(function(s){function add(){if(!document.body){return setTimeout(add,50);}if(!document.getElementById("labora-sprite")){var d=document.createElement("div");d.id="labora-sprite";d.innerHTML=s;document.body.prepend(d);}}add();})(%s);',
 		wp_json_encode( trim( (string) ob_get_clean() ) )
 	) );
+	// Article block previews are the site's real markup: a click on a link or button in them selects the block
+	// instead of opening the link inside the editor (links are edited in the block's settings on the right)
+	wp_add_inline_script( 'labora-editor-sprite', '(function(){function stop(e){var a=e.target.closest&&e.target.closest("[data-type^=\'acf/\'] a, [data-type^=\'acf/\'] form");if(a){e.preventDefault();}}document.addEventListener("click",stop,true);document.addEventListener("auxclick",stop,true);document.addEventListener("submit",stop,true);})();' );
 } );
 
 /* ---------- Search engines ---------- */
