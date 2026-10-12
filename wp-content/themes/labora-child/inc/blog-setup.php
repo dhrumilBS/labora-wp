@@ -432,6 +432,9 @@ WP_CLI::add_command( 'labora blog-setup', function ( $args, $assoc ) {
 		}
 		$content = labora_blog_seed_blocks( (string) file_get_contents( "{$dir}/{$p['slug']}.html" ) );
 		$date    = $p['date'] . ' 09:00:00';
+		if ( strtotime( $date ) > strtotime( current_time( 'mysql' ) ) ) {
+			$date = current_time( 'mysql' ); // dated today, before 09:00: publish now rather than schedule it
+		}
 		$pid     = wp_insert_post( array(
 			'ID'             => $existing ? $existing->ID : 0,
 			'post_type'      => 'post',

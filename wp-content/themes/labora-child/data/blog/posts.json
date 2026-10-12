@@ -1,5 +1,20 @@
 [
   {
+    "slug": "choosing-lims-software",
+    "title": "Choosing the right LIMS software for your laboratory",
+    "excerpt": "A practical buying guide for growing U.S. testing labs.",
+    "date": "2026-10-12",
+    "topics": [
+      "guides"
+    ],
+    "cover_screen": "roles-access",
+    "toc_cta_title": "Bring one sample workflow",
+    "toc_cta_text": "We will map it in Labora with you, from intake to final report.",
+    "seo_title": "How to Choose the Right LIMS Software for Your Laboratory",
+    "seo_description": "Choosing LIMS software? Learn how growing U.S. testing labs can compare systems based on workflow fit, sample traceability, reporting, integrations, implementation, and total cost.",
+    "focus_keyphrase": "LIMS software"
+  },
+  {
     "slug": "lims-go-live-plan",
     "title": "Going live with a LIMS in 30 days: a week-by-week plan for diagnostic labs",
     "excerpt": "How to move one center off paper registers and spreadsheets in a month: clean data, set up roles and reports, run in parallel, and stop paper on a fixed date.",
