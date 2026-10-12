@@ -1,0 +1,44 @@
+{
+  "template": "page-templates/faq.php",
+  "title": "FAQ",
+  "slug": "faq",
+  "seo_title": "Laboratory Management Software FAQ %%sep%% %%sitename%%",
+  "seo_description": "Answers to common questions about Labora: sample tracking, turnaround time, pathology and radiology reporting, security, setup, data migration, and pricing.",
+  "fields": {
+    "hero_eyebrow": "FAQ",
+    "hero_title": "Questions, answered",
+    "hero_lead": "Everything lab owners, managers, and IT teams ask us about Labora, from features and security to setup and pricing.",
+    "help_title": "Can't find an answer?",
+    "help_text": "Our team replies to every question.",
+    "help_label": "Contact us",
+    "help_url": "/contact/",
+    "empty_title": "No questions match that search",
+    "empty_text": "Try a different word, or ask our team directly.",
+    "cards": [
+      {
+        "dark": 1,
+        "url": "/#demo",
+        "icon": "calendar",
+        "title": "Book a demo",
+        "text": "See Labora set up with your own tests and price list.",
+        "label": "Book a demo"
+      },
+      {
+        "dark": 0,
+        "url": "/security/",
+        "icon": "shield",
+        "title": "Trust Center",
+        "text": "How we protect patient data, and our compliance program.",
+        "label": "Visit the Trust Center"
+      },
+      {
+        "dark": 0,
+        "url": "/blog/",
+        "icon": "book",
+        "title": "Guides and articles",
+        "text": "Practical advice on turnaround, sample tracking, and reporting.",
+        "label": "Read the blog"
+      }
+    ]
+  }
+}

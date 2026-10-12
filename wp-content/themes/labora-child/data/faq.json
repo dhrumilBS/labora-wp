@@ -1,0 +1,293 @@
+{
+  "topics": [
+    {
+      "slug": "general",
+      "name": "General",
+      "icon": "flask",
+      "intro": "What Labora is and who it is for.",
+      "order": 1
+    },
+    {
+      "slug": "product",
+      "name": "Product & features",
+      "icon": "layers",
+      "intro": "Samples, turnaround, reporting, and home collection.",
+      "order": 2
+    },
+    {
+      "slug": "security",
+      "name": "Security & privacy",
+      "icon": "shield",
+      "intro": "How Labora protects patient data and records every action.",
+      "order": 3
+    },
+    {
+      "slug": "implementation",
+      "name": "Implementation",
+      "icon": "sliders",
+      "intro": "Setup, data migration, integrations, and training.",
+      "order": 4
+    },
+    {
+      "slug": "pricing",
+      "name": "Pricing & billing",
+      "icon": "dollar",
+      "intro": "How plans are put together.",
+      "order": 5
+    },
+    {
+      "slug": "support",
+      "name": "Support",
+      "icon": "message",
+      "intro": "Getting help when you need it.",
+      "order": 6
+    }
+  ],
+  "entries": [
+    {
+      "anchor": "q-what-is-laboratory-management-software",
+      "question": "What is laboratory management software?",
+      "answer": "<p>Laboratory management software runs the daily operations of a lab in one system: patient registration, sample collection and tracking, testing, report writing and approval, delivery to patients and doctors, and billing. For diagnostic labs it replaces paper registers, spreadsheets, and separate tools for pathology, radiology, and accounts.</p>",
+      "topic": "general",
+      "order": 101,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-what-is-the-difference-between-lims-lis-and-laboratory-manag",
+      "question": "What is the difference between LIMS, LIS, and laboratory management software?",
+      "answer": "<p>A LIS (laboratory information system) is usually patient-centered and built for clinical and diagnostic labs. A LIMS is usually sample-centered and common in research and industrial labs. Labora is laboratory management software for diagnostic labs: it covers what a LIS does and adds radiology reporting, home collection, multi-center management, and business insights.</p>",
+      "topic": "general",
+      "order": 102,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-who-is-labora-built-for",
+      "question": "Who is Labora built for?",
+      "answer": "<p>Labora is built for diagnostic labs: independent pathology labs, imaging and diagnostic centers, multi-center lab chains, hospital laboratories, home collection services, and cardiology and ECG clinics.</p><p>Front desk staff, phlebotomists, technicians, reporting doctors, and owners all work in the same patient case, each with access suited to their role.</p>",
+      "topic": "general",
+      "order": 103,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-labora-handle-both-pathology-and-radiology",
+      "question": "Can Labora handle both pathology and radiology?",
+      "answer": "<p>Yes. Pathology, ultrasound, X-ray, CT, MRI, ECG, 2D echo, and treadmill reporting all happen in the same system, on the same patient case, so a patient with a blood test and a scan has one record and one bill.</p>",
+      "topic": "general",
+      "order": 104,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-how-does-labora-track-samples",
+      "question": "How does Labora track samples?",
+      "answer": "<p>Each tube gets a barcode. Scanning it matches the tube to the right patient and test, records each step (registered, collected, received, in testing, reported), and shows the exact rack and slot where it is stored. Samples that cannot be used, for example hemolysed ones, are held or rejected with the reason recorded.</p>",
+      "topic": "product",
+      "order": 201,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-how-does-turnaround-time-tat-tracking-work",
+      "question": "How does turnaround time (TAT) tracking work?",
+      "answer": "<p>Every case has a target time. Labora shows the time elapsed against that target, flags cases that are at risk or past target, and sends alerts so the team can act. Delays are logged with a reason, and you can see the share of reports delivered on time.</p>",
+      "topic": "product",
+      "order": 202,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-doctors-sign-reports-digitally",
+      "question": "Can doctors sign reports digitally?",
+      "answer": "<p>Yes. Reports are released only after an authorized doctor signs them, and the signed report can be sent to the patient and the referring doctor right away. Every signature is recorded in the audit trail with the user and time.</p>",
+      "topic": "product",
+      "order": 203,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-does-labora-support-home-sample-collection",
+      "question": "Does Labora support home sample collection?",
+      "answer": "<p>Yes. You can assign bookings to phlebotomists, follow visits on a live map, and keep patients updated automatically, so collected samples move straight into tracking when they reach the lab.</p>",
+      "topic": "product",
+      "order": 204,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-i-manage-multiple-centers-and-collection-points",
+      "question": "Can I manage multiple centers and collection points?",
+      "answer": "<p>Yes. Branches, collection centers, and home collection run in one system. You can switch between centers and compare activity and revenue across all of them.</p>",
+      "topic": "product",
+      "order": 205,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-what-business-reports-does-labora-provide",
+      "question": "What business reports does Labora provide?",
+      "answer": "<p>Labora shows billing, collections, and outstanding dues across your centers, compares periods, and highlights which referring doctors and partner labs drive your business.</p>",
+      "topic": "product",
+      "order": 206,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-how-does-labora-protect-patient-data",
+      "question": "How does Labora protect patient data?",
+      "answer": "<p>Access is role-based, every action is attributed to a named user and recorded in an audit trail, and reports are released only after an authorized doctor signs them. Records are structured, and changes are controlled, so results stay consistent.</p><p>Read the full overview in our <a href=\"/security/\">Trust Center</a>.</p>",
+      "topic": "security",
+      "order": 301,
+      "show_on": [
+        "faq",
+        "security"
+      ]
+    },
+    {
+      "anchor": "q-who-can-see-patient-records",
+      "question": "Who can see patient records?",
+      "answer": "<p>Each user sees what their role needs. Front desk, technicians, doctors, and accounts teams can be given different access, and you decide which roles can view, edit, sign, or bill.</p>",
+      "topic": "security",
+      "order": 302,
+      "show_on": [
+        "faq",
+        "security"
+      ]
+    },
+    {
+      "anchor": "q-is-every-change-to-a-record-tracked",
+      "question": "Is every change to a record tracked?",
+      "answer": "<p>Yes. Registrations, edits, signatures, and payments are recorded with the user and the time, so you can always answer who did what, and when.</p>",
+      "topic": "security",
+      "order": 303,
+      "show_on": [
+        "faq",
+        "security"
+      ]
+    },
+    {
+      "anchor": "q-is-labora-hipaa-compliant",
+      "question": "Is Labora HIPAA compliant?",
+      "answer": "<p>We are building our compliance program for US healthcare customers. The current status of each part of the program is published in the <a href=\"/security/#compliance\">Trust Center</a>, and our team can walk you through your specific requirements during a demo.</p>",
+      "topic": "security",
+      "order": 304,
+      "show_on": [
+        "faq",
+        "security"
+      ]
+    },
+    {
+      "anchor": "q-how-do-i-report-a-security-issue",
+      "question": "How do I report a security issue?",
+      "answer": "<p>Email {security_email_link} with the details. We review every report and keep you updated. See our <a href=\"/security/#disclosure\">responsible disclosure guidelines</a>.</p>",
+      "topic": "security",
+      "order": 305,
+      "show_on": [
+        "faq",
+        "security"
+      ]
+    },
+    {
+      "anchor": "q-how-long-does-it-take-to-get-started",
+      "question": "How long does it take to get started?",
+      "answer": "<p>Rollout is guided, one center at a time, so your team keeps working while Labora is set up. Most of the work is configuring your tests, price list, and report templates, which we help with.</p>",
+      "topic": "implementation",
+      "order": 401,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-you-move-our-existing-data",
+      "question": "Can you move our existing data?",
+      "answer": "<p>Yes. We migrate your tests, price lists, report templates, and referring doctors for you, so you start with your own setup instead of a blank system.</p>",
+      "topic": "implementation",
+      "order": 402,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-do-you-train-our-team",
+      "question": "Do you train our team?",
+      "answer": "<p>Yes. Training covers every role: front desk, phlebotomists, technicians, and pathologists, so each person learns the parts of Labora they use every day.</p>",
+      "topic": "implementation",
+      "order": 403,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-labora-connect-with-lab-analyzers-and-other-systems",
+      "question": "Can Labora connect with lab analyzers and other systems?",
+      "answer": "<p>Labora is designed to connect with lab instruments and other systems through its integration layer and API. Which connections are available depends on your analyzers and setup, so the best next step is to review your equipment list with our team in a demo.</p>",
+      "topic": "implementation",
+      "order": 404,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-labora-be-configured-for-my-lab-s-tests-and-workflows",
+      "question": "Can Labora be configured for my lab's tests and workflows?",
+      "answer": "<p>Yes. Tests, report templates, turnaround targets, centers, user roles, and permissions are configured to match how your lab works, and the setup can grow as you add centers and services.</p>",
+      "topic": "implementation",
+      "order": 405,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-how-is-labora-priced",
+      "question": "How is Labora priced?",
+      "answer": "<p>Pricing depends on the number of centers, users, and modules you need. <a href=\"/#demo\">Book a demo</a> and we will put together a quote for your lab.</p>",
+      "topic": "pricing",
+      "order": 501,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-can-we-start-with-one-center-and-add-more-later",
+      "question": "Can we start with one center and add more later?",
+      "answer": "<p>Yes. Many labs start with one center and add the rest once the team is comfortable. Your setup, tests, and templates carry over to each new center.</p>",
+      "topic": "pricing",
+      "order": 502,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-how-do-i-get-help",
+      "question": "How do I get help?",
+      "answer": "<p>Contact our team from the <a href=\"/contact/\">contact page</a>, or book a call. Implementation questions are handled by the team that set up your lab.</p>",
+      "topic": "support",
+      "order": 601,
+      "show_on": [
+        "faq"
+      ]
+    },
+    {
+      "anchor": "q-where-can-i-learn-more-about-running-a-faster-lab",
+      "question": "Where can I learn more about running a faster lab?",
+      "answer": "<p>Our <a href=\"/blog/\">blog</a> has practical guides on turnaround time, sample tracking, reporting, and growing a multi-center lab.</p>",
+      "topic": "support",
+      "order": 602,
+      "show_on": [
+        "faq"
+      ]
+    }
+  ]
+}

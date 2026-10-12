@@ -1,0 +1,212 @@
+{
+  "template": "page-templates/trust-center.php",
+  "title": "Trust Center",
+  "slug": "security",
+  "seo_title": "Security and Trust Center %%sep%% %%sitename%%",
+  "seo_description": "How Labora protects patient data for diagnostic labs: role-based access, audit trails, signed report releases, secured cloud infrastructure, and our compliance program.",
+  "fields": {
+    "hero_eyebrow": "Trust Center",
+    "hero_title": "Security built for patient data",
+    "hero_lead": "Every action in Labora is attributed and recorded, access follows each person's role, and every report is released by an authorized doctor. Here is how we protect your lab's data, and what we are building next.",
+    "hero_btn1_label": "Request security details",
+    "hero_btn1_url": "#documentation",
+    "hero_btn2_label": "Report a vulnerability",
+    "hero_btn2_url": "#disclosure",
+    "marks": [
+      {
+        "icon": "users",
+        "badge": "",
+        "title": "Role-based access",
+        "note": "Every user, every center",
+        "highlight": 0
+      },
+      {
+        "icon": "history",
+        "badge": "",
+        "title": "Full audit trail",
+        "note": "Who, what, and when",
+        "highlight": 0
+      },
+      {
+        "icon": "edit",
+        "badge": "",
+        "title": "Signed releases",
+        "note": "Authorized doctors only",
+        "highlight": 0
+      },
+      {
+        "icon": "cloud",
+        "badge": "",
+        "title": "Secured cloud",
+        "note": "Monitored, backed up",
+        "highlight": 0
+      },
+      {
+        "icon": "",
+        "badge": "HIPAA",
+        "title": "HIPAA program",
+        "note": "In progress",
+        "highlight": 1
+      },
+      {
+        "icon": "",
+        "badge": "SOC 2",
+        "title": "SOC 2 Type II",
+        "note": "Planned",
+        "highlight": 0
+      }
+    ],
+    "updated": "20261005",
+    "nav": [
+      {
+        "anchor": "overview",
+        "label": "Overview"
+      },
+      {
+        "anchor": "access",
+        "label": "Access control"
+      },
+      {
+        "anchor": "audit",
+        "label": "Audit trail"
+      },
+      {
+        "anchor": "protection",
+        "label": "Protection"
+      },
+      {
+        "anchor": "compliance",
+        "label": "Compliance"
+      },
+      {
+        "anchor": "shared",
+        "label": "Shared responsibility"
+      },
+      {
+        "anchor": "disclosure",
+        "label": "Disclosure"
+      },
+      {
+        "anchor": "security-faq",
+        "label": "FAQ"
+      }
+    ],
+    "overview_title": "Security is part of the workflow, not an add-on",
+    "overview_text": "The controls are built into the screens your team already uses, from the front desk to the reporting doctor.",
+    "overview_cards": [
+      {
+        "title": "Every action has a name on it",
+        "text": "Registrations, results, corrections, and signatures are recorded against a named user and a time, so every report can be traced from the front desk to the doctor."
+      },
+      {
+        "title": "Accountability at every step",
+        "text": "Each step in the life of a sample leaves a record, and nothing is overwritten silently."
+      },
+      {
+        "title": "Access built around roles",
+        "text": "Front desk, technicians, doctors, and accounts each see what their job needs. Your admins decide who gets which role."
+      },
+      {
+        "title": "Safeguards for patient results",
+        "text": "Results reach patients and referring doctors only after review and sign-off, with every change explained."
+      }
+    ],
+    "access_kicker": "Access control",
+    "access_title": "Everyone sees what their role needs",
+    "access_text": "Permissions follow each person's job, so the front desk can register patients without seeing results, and only authorized doctors can sign and release reports.",
+    "access_checks": "Roles for front desk, technicians, doctors, accounts, and admins\nAccess configured per role and per center\nReport release limited to authorized doctors",
+    "access_note": "Example configuration. Roles and permissions are set up to match how your lab works.",
+    "audit_kicker": "Audit trail",
+    "audit_title": "Know who touched every record, and when",
+    "audit_text": "Every registration, result, correction, signature, and delivery is recorded against a named user and a time, so you can answer any question about a report from one place.",
+    "audit_checks": "User and time on every action\nEarlier and new values kept for every correction\nSigned releases you can trace back to the doctor",
+    "protection_title": "Protection in practice",
+    "protection_text": "How patient data stays accurate, attributable, and visible only to the right people, on infrastructure your lab does not have to run.",
+    "protection_cards": [
+      {
+        "icon": "lock",
+        "title": "Access",
+        "items": "Individual sign-in for every user\nPermissions by role\nAccess by center\nReport release limited to doctors"
+      },
+      {
+        "icon": "history",
+        "title": "Records",
+        "items": "User and time on every action\nEarlier and new values kept on edits\nStructured, consistent records\nSigned releases you can trace"
+      },
+      {
+        "icon": "eye",
+        "title": "Visibility",
+        "items": "Recent activity across users\nActivity across every center\nFull history for each case\nReview by the people responsible"
+      },
+      {
+        "icon": "cloud",
+        "title": "Infrastructure",
+        "items": "Secured cloud hosting\nMonitored infrastructure\nRegular backups\nNo servers to run in your lab"
+      }
+    ],
+    "comp_title": "Our compliance program",
+    "comp_text": "We are building our program for US healthcare customers and publish where each part stands, so your team never has to guess.",
+    "comp_intro": "The program covers:",
+    "comp_items": "Administrative safeguards for protected health information\nPhysical and technical safeguards for systems that hold patient data\nAn independent audit of our security controls\nRegular testing by an outside security firm\nWritten policies your compliance team can review",
+    "comp_note": "Reports will be shared with customers under NDA as each item is completed. Need details for a vendor review now? <a href=\"#documentation\">Request security details</a>.",
+    "comp_status_title": "Program status",
+    "comp_status": [
+      {
+        "badge": "HIPAA",
+        "title": "HIPAA program",
+        "text": "Administrative, physical, and technical safeguards for protected health information.",
+        "status": "progress"
+      },
+      {
+        "badge": "SOC 2",
+        "title": "SOC 2 Type II",
+        "text": "An independent audit of our security controls.",
+        "status": "planned"
+      },
+      {
+        "badge": "PT",
+        "title": "Independent penetration test",
+        "text": "Regular testing by an outside security firm, with findings tracked to resolution.",
+        "status": "planned"
+      }
+    ],
+    "shared_title": "Security is a shared responsibility",
+    "shared_text": "Labora secures the platform. Your lab controls who gets access and how reports are shared. Here is who does what.",
+    "shared_ours_title": "Labora handles",
+    "shared_ours_items": "Securing the platform and the cloud infrastructure it runs on\nRecording every action in the audit trail\nEnforcing role-based permissions and report sign-off rules\nBackups of your lab's records\nFixing reported vulnerabilities and keeping you informed",
+    "shared_lab_title": "Your lab controls",
+    "shared_lab_items": "Deciding who gets an account and which role each person has\nRemoving access promptly when someone leaves\nKeeping sign-in details private and not sharing accounts\nReviewing activity and audit trails for your centers\nFollowing your own policies for printing and sharing reports",
+    "disc_title": "Responsible disclosure",
+    "disc_text": "If you find a security issue in Labora, please tell us privately first so we can fix it before it affects any lab.",
+    "disc_steps": [
+      {
+        "title": "Report",
+        "text": "Email {security_email} with what you found and how to reproduce it."
+      },
+      {
+        "title": "Acknowledge",
+        "text": "We confirm receipt and keep you updated while we investigate."
+      },
+      {
+        "title": "Fix",
+        "text": "We validate the issue, fix it, and verify the fix."
+      },
+      {
+        "title": "Close",
+        "text": "We let you know when it is resolved and thank you for helping."
+      }
+    ],
+    "disc_guidelines_title": "Guidelines for researchers",
+    "disc_guidelines": "Only test accounts you own or have permission to use.\nNever access, change, or keep patient data that is not yours. Stop and report as soon as you see any.\nDo not run tests that could disrupt service, such as denial of service or heavy automated scanning.\nGive us reasonable time to fix the issue before sharing it publicly.",
+    "disc_contact_title": "Report a vulnerability",
+    "disc_contact_text": "Include the steps to reproduce, the affected page or feature, and how to reach you.",
+    "faq_title": "Security questions",
+    "faq_text": "Common questions from lab owners and IT teams.",
+    "faq_link_label": "See all FAQs",
+    "cta_title": "Questions about security?",
+    "cta_text": "Our team can walk your IT or compliance lead through how Labora handles access, audit trails, and patient data, and help with your security questionnaire.",
+    "cta_btn1_label": "Request security details",
+    "cta_btn2_label": "Book a demo",
+    "cta_btn2_url": "/#demo"
+  }
+}

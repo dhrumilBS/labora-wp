@@ -43,6 +43,7 @@ wp labora seed-menus                                 # menus and footer widgets 
 wp plugin activate lead-guard-cf7 && wp labora forms-setup   # the CF7 forms
 wp plugin activate trustlayer-consent                          # cookie consent (settings: TrustLayer)
 wp labora blog-setup                                          # blog URLs, Blog page, author, topics, the 8 articles
+wp labora pages-setup                                         # FAQ entries, FAQ page, Trust Center (and later fixed-layout pages)
 ```
 
 ## Backups
