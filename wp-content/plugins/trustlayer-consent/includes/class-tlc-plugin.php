@@ -23,6 +23,7 @@ final class TLC_Plugin {
 			TLC_Frontend::init();
 			TLC_Blocker::init();
 			TLC_Shortcodes::init();
+			TLC_Integrations::init(); // plugins with cookies of their own (HandL UTM Grabber)
 		}
 
 		if ( is_admin() ) {

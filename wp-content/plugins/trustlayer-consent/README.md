@@ -68,6 +68,12 @@ Models:
 | `notice` | everything runs | Customize, OK | sale/sharing categories off, saved, no banner |
 | `none` | everything runs | no banner (preferences still open from links) | sale/sharing categories off |
 
+## Integrations
+
+- **HandL UTM Grabber (v3):** it sets no cookies on the server while TrustLayer is active, and starts in the browser once
+  its category is allowed (Analytics by default; filter `tlc_handl_category`), straight away in opt-out regions.
+  Declare its cookies (for example `user_agent`) under that category so they are listed and removed when it is off.
+
 ## For developers
 
 ### Holding back code
