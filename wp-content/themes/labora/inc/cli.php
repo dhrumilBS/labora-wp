@@ -32,6 +32,9 @@ function labora_cli_menu_data(): array {
 		array( 'Reports & e-signature', 'platform/reports-e-signature/', 'Sign and send in one click', 'edit' ),
 		array( 'Business insights', 'platform/business-insights/', 'Revenue, dues, and referrals', 'chart' ),
 	);
+	// The hubs (page-templates/hub.php), last in each dropdown and footer column
+	$all_modules   = array( 'All modules', 'platform/', 'Every module on one page', 'grid' );
+	$all_solutions = array( 'All solutions', 'solutions/', '', 'grid' );
 	$solutions = array(
 		array( 'Pathology labs', 'solutions/pathology-labs/', '', 'flask' ),
 		array( 'Diagnostic & imaging centers', 'solutions/diagnostic-imaging-centers/', '', 'scan' ),
@@ -44,15 +47,15 @@ function labora_cli_menu_data(): array {
 
 	return array(
 		'primary' => array( 'Primary', array(
-			array( 'Platform', '#', '', '', $platform ),
-			array( 'Solutions', '#', '', '', $solutions ),
+			array( 'Platform', '#', '', '', array_merge( $platform, array( $all_modules ) ) ),
+			array( 'Solutions', '#', '', '', array_merge( $solutions, array( $all_solutions ) ) ),
 			array( 'Features', '#home-collection', '', '' ),
 			array( 'Resources', 'blog/', '', '' ),
 			array( 'Pricing', 'pricing/', '', '' ),
 		) ),
 		// The footer lists the first eight platform pages (no Business insights), as on the HTML site
-		'footer_platform'  => array( 'Platform', $plain( array_slice( $platform, 0, 8 ) ) ),
-		'footer_solutions' => array( 'Solutions', $plain( $solutions ) ),
+		'footer_platform'  => array( 'Platform', $plain( array_merge( array_slice( $platform, 0, 8 ), array( $all_modules ) ) ) ),
+		'footer_solutions' => array( 'Solutions', $plain( array_merge( $solutions, array( $all_solutions ) ) ) ),
 		'footer_resources' => array( 'Resources', array(
 			array( 'Resource center', 'blog/', '', '' ),
 			array( 'Blog', 'blog/', '', '' ),
