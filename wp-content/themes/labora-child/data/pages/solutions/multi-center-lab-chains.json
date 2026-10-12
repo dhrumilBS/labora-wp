@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Multi-center lab chains",
+  "slug": "multi-center-lab-chains",
+  "parent": "solutions",
+  "order": 3,
+  "seo_title": "Software for Multi-center lab chains %%sep%% %%sitename%%",
+  "seo_description": "Software for multi-center lab chains: run branches and collection centers in one system, compare revenue and turnaround, and keep one set of roles and permissions.",
+  "fields": {
+    "icon": "building",
+    "eyebrow": "For multi-center lab chains",
+    "hero_title": "Run every center as one lab",
+    "hero_lead": "Branches, collection centers, and home collection in one system. Switch between centers, compare activity and revenue, and keep the same roles and permissions everywhere.",
+    "screen": "business-insights",
+    "screen_alt": "Labora screen used by multi-center lab chains",
+    "pains": [
+      {
+        "problem": "Each branch runs its own way",
+        "solution": "One setup for tests, price lists, templates, and roles across every center."
+      },
+      {
+        "problem": "No single view of the business",
+        "solution": "Revenue, dues, and referrals by center, day, and doctor."
+      },
+      {
+        "problem": "Turnaround varies by location",
+        "solution": "Compare on-time rates across centers and find where time is lost."
+      }
+    ],
+    "modules": [
+      "@page:platform/centers",
+      "@page:platform/business-insights",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/home-collection"
+    ],
+    "cta_title": "See Labora set up for multi-center lab chains",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

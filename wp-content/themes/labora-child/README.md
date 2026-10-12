@@ -63,6 +63,22 @@ All three pages send FAQ structured data built from exactly the questions they s
 design (parent `template-parts/trust/`). Content source: `data/faq.json` and `data/pages/*.json`, created by
 `wp labora pages-setup` (`--overwrite` replaces the pages' fields and the entries with the files' version).
 
+## Platform and Solutions
+
+The 10 Platform pages (`/platform/<slug>/`, template "Platform module") and 6 Solutions pages
+(`/solutions/<slug>/`, template "Solution") are pages under the "Platform" and "Solutions" parent pages. Those two
+parents use the "Redirect" template: `/platform/` and `/solutions/` lead to the homepage's features and
+"Who it's for" sections (change it in the page's "Send visitors to" field).
+
+| What | Where |
+|---|---|
+| Module or lab type name | The page title (breadcrumb, label, and its card or link on other pages) |
+| Heading, text, screenshot, features, steps, problems | The page's fields, in tabs. Section headings are optional: empty shows the default |
+| Related modules / modules used most | "Related modules" / "Modules" (pick Platform pages; cards show their icon, name, and first feature) |
+| "Labora also runs" on Solutions pages | Automatic: the other pages under "Solutions", with their icons |
+
+Content source: `data/pages/platform*.json`, `data/pages/solutions*.json`, created by `wp labora pages-setup`.
+
 ## Cookie consent
 
 The TrustLayer Consent plugin shows the banner. `inc/consent.php` sets its defaults for this site (the wording of

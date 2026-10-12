@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Home collection services",
+  "slug": "home-collection-services",
+  "parent": "solutions",
+  "order": 5,
+  "seo_title": "Software for Home collection services %%sep%% %%sitename%%",
+  "seo_description": "Software for home sample collection services: bookings, phlebotomist live map and ETA, automatic patient SMS, and samples that move straight into tracking.",
+  "fields": {
+    "icon": "home",
+    "eyebrow": "For home collection services",
+    "hero_title": "Software for home sample collection services",
+    "hero_lead": "Assign bookings, follow every visit on a live map, keep patients updated automatically, and move collected samples straight into tracking.",
+    "screen": "home-collection",
+    "screen_alt": "Labora screen used by home collection services",
+    "pains": [
+      {
+        "problem": "Patients call to ask where the phlebotomist is",
+        "solution": "Automatic SMS updates and a live ETA for every visit."
+      },
+      {
+        "problem": "Dispatch runs on phone calls",
+        "solution": "See who is on duty and assign bookings in a few clicks."
+      },
+      {
+        "problem": "Samples lose their trail on the way",
+        "solution": "Collected samples move straight into sample tracking."
+      }
+    ],
+    "modules": [
+      "@page:platform/home-collection",
+      "@page:platform/sample-tracking",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/business-insights"
+    ],
+    "cta_title": "See Labora set up for home collection services",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

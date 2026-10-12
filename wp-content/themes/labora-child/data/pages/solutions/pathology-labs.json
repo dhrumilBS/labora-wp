@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Pathology labs",
+  "slug": "pathology-labs",
+  "parent": "solutions",
+  "order": 1,
+  "seo_title": "Software for Pathology labs %%sep%% %%sitename%%",
+  "seo_description": "Laboratory management software for pathology labs: registration, barcode sample tracking, turnaround targets, validated results, and signed reports in one system.",
+  "fields": {
+    "icon": "flask",
+    "eyebrow": "For pathology labs",
+    "hero_title": "Laboratory software for independent pathology labs",
+    "hero_lead": "Register patients, track every tube, keep turnaround on target, and release signed reports, all in one patient case your whole team works in.",
+    "screen": "sample-tracking",
+    "screen_alt": "Labora screen used by pathology labs",
+    "pains": [
+      {
+        "problem": "Samples go missing between benches",
+        "solution": "Barcode every tube and see its rack and slot in seconds."
+      },
+      {
+        "problem": "Doctors call to ask if a report is ready",
+        "solution": "Turnaround targets and alerts flag delays before anyone calls."
+      },
+      {
+        "problem": "Results are retyped into reports",
+        "solution": "Results flow into report templates, then signed and sent in one click."
+      }
+    ],
+    "modules": [
+      "@page:platform/pathology-lab",
+      "@page:platform/sample-tracking",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/reports-e-signature"
+    ],
+    "cta_title": "See Labora set up for pathology labs",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

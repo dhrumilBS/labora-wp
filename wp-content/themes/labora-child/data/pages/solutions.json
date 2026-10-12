@@ -1,0 +1,9 @@
+{
+  "template": "page-templates/redirect.php",
+  "title": "Solutions",
+  "slug": "solutions",
+  "order": 11,
+  "fields": {
+    "redirect_url": "/#who-its-for"
+  }
+}

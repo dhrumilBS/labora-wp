@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Sample tracking",
+  "slug": "sample-tracking",
+  "parent": "platform",
+  "order": 2,
+  "seo_title": "Sample tracking Software %%sep%% %%sitename%%",
+  "seo_description": "Barcode sample tracking for diagnostic labs: match every tube to the patient and test, see each handoff, and find any sample by rack and slot.",
+  "fields": {
+    "icon": "barcode",
+    "noun": "sample tracking",
+    "hero_title": "Every tube traced, from collection to rack to report",
+    "hero_lead": "Scan a barcode to match the tube to the right patient and test, see every step it has passed, and know exactly which rack and slot it sits in. No more searching refrigerators for a sample.",
+    "screen": "sample-tracking",
+    "screen_alt": "Labora sample tracking screen",
+    "features": "Barcode scan with instant patient match\nTimeline from registration to report\nRack maps color-coded by tube type\nHold or reject with the reason recorded\nUrgent samples flagged\nLive accession queue",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Label",
+        "text": "Each tube gets a barcode at the point of collection, matched to the patient and test."
+      },
+      {
+        "title": "Scan every handoff",
+        "text": "Registered, collected, received, in testing, reported: each step is recorded as it happens."
+      },
+      {
+        "title": "Find it in seconds",
+        "text": "Look up any sample to see its exact rack and slot, and who handled it last."
+      }
+    ],
+    "related": [
+      "@page:platform/turnaround-tracking",
+      "@page:platform/home-collection",
+      "@page:platform/pathology-lab"
+    ],
+    "cta_title": "See sample tracking with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

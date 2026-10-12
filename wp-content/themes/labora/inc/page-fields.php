@@ -221,7 +221,7 @@ add_action( 'acf/init', function () {
  * editor would show an empty canvas and tuck the fields away at the bottom). Filter: labora_field_templates.
  */
 add_filter( 'use_block_editor_for_post', function ( $use, $post ) {
-	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php', 'page-templates/about.php' ) );
+	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php', 'page-templates/about.php', 'page-templates/platform.php', 'page-templates/solution.php', 'page-templates/redirect.php' ) );
 	return ( $post && 'page' === $post->post_type && in_array( get_page_template_slug( $post ), $templates, true ) ) ? false : $use;
 }, 10, 2 );
 
@@ -352,6 +352,126 @@ add_action( 'acf/init', function () {
 				$f( 'cta_btn2_label', __( 'Second button: text', 'labora' ), 'text', $half ),
 				$f( 'cta_btn2_url', __( 'Second button: link', 'labora' ), 'text', $half ),
 			)
+		),
+	) );
+} );
+
+// ---------- Platform module, Solution, and Redirect pages ----------
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+	$area    = array( 'rows' => 2, 'new_lines' => '' );
+	$half    = array( 'wrapper' => array( 'width' => 50 ) );
+	$icons   = array( 'choices' => labora_icon_choices(), 'ui' => 1 );
+	$tpl     = fn( $file ) => array( array( array( 'param' => 'page_template', 'operator' => '==', 'value' => $file ) ) );
+	$modules = array(
+		'type'          => 'relationship',
+		'post_type'     => array( 'page' ),
+		'filters'       => array( 'search' ),
+		'return_format' => 'id',
+		'max'           => 4,
+		'instructions'  => __( 'Platform pages, in order. Each card shows the page\'s icon, name, and first feature.', 'labora' ),
+	);
+	/** Fields for one template: $p = key prefix. */
+	$group = function ( string $p ) {
+		$k = 0;
+		$n = 0;
+		return array(
+			'tab' => function ( $label ) use ( &$k, $p ) { return array( 'key' => "field_{$p}_tab_" . ( ++$k ), 'label' => $label, 'name' => '', 'type' => 'tab', 'placement' => 'top' ); },
+			'f'   => fn( $name, $label, $type = 'text', $extra = array() ) => array_merge( array( 'key' => "field_{$p}_{$name}", 'name' => $name, 'label' => $label, 'type' => $type ), $extra ),
+			'sub' => function ( $name, $label, $type = 'text', $extra = array() ) use ( &$n, $p ) {
+				return array_merge( array( 'key' => "field_{$p}_s" . ( ++$n ) . "_{$name}", 'name' => $name, 'label' => $label, 'type' => $type ), $extra );
+			},
+		);
+	};
+	$screens = array( 'choices' => array( '' => __( '(none: the integrations diagram)', 'labora' ) ) + labora_cover_screens() );
+	$heading = fn( $f, $name, $label, $default ) => $f( $name, $label, 'text', array( 'placeholder' => $default, 'instructions' => __( 'Empty: the text shown in grey.', 'labora' ) ) );
+
+	// Platform module
+	[ 'tab' => $tab, 'f' => $f, 'sub' => $sub ] = $group( 'lpm' );
+	acf_add_local_field_group( array(
+		'key'            => 'group_labora_platform',
+		'title'          => __( 'Platform module', 'labora' ),
+		'location'       => $tpl( 'page-templates/platform.php' ),
+		'position'       => 'acf_after_title',
+		'hide_on_screen' => array( 'the_content' ),
+		'fields'         => array(
+			array( 'key' => 'field_lpm_msg', 'name' => '', 'label' => '', 'type' => 'message', 'message' => __( 'The page title is the module\'s name (breadcrumb, label above the heading, and its card on other pages). Put the page under "Platform" (Page Attributes > Parent).', 'labora' ) ),
+			$tab( __( 'Top', 'labora' ) ),
+			$f( 'icon', __( 'Icon', 'labora' ), 'select', $icons + $half + array( 'instructions' => __( 'Shown on this module\'s card on other pages.', 'labora' ) ) ),
+			$f( 'noun', __( 'Name in a sentence', 'labora' ), 'text', $half + array( 'instructions' => __( 'Lowercase, e.g. "sample tracking": used in "Built into ..." and "See ... with your own setup".', 'labora' ) ) ),
+			$f( 'hero_title', __( 'Heading', 'labora' ) ),
+			$f( 'hero_lead', __( 'Text under the heading', 'labora' ), 'textarea', $area ),
+			$f( 'screen', __( 'Screenshot', 'labora' ), 'select', $screens + $half ),
+			$f( 'screen_alt', __( 'Screenshot description', 'labora' ), 'text', $half ),
+			$tab( __( 'Features and steps', 'labora' ) ),
+			$heading( $f, 'feat_label', __( 'Features: label', 'labora' ), 'What you get' ),
+			$heading( $f, 'feat_title', __( 'Features: heading', 'labora' ), 'Built into {name in a sentence}' ),
+			$f( 'features', __( 'Features', 'labora' ), 'textarea', array( 'rows' => 6, 'new_lines' => '', 'instructions' => __( 'One per line. The first one is also the short line on this module\'s card.', 'labora' ) ) ),
+			$f( 'guide', __( 'Related guide', 'labora' ), 'post_object', array( 'post_type' => array( 'post' ), 'return_format' => 'id', 'allow_null' => 1, 'instructions' => __( 'Optional: a blog post linked under the features.', 'labora' ) ) ),
+			$heading( $f, 'how_label', __( 'Steps: label', 'labora' ), 'How it works' ),
+			$heading( $f, 'how_title', __( 'Steps: heading', 'labora' ), 'Three steps, one patient case' ),
+			$f( 'steps', __( 'Steps (numbered in order)', 'labora' ), 'repeater', array(
+				'layout' => 'table', 'button_label' => __( 'Add a step', 'labora' ),
+				'sub_fields' => array( $sub( 'title', __( 'Title', 'labora' ) ), $sub( 'text', __( 'Text', 'labora' ), 'textarea', $area ) ),
+			) ),
+			$tab( __( 'Related and closing', 'labora' ) ),
+			$heading( $f, 'rel_label', __( 'Related modules: label', 'labora' ), 'Works with' ),
+			$heading( $f, 'rel_title', __( 'Related modules: heading', 'labora' ), 'Connected to the rest of Labora' ),
+			$heading( $f, 'rel_text', __( 'Related modules: text', 'labora' ), 'Every module shares the same data, so information entered once is available everywhere.' ),
+			$f( 'related', __( 'Related modules', 'labora' ), 'relationship', $modules ),
+			$f( 'cta_title', __( 'Closing box: heading', 'labora' ) ),
+			$f( 'cta_text', __( 'Closing box: text', 'labora' ), 'textarea', $area ),
+		),
+	) );
+
+	// Solution
+	[ 'tab' => $tab, 'f' => $f, 'sub' => $sub ] = $group( 'lso' );
+	acf_add_local_field_group( array(
+		'key'            => 'group_labora_solution',
+		'title'          => __( 'Solution', 'labora' ),
+		'location'       => $tpl( 'page-templates/solution.php' ),
+		'position'       => 'acf_after_title',
+		'hide_on_screen' => array( 'the_content' ),
+		'fields'         => array(
+			array( 'key' => 'field_lso_msg', 'name' => '', 'label' => '', 'type' => 'message', 'message' => __( 'The page title is the lab type (breadcrumb and the "Labora also runs" list on the other Solutions pages). Put the page under "Solutions" (Page Attributes > Parent).', 'labora' ) ),
+			$tab( __( 'Top', 'labora' ) ),
+			$f( 'icon', __( 'Icon', 'labora' ), 'select', $icons + $half + array( 'instructions' => __( 'Shown in "Labora also runs" on the other Solutions pages.', 'labora' ) ) ),
+			$f( 'eyebrow', __( 'Label above the heading', 'labora' ), 'text', $half + array( 'placeholder' => 'For pathology labs' ) ),
+			$f( 'hero_title', __( 'Heading', 'labora' ) ),
+			$f( 'hero_lead', __( 'Text under the heading', 'labora' ), 'textarea', $area ),
+			$f( 'screen', __( 'Screenshot', 'labora' ), 'select', $screens + $half ),
+			$f( 'screen_alt', __( 'Screenshot description', 'labora' ), 'text', $half ),
+			$tab( __( 'Problems', 'labora' ) ),
+			$heading( $f, 'pain_label', __( 'Label', 'labora' ), 'What changes' ),
+			$heading( $f, 'pain_title', __( 'Heading', 'labora' ), 'The everyday problems Labora removes' ),
+			$f( 'pains', __( 'Problems and what Labora changes (numbered in order)', 'labora' ), 'repeater', array(
+				'layout' => 'table', 'button_label' => __( 'Add a problem', 'labora' ),
+				'sub_fields' => array( $sub( 'problem', __( 'Problem', 'labora' ) ), $sub( 'solution', __( 'With Labora', 'labora' ) ) ),
+			) ),
+			$tab( __( 'Modules and closing', 'labora' ) ),
+			$heading( $f, 'mod_label', __( 'Modules: label', 'labora' ), 'Modules you will use most' ),
+			$heading( $f, 'mod_title', __( 'Modules: heading', 'labora' ), 'The parts of Labora built for your lab' ),
+			$heading( $f, 'mod_text', __( 'Modules: text', 'labora' ), 'Start with the modules you need and add more as you grow. Every module shares the same patient case.' ),
+			$f( 'modules', __( 'Modules', 'labora' ), 'relationship', $modules ),
+			$heading( $f, 'other_label', __( 'Other labs: label', 'labora' ), 'Other labs' ),
+			$heading( $f, 'other_title', __( 'Other labs: heading', 'labora' ), 'Labora also runs' ),
+			$f( 'cta_title', __( 'Closing box: heading', 'labora' ) ),
+			$f( 'cta_text', __( 'Closing box: text', 'labora' ), 'textarea', $area ),
+		),
+	) );
+
+	// Redirect
+	acf_add_local_field_group( array(
+		'key'            => 'group_labora_redirect',
+		'title'          => __( 'Redirect', 'labora' ),
+		'location'       => $tpl( 'page-templates/redirect.php' ),
+		'position'       => 'acf_after_title',
+		'hide_on_screen' => array( 'the_content' ),
+		'fields'         => array(
+			array( 'key' => 'field_lrd_redirect_url', 'name' => 'redirect_url', 'label' => __( 'Send visitors to', 'labora' ), 'type' => 'text', 'required' => 1,
+				'instructions' => __( 'A path on this site (/#home-collection) or a full URL. Use it for pages that only group other pages, such as Platform and Solutions.', 'labora' ) ),
 		),
 	) );
 } );

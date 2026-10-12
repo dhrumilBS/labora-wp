@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Reports & e-signature",
+  "slug": "reports-e-signature",
+  "parent": "platform",
+  "order": 8,
+  "seo_title": "Reports & e-signature Software %%sep%% %%sitename%%",
+  "seo_description": "Lab report e-signature and delivery: reports released only after an authorized doctor signs, then sent to the patient and referring doctor, with every signature recorded.",
+  "fields": {
+    "icon": "edit",
+    "noun": "reports and e-signature",
+    "hero_title": "Sign and send reports in one click",
+    "hero_lead": "Reports are released only after an authorized doctor signs them. The signed PDF goes to the patient and the referring doctor the moment it is approved, with the signature recorded in the audit trail.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora reports & e-signature screen",
+    "features": "Release only after an authorized signature\nPreview before release\nSigned PDF sent to patient and referring doctor\nTemplates for lab, imaging, and cardiology\nEvery signature recorded with user and time\nReport status visible to the front desk",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Review",
+        "text": "The doctor sees the completed report with the patient's history in one place."
+      },
+      {
+        "title": "Sign",
+        "text": "One click signs the report; the signature is recorded with the user and the time."
+      },
+      {
+        "title": "Deliver",
+        "text": "The signed PDF reaches the patient and the referring doctor right away."
+      }
+    ],
+    "related": [
+      "@page:platform/pathology-lab",
+      "@page:platform/radiology-reporting",
+      "@page:platform/turnaround-tracking"
+    ],
+    "cta_title": "See reports and e-signature with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

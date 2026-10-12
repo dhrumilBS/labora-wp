@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Business insights",
+  "slug": "business-insights",
+  "parent": "platform",
+  "order": 9,
+  "seo_title": "Business insights Software %%sep%% %%sitename%%",
+  "seo_description": "Lab business insights: billing, collections, and dues across centers, revenue by day and center, top referring doctors, and week-over-week comparison.",
+  "fields": {
+    "icon": "chart",
+    "noun": "business insights",
+    "hero_title": "See what every center, day, and doctor brings in",
+    "hero_lead": "Track billing, collections, and outstanding dues across all your centers, compare this week with last, and see which referring doctors and partner labs drive your business.",
+    "screen": "business-insights",
+    "screen_alt": "Labora business insights screen",
+    "features": "Billed, collected, and outstanding\nRevenue by day and by center\nHome collection and B2B revenue\nDues by patient and partner lab\nTop referring doctors with trends\nWeek-over-week comparison",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Bill as you work",
+        "text": "Every case is billed at registration, so numbers update as the day goes on."
+      },
+      {
+        "title": "Compare",
+        "text": "See this week against last, center against center, and doctor against doctor."
+      },
+      {
+        "title": "Act",
+        "text": "Follow up on dues and invest in the referral relationships that grow your lab."
+      }
+    ],
+    "related": [
+      "@page:platform/centers",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/home-collection"
+    ],
+    "cta_title": "See business insights with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

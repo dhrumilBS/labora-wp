@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Diagnostic & imaging centers",
+  "slug": "diagnostic-imaging-centers",
+  "parent": "solutions",
+  "order": 2,
+  "seo_title": "Software for Diagnostic and imaging centers %%sep%% %%sitename%%",
+  "seo_description": "Software for diagnostic and imaging centers: radiology templates for ultrasound, X-ray, CT, and MRI, lab results on the same patient case, and signed report delivery.",
+  "fields": {
+    "icon": "scan",
+    "eyebrow": "For diagnostic & imaging centers",
+    "hero_title": "One system for imaging and lab reporting",
+    "hero_lead": "Report ultrasound, X-ray, CT, and MRI from templates next to the lab results for the same patient. One record, one bill, and one place for every report.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora screen used by diagnostic & imaging centers",
+    "pains": [
+      {
+        "problem": "Imaging and lab live in separate systems",
+        "solution": "Lab and imaging share the same patient case and the same bill."
+      },
+      {
+        "problem": "Reports are typed from scratch",
+        "solution": "A template library for each modality, with drafts saved automatically."
+      },
+      {
+        "problem": "Delivery depends on the front desk",
+        "solution": "Signed reports go to the patient and the referring doctor right away."
+      }
+    ],
+    "modules": [
+      "@page:platform/radiology-reporting",
+      "@page:platform/pathology-lab",
+      "@page:platform/reports-e-signature",
+      "@page:platform/ecg-cardiology"
+    ],
+    "cta_title": "See Labora set up for diagnostic & imaging centers",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

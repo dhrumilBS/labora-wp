@@ -23,6 +23,9 @@ function labora_pages_field_prefixes(): array {
 		'page-templates/faq.php'          => 'lfp',
 		'page-templates/trust-center.php' => 'ltc',
 		'page-templates/about.php'        => 'lab',
+		'page-templates/platform.php'     => 'lpm',
+		'page-templates/solution.php'     => 'lso',
+		'page-templates/redirect.php'     => 'lrd',
 	);
 }
 
@@ -84,25 +87,69 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 	}
 	WP_CLI::log( count( $tid ) . " FAQ topics, {$made} entries written." );
 
-	// Pages
-	foreach ( glob( "{$dir}/pages/*.json" ) as $file ) {
-		$p      = json_decode( (string) file_get_contents( $file ), true );
-		$prefix = labora_pages_field_prefixes()[ $p['template'] ] ?? '';
-		$page   = get_page_by_path( $p['slug'] );
-		if ( ! $prefix ) {
-			WP_CLI::warning( basename( $file ) . ': unknown template ' . $p['template'] );
+	// Pages: data/pages/*.json and data/pages/<parent>/*.json. First every page exists (parents first), then fields,
+	// so "@page:<path>" (a page) and "@post:<slug>" (a blog post) in the data can be turned into IDs.
+	$files = array_merge( glob( "{$dir}/pages/*.json" ), glob( "{$dir}/pages/*/*.json" ) );
+	$pages = array();
+	foreach ( $files as $file ) {
+		$p = json_decode( (string) file_get_contents( $file ), true );
+		if ( ! isset( labora_pages_field_prefixes()[ $p['template'] ?? '' ] ) ) {
+			WP_CLI::warning( basename( $file ) . ': unknown template ' . ( $p['template'] ?? '' ) );
 			continue;
 		}
-		$id = $page ? (int) $page->ID : (int) wp_insert_post( array( 'post_type' => 'page', 'post_status' => 'publish', 'post_title' => $p['title'], 'post_name' => $p['slug'], 'comment_status' => 'closed' ) );
-		update_post_meta( $id, '_wp_page_template', $p['template'] );
-		if ( ! $page || $overwrite ) {
-			foreach ( $p['fields'] as $name => $value ) {
-				update_field( "field_{$prefix}_{$name}", $value, $id );
-			}
-			update_post_meta( $id, '_yoast_wpseo_title', $p['seo_title'] );
-			update_post_meta( $id, '_yoast_wpseo_metadesc', $p['seo_description'] );
+		$p['path'] = ( empty( $p['parent'] ) ? '' : $p['parent'] . '/' ) . $p['slug'];
+		$pages[]   = $p;
+	}
+	usort( $pages, fn( $a, $b ) => substr_count( $a['path'], '/' ) <=> substr_count( $b['path'], '/' ) );
+
+	$ids = array();
+	foreach ( $pages as &$p ) {
+		$page      = get_page_by_path( $p['path'] );
+		$p['new']  = ! $page;
+		$parent_id = empty( $p['parent'] ) ? 0 : (int) ( $ids[ $p['parent'] ] ?? 0 );
+		$id        = $page ? (int) $page->ID : (int) wp_insert_post( array(
+			'post_type'      => 'page',
+			'post_status'    => 'publish',
+			'post_title'     => $p['title'],
+			'post_name'      => $p['slug'],
+			'post_parent'    => $parent_id,
+			'menu_order'     => (int) ( $p['order'] ?? 0 ),
+			'comment_status' => 'closed',
+		) );
+		if ( $page && $overwrite ) {
+			wp_update_post( array( 'ID' => $id, 'post_title' => $p['title'], 'post_parent' => $parent_id, 'menu_order' => (int) ( $p['order'] ?? 0 ) ) );
 		}
-		WP_CLI::log( ( $page ? ( $overwrite ? 'updated ' : 'kept    ' ) : 'created ' ) . "/{$p['slug']}/ (#{$id})" );
+		update_post_meta( $id, '_wp_page_template', $p['template'] );
+		$ids[ $p['path'] ] = $id;
+	}
+	unset( $p );
+
+	$resolve = function ( $value ) use ( &$resolve, $ids ) {
+		if ( is_array( $value ) ) {
+			return array_map( $resolve, $value );
+		}
+		if ( is_string( $value ) && str_starts_with( $value, '@page:' ) ) {
+			return (int) ( $ids[ substr( $value, 6 ) ] ?? ( ( $pg = get_page_by_path( substr( $value, 6 ) ) ) ? $pg->ID : 0 ) );
+		}
+		if ( is_string( $value ) && str_starts_with( $value, '@post:' ) ) {
+			$post = get_page_by_path( substr( $value, 6 ), OBJECT, 'post' );
+			return $post ? (int) $post->ID : 0;
+		}
+		return $value;
+	};
+	foreach ( $pages as $p ) {
+		$id     = $ids[ $p['path'] ];
+		$prefix = labora_pages_field_prefixes()[ $p['template'] ];
+		if ( $p['new'] || $overwrite ) {
+			foreach ( $p['fields'] as $name => $value ) {
+				update_field( "field_{$prefix}_{$name}", $resolve( $value ), $id );
+			}
+			if ( isset( $p['seo_title'] ) ) {
+				update_post_meta( $id, '_yoast_wpseo_title', $p['seo_title'] );
+				update_post_meta( $id, '_yoast_wpseo_metadesc', $p['seo_description'] );
+			}
+		}
+		WP_CLI::log( ( $p['new'] ? 'created ' : ( $overwrite ? 'updated ' : 'kept    ' ) ) . "/{$p['path']}/ (#{$id})" );
 	}
 	WP_CLI::success( 'Pages are set up.' );
 } );

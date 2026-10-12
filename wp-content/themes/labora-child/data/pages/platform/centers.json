@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Centers & outsource labs",
+  "slug": "centers",
+  "parent": "platform",
+  "order": 7,
+  "seo_title": "Centers & outsource labs Software %%sep%% %%sitename%%",
+  "seo_description": "Multi-center lab management: run branches, collection centers, and partner labs in one system, switch between centers, and compare activity and revenue.",
+  "fields": {
+    "icon": "building",
+    "noun": "multi-center management",
+    "hero_title": "Every branch, collection center, and partner lab in one system",
+    "hero_lead": "Branches, collection centers, and home collection run in one system. Switch between centers, compare activity and revenue across all of them, and keep partner and B2B work on the same record.",
+    "screen": "dashboard",
+    "screen_alt": "Labora centers & outsource labs screen",
+    "features": "Switch between centers in one click\nCompare activity across every center\nRevenue by day and by center\nHome collection and B2B revenue\nDues by patient and partner lab\nThe same roles and permissions everywhere",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Add your centers",
+        "text": "Set up each branch and collection center with its own users and settings."
+      },
+      {
+        "title": "Work as one lab",
+        "text": "Samples, cases, and reports move between centers on the same patient record."
+      },
+      {
+        "title": "Compare and grow",
+        "text": "See which centers, days, and partners drive your business."
+      }
+    ],
+    "related": [
+      "@page:platform/business-insights",
+      "@page:platform/home-collection",
+      "@page:platform/turnaround-tracking"
+    ],
+    "cta_title": "See multi-center management with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

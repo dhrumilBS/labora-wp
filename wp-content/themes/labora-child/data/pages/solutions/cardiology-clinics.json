@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Cardiology & ECG clinics",
+  "slug": "cardiology-clinics",
+  "parent": "solutions",
+  "order": 6,
+  "seo_title": "Software for Cardiology and ECG clinics %%sep%% %%sitename%%",
+  "seo_description": "Software for cardiology and ECG clinics: templates for ECG, 2D echo, and treadmill reports, one patient record with lab and imaging, and signed delivery.",
+  "fields": {
+    "icon": "heart",
+    "eyebrow": "For cardiology & ECG clinics",
+    "hero_title": "Reporting software for cardiology and ECG clinics",
+    "hero_lead": "Report ECG, 2D echo, and treadmill studies from templates, alongside any lab tests and scans for the same patient, and send signed reports in one click.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora screen used by cardiology & ecg clinics",
+    "pains": [
+      {
+        "problem": "Cardiology reports are typed by hand",
+        "solution": "Templates for each study type, with drafts saved automatically."
+      },
+      {
+        "problem": "Patients have records in several places",
+        "solution": "One patient case and one bill for cardiology, lab, and imaging."
+      },
+      {
+        "problem": "Reports wait for someone to send them",
+        "solution": "The signed report goes to the patient and the doctor right away."
+      }
+    ],
+    "modules": [
+      "@page:platform/ecg-cardiology",
+      "@page:platform/reports-e-signature",
+      "@page:platform/radiology-reporting",
+      "@page:platform/pathology-lab"
+    ],
+    "cta_title": "See Labora set up for cardiology & ECG clinics",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

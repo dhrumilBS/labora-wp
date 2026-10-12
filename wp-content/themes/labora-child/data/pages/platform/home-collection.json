@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Home collection",
+  "slug": "home-collection",
+  "parent": "platform",
+  "order": 6,
+  "seo_title": "Home collection Software %%sep%% %%sitename%%",
+  "seo_description": "Home sample collection software: assign bookings to phlebotomists, track visits on a live map, send patients automatic SMS updates, and move samples straight into tracking.",
+  "fields": {
+    "icon": "truck",
+    "noun": "home collection",
+    "hero_title": "Run home collection without the phone calls",
+    "hero_lead": "Assign bookings to phlebotomists, follow every visit on a live map, and keep patients updated automatically, so your front desk stops answering “where is the rider?” calls.",
+    "screen": "home-collection",
+    "screen_alt": "Labora home collection screen",
+    "features": "Bookings by status: pending, en route, in progress, done\nLive phlebotomist location and ETA\nAutomatic SMS updates to patients\nWho is on duty, at a glance\nAddress and tests on every visit card\nCollected samples move straight into tracking",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Book and assign",
+        "text": "Bookings go to the right phlebotomist, with the address and tests on each visit card."
+      },
+      {
+        "title": "Track the visit",
+        "text": "Follow every visit on a live map while patients get automatic updates."
+      },
+      {
+        "title": "Hand off to the lab",
+        "text": "Collected samples move straight into sample tracking when they arrive."
+      }
+    ],
+    "related": [
+      "@page:platform/sample-tracking",
+      "@page:platform/centers",
+      "@page:platform/turnaround-tracking"
+    ],
+    "cta_title": "See home collection with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

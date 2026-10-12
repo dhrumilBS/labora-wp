@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Radiology reporting",
+  "slug": "radiology-reporting",
+  "parent": "platform",
+  "order": 4,
+  "seo_title": "Radiology reporting Software %%sep%% %%sitename%%",
+  "seo_description": "Radiology reporting software for imaging centers: templates for ultrasound, X-ray, CT, and MRI, automatic drafts, digital signature, and one patient case with lab results.",
+  "fields": {
+    "icon": "scan",
+    "noun": "radiology reporting",
+    "hero_title": "Radiology reporting for ultrasound, X-ray, CT, and MRI",
+    "hero_lead": "Report imaging studies from ready templates, next to the lab results for the same patient. Drafts save automatically, and doctors sign and send in one click.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora radiology reporting screen",
+    "features": "Template library for each modality\nDrafts saved automatically\nStructured findings and impression\nPreview before release\nDigital signature, then send\nLab and imaging on the same patient case",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Pick a template",
+        "text": "Choose the template for the study: ultrasound, X-ray, CT, or MRI."
+      },
+      {
+        "title": "Complete the findings",
+        "text": "Fill in structured findings and the impression; the draft saves as you go."
+      },
+      {
+        "title": "Sign and send",
+        "text": "Preview, sign, and deliver the report to the patient and the referring doctor."
+      }
+    ],
+    "related": [
+      "@page:platform/reports-e-signature",
+      "@page:platform/ecg-cardiology",
+      "@page:platform/pathology-lab"
+    ],
+    "cta_title": "See radiology reporting with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

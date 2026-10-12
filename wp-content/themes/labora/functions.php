@@ -22,6 +22,7 @@ require LABORA_DIR . '/inc/blog-fields.php'; // blog fields: post, Blog page, to
 require LABORA_DIR . '/inc/blog-blocks.php'; // article blocks: key takeaways, notes, demo box, key numbers, before/after, questions
 require LABORA_DIR . '/inc/faq.php';      // FAQ entries shared by the FAQ page and the Trust Center (structured data, [labora_email])
 require LABORA_DIR . '/inc/page-fields.php'; // fields of the FAQ page and Trust Center templates
+require LABORA_DIR . '/inc/product.php';  // Platform module and Solution templates (cards, closing box), Redirect pages
 require LABORA_DIR . '/inc/template-tags.php'; // post cards, byline, pagination for the WordPress templates
 require LABORA_DIR . '/inc/settings.php'; // Labora Settings: company, contact, social, header buttons (SCF options page)
 require LABORA_DIR . '/inc/menus.php';    // menu locations and header/footer menu markup

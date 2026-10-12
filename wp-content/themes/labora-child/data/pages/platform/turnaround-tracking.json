@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Turnaround (TAT)",
+  "slug": "turnaround-tracking",
+  "parent": "platform",
+  "order": 3,
+  "seo_title": "Turnaround Time (TAT) Tracking Software %%sep%% %%sitename%%",
+  "seo_description": "Turnaround time (TAT) tracking for diagnostic labs: a target for every case, live elapsed time, at-risk alerts, delay reasons, and on-time rate.",
+  "fields": {
+    "icon": "clock",
+    "noun": "turnaround tracking",
+    "hero_title": "Catch turnaround delays before the doctor calls",
+    "hero_lead": "Every case carries a target time. Labora shows elapsed time against that target live, highlights what is at risk, and alerts the right people the moment a report runs late.",
+    "screen": "turnaround-tracking",
+    "screen_alt": "Labora turnaround (tat) screen",
+    "features": "Target time for every case\nElapsed vs. target, live\nAt-risk and overshoot views\nAutomatic alerts when a target is missed\nA reason logged for every delay\nOn-time delivery rate at a glance",
+    "guide": "@post:how-to-cut-lab-turnaround-time",
+    "steps": [
+      {
+        "title": "Set targets",
+        "text": "Give each test or test group its own target, with a separate one for urgent priority."
+      },
+      {
+        "title": "Watch the clock",
+        "text": "Green is on time, amber is at risk, red is past target, so the team knows what to do next."
+      },
+      {
+        "title": "Review weekly",
+        "text": "See the on-time rate and the most common delay reasons, by test and by center."
+      }
+    ],
+    "related": [
+      "@page:platform/sample-tracking",
+      "@page:platform/reports-e-signature",
+      "@page:platform/business-insights"
+    ],
+    "cta_title": "See turnaround tracking with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

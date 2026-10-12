@@ -1,0 +1,9 @@
+{
+  "template": "page-templates/redirect.php",
+  "title": "Platform",
+  "slug": "platform",
+  "order": 10,
+  "fields": {
+    "redirect_url": "/#home-collection"
+  }
+}

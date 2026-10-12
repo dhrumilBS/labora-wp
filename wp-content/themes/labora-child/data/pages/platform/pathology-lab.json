@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Pathology lab",
+  "slug": "pathology-lab",
+  "parent": "platform",
+  "order": 1,
+  "seo_title": "Pathology lab Software %%sep%% %%sitename%%",
+  "seo_description": "Pathology lab software for diagnostic labs: register tests, enter and validate results, track every sample, and release signed reports with a full audit trail.",
+  "fields": {
+    "icon": "flask",
+    "noun": "pathology lab",
+    "hero_title": "Pathology lab software, from test order to validated result",
+    "hero_lead": "Register tests with the patient case, enter and validate results, and release reports only after an authorized doctor signs them. Every step is recorded against a named user.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora pathology lab screen",
+    "features": "Tests registered with the patient case and bill\nResults entered by technicians and validated before release\nReport templates for each test\nBarcode tracking for every tube\nDigital signature, then send to patient and doctor\nEvery edit kept with the user, time, and reason",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Register",
+        "text": "The front desk adds the patient, the tests, and the payment in one screen."
+      },
+      {
+        "title": "Test and validate",
+        "text": "Technicians enter results; each case is validated before it moves to reporting."
+      },
+      {
+        "title": "Sign and send",
+        "text": "An authorized doctor signs, and the report goes to the patient and the referring doctor."
+      }
+    ],
+    "related": [
+      "@page:platform/sample-tracking",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/reports-e-signature"
+    ],
+    "cta_title": "See pathology lab with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

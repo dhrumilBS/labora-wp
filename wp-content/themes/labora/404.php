@@ -1,7 +1,7 @@
 <?php
 /**
  * 404 page, converted unchanged from the HTML site's 404.html.
- * Planned pages that are linked from the menu but not published yet (the Platform pages are drafts) show
+ * Planned pages that are linked from the menu but not published yet show
  * "coming soon" and a link to the closest live content: that is the map below, read by assets/js/pages.js.
  * Remove a page from the map once it is published.
  *
@@ -16,16 +16,6 @@ defined( 'ABSPATH' ) || exit;
  */
 function labora_404_planned(): array {
 	return apply_filters( 'labora_404_planned', array(
-		'platform/pathology-lab/' => array( 'Pathology lab', '#reporting', 'See pathology and imaging reporting' ),
-		'platform/sample-tracking/' => array( 'Sample tracking', '#sample-tracking', 'See sample tracking' ),
-		'platform/turnaround-tracking/' => array( 'Turnaround tracking', '#turnaround-tracking', 'See turnaround tracking' ),
-		'platform/radiology-reporting/' => array( 'Radiology reporting', '#reporting', 'See pathology and imaging reporting' ),
-		'platform/ecg-cardiology/' => array( 'ECG and cardiology', '#home-collection', 'See the product features' ),
-		'platform/home-collection/' => array( 'Home collection', '#home-collection', 'See home collection' ),
-		'platform/centers/' => array( 'Centers and outsource labs', '#home-collection', 'See the product features' ),
-		'platform/reports-e-signature/' => array( 'Reports and e-signature', '#reporting', 'See reporting and sign-off' ),
-		'platform/business-insights/' => array( 'Business insights', '#business-insights', 'See business insights' ),
-		'platform/integrations/' => array( 'Integrations and API', 'faq/#q-can-labora-connect-with-lab-analyzers-and-other-systems', 'See how integrations work' ),
 		'resources/guides/' => array( 'Guides', 'blog/', 'Read the blog' ),
 		'docs/api/' => array( 'API documentation', 'faq/#q-can-labora-connect-with-lab-analyzers-and-other-systems', 'See how integrations work' ),
 		'login/' => array( 'Sign in', '#demo', 'Book a demo to get access' ),

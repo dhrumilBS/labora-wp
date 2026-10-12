@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "ECG & cardiology",
+  "slug": "ecg-cardiology",
+  "parent": "platform",
+  "order": 5,
+  "seo_title": "ECG & cardiology Software %%sep%% %%sitename%%",
+  "seo_description": "ECG and cardiology reporting for clinics and labs: templates for ECG, 2D echo, and treadmill studies, digital signature, and one record with lab and imaging results.",
+  "fields": {
+    "icon": "activity",
+    "noun": "cardiology reporting",
+    "hero_title": "ECG, 2D echo, and treadmill reports in the same patient case",
+    "hero_lead": "Cardiology studies are reported from templates in the same system as lab tests and imaging, so a patient has one record, one bill, and one place to find every report.",
+    "screen": "pathology-imaging-reporting",
+    "screen_alt": "Labora ecg & cardiology screen",
+    "features": "Templates for ECG, 2D echo, and treadmill studies\nDrafts saved automatically\nStructured findings and impression\nDigital signature, then send\nOne record and one bill with lab and imaging\nEvery report traceable to the signing doctor",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Register once",
+        "text": "The study is added to the patient case with any lab tests or scans."
+      },
+      {
+        "title": "Report from a template",
+        "text": "Complete the findings for the study type; the draft saves as you go."
+      },
+      {
+        "title": "Sign and deliver",
+        "text": "The signed report reaches the patient and the referring doctor right away."
+      }
+    ],
+    "related": [
+      "@page:platform/radiology-reporting",
+      "@page:platform/reports-e-signature",
+      "@page:platform/pathology-lab"
+    ],
+    "cta_title": "See cardiology reporting with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

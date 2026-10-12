@@ -1,0 +1,39 @@
+{
+  "template": "page-templates/solution.php",
+  "title": "Hospital laboratories",
+  "slug": "hospital-laboratories",
+  "parent": "solutions",
+  "order": 4,
+  "seo_title": "Software for Hospital laboratories %%sep%% %%sitename%%",
+  "seo_description": "Laboratory management software for hospital labs: sample tracking, turnaround targets for urgent cases, signed report release, role-based access, and audit trails.",
+  "fields": {
+    "icon": "hospital",
+    "eyebrow": "For hospital laboratories",
+    "hero_title": "Laboratory software for hospital labs",
+    "hero_lead": "Track every sample, keep urgent cases on target, and release reports only after an authorized doctor signs, with every action attributed and recorded.",
+    "screen": "dashboard",
+    "screen_alt": "Labora screen used by hospital laboratories",
+    "pains": [
+      {
+        "problem": "Urgent samples wait in the same queue",
+        "solution": "Urgent cases are flagged and carry their own, shorter targets."
+      },
+      {
+        "problem": "Hard to answer who changed a result",
+        "solution": "Every edit keeps the earlier value, the new value, the user, and the time."
+      },
+      {
+        "problem": "Access is all or nothing",
+        "solution": "Each role sees what it needs, by role and by center."
+      }
+    ],
+    "modules": [
+      "@page:platform/sample-tracking",
+      "@page:platform/turnaround-tracking",
+      "@page:platform/reports-e-signature",
+      "@page:platform/integrations"
+    ],
+    "cta_title": "See Labora set up for hospital laboratories",
+    "cta_text": "Tell us how your lab works today. We will show you the same workflow in Labora, with your tests and price list."
+  }
+}

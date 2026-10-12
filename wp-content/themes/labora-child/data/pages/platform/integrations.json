@@ -1,0 +1,40 @@
+{
+  "template": "page-templates/platform.php",
+  "title": "Integrations & API",
+  "slug": "integrations",
+  "parent": "platform",
+  "order": 10,
+  "seo_title": "Integrations & API Software %%sep%% %%sitename%%",
+  "seo_description": "Lab software integrations: connect Labora with lab instruments and business systems through its integration layer and API. Review your setup with our team.",
+  "fields": {
+    "icon": "plug",
+    "noun": "integrations and the API",
+    "hero_title": "Connect Labora with your instruments and systems",
+    "hero_lead": "Labora is designed to connect with lab instruments and other systems through its integration layer and API. Which connections are available depends on your analyzers and setup, so we review your equipment list with you.",
+    "screen": "",
+    "screen_alt": "",
+    "features": "Instrument readings and run files\nREST API for your own tools\nIdentity and sign-in systems\nReporting and BI tools\nCloud storage for files and archives\nWorkflow and automation platforms",
+    "guide": "",
+    "steps": [
+      {
+        "title": "Share your equipment list",
+        "text": "Tell us your analyzers, instruments, and the systems you already use."
+      },
+      {
+        "title": "Plan the connections",
+        "text": "We map what Labora can connect to in your setup, and what each connection does."
+      },
+      {
+        "title": "Go live",
+        "text": "Connections are set up and tested as part of your rollout."
+      }
+    ],
+    "related": [
+      "@page:platform/pathology-lab",
+      "@page:platform/centers",
+      "@page:platform/business-insights"
+    ],
+    "cta_title": "See integrations and the API with your own setup",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works."
+  }
+}

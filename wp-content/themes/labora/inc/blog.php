@@ -131,9 +131,12 @@ function labora_screen_img( string $name, string $sizes, bool $eager = false, st
  * (800, 1200, 1600) above.
  */
 function labora_screen_picture( string $name, string $alt, bool $eager = false ): string {
-	$mobile = labora_screen_widths( $name, 'm' )
-		? sprintf( '<source media="(max-width: 640px)" type="image/webp" srcset="%s" sizes="calc(100vw - 40px)" width="640" height="644">', esc_attr( labora_screen_srcset( $name, 'm' ) ) )
-		: '';
+	$mobile = '';
+	$crop   = get_theme_file_path( "assets/img/screens/{$name}-m-640.webp" );
+	if ( file_exists( $crop ) ) {
+		$size   = getimagesize( $crop ); // the crop's real size, so the layout reserves the right space
+		$mobile = sprintf( '<source media="(max-width: 640px)" type="image/webp" srcset="%s" sizes="calc(100vw - 40px)" width="%d" height="%d">', esc_attr( labora_screen_srcset( $name, 'm' ) ), $size[0] ?? 640, $size[1] ?? 644 );
+	}
 	return sprintf(
 		'<picture>%s<img src="%s" srcset="%s" sizes="(max-width: 1240px) calc(100vw - 40px), 1200px" width="2320" height="2000" alt="%s" %s></picture>',
 		$mobile,
