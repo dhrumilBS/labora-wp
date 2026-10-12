@@ -221,6 +221,137 @@ add_action( 'acf/init', function () {
  * editor would show an empty canvas and tuck the fields away at the bottom). Filter: labora_field_templates.
  */
 add_filter( 'use_block_editor_for_post', function ( $use, $post ) {
-	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php' ) );
+	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php', 'page-templates/about.php' ) );
 	return ( $post && 'page' === $post->post_type && in_array( get_page_template_slug( $post ), $templates, true ) ) ? false : $use;
 }, 10, 2 );
+
+// ---------- About page (page-templates/about.php) ----------
+add_action( 'acf/init', function () {
+	if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+		return;
+	}
+	$p     = 'lab';
+	$k     = 0;
+	$n     = 0;
+	$tab   = function ( $label ) use ( &$k, $p ) { return array( 'key' => "field_{$p}_tab_" . ( ++$k ), 'label' => $label, 'name' => '', 'type' => 'tab', 'placement' => 'top' ); };
+	$f     = fn( $name, $label, $type = 'text', $extra = array() ) => array_merge( array( 'key' => "field_{$p}_{$name}", 'name' => $name, 'label' => $label, 'type' => $type ), $extra );
+	$sub   = function ( $name, $label, $type = 'text', $extra = array() ) use ( &$n, $p ) {
+		return array_merge( array( 'key' => "field_{$p}_s" . ( ++$n ) . "_{$name}", 'name' => $name, 'label' => $label, 'type' => $type ), $extra );
+	};
+	$area    = array( 'rows' => 2, 'new_lines' => '' );
+	$lines   = array( 'rows' => 4, 'new_lines' => '', 'instructions' => __( 'One item per line.', 'labora' ) );
+	$icons   = array( 'choices' => labora_icon_choices(), 'ui' => 1 );
+	$screens = array( 'choices' => labora_cover_screens() );
+	$half    = array( 'wrapper' => array( 'width' => 50 ) );
+	// A text and screenshot row ("As you grow", "Security and access")
+	$feature = fn( $prefix ) => array(
+		$f( "{$prefix}_label", __( 'Label', 'labora' ) ),
+		$f( "{$prefix}_title", __( 'Heading', 'labora' ) ),
+		$f( "{$prefix}_text", __( 'Text', 'labora' ), 'textarea', $area ),
+		$f( "{$prefix}_checks", __( 'Points', 'labora' ), 'textarea', $lines ),
+		$f( "{$prefix}_link_label", __( 'Link text', 'labora' ), 'text', $half ),
+		$f( "{$prefix}_link_url", __( 'Link', 'labora' ), 'text', $half ),
+		$f( "{$prefix}_screen", __( 'Screenshot', 'labora' ), 'select', $screens + $half ),
+		$f( "{$prefix}_alt", __( 'Screenshot description (for screen readers and search)', 'labora' ), 'text', $half ),
+	);
+
+	acf_add_local_field_group( array(
+		'key'            => 'group_labora_about',
+		'title'          => __( 'About page', 'labora' ),
+		'location'       => array( array( array( 'param' => 'page_template', 'operator' => '==', 'value' => 'page-templates/about.php' ) ) ),
+		'position'       => 'acf_after_title',
+		'hide_on_screen' => array( 'the_content' ),
+		'fields'         => array_merge(
+			array(
+				array( 'key' => "field_{$p}_msg", 'name' => '', 'label' => '', 'type' => 'message', 'message' => __( 'Texts of every section. The questions are FAQ entries with "About page" ticked. Leadership and extra company facts appear only when filled in.', 'labora' ) ),
+				$tab( __( 'Top', 'labora' ) ),
+				$f( 'hero_eyebrow', __( 'Label above the heading', 'labora' ) ),
+				$f( 'hero_title', __( 'Heading', 'labora' ) ),
+				$f( 'hero_lead', __( 'Text under the heading', 'labora' ), 'textarea', $area ),
+				$f( 'hero_btn1_label', __( 'First button: text', 'labora' ), 'text', $half ),
+				$f( 'hero_btn1_url', __( 'First button: link', 'labora' ), 'text', $half ),
+				$f( 'hero_btn2_label', __( 'Second button: text', 'labora' ), 'text', $half ),
+				$f( 'hero_btn2_url', __( 'Second button: link', 'labora' ), 'text', $half ),
+				$f( 'glance', __( 'At a glance', 'labora' ), 'repeater', array(
+					'layout'       => 'table',
+					'button_label' => __( 'Add a line', 'labora' ),
+					'instructions' => __( 'The facts beside the intro. Add real company facts here too (e.g. Founded, Headquarters) once they are approved.', 'labora' ),
+					'sub_fields'   => array( $sub( 'term', __( 'Label', 'labora' ) ), $sub( 'text', __( 'Text', 'labora' ) ) ),
+				) ),
+				$f( 'hero_screen', __( 'Screenshot', 'labora' ), 'select', $screens + $half ),
+				$f( 'hero_alt', __( 'Screenshot description', 'labora' ), 'text', $half ),
+				$f( 'hero_caption', __( 'Caption under the screenshot', 'labora' ) ),
+
+				$tab( __( 'Story', 'labora' ) ),
+				$f( 'story_label', __( 'Label', 'labora' ) ),
+				$f( 'story_title', __( 'Heading', 'labora' ) ),
+				$f( 'story_text', __( 'Text', 'labora' ), 'textarea', array( 'rows' => 8, 'new_lines' => '', 'instructions' => __( 'Leave an empty line between paragraphs.', 'labora' ) ) ),
+				$f( 'quote_text', __( 'Quote', 'labora' ), 'textarea', $area ),
+				$f( 'quote_link_label', __( 'Link under the quote: text', 'labora' ), 'text', $half ),
+				$f( 'quote_link_url', __( 'Link under the quote', 'labora' ), 'text', $half ),
+
+				$tab( __( 'Roles', 'labora' ) ),
+				$f( 'journey_label', __( 'Label', 'labora' ) ),
+				$f( 'journey_title', __( 'Heading', 'labora' ) ),
+				$f( 'journey_text', __( 'Text', 'labora' ) ),
+				$f( 'journey_steps', __( 'Steps (numbered in order)', 'labora' ), 'repeater', array(
+					'layout'       => 'table',
+					'button_label' => __( 'Add a step', 'labora' ),
+					'sub_fields'   => array( $sub( 'icon', __( 'Icon', 'labora' ), 'select', $icons ), $sub( 'title', __( 'Title', 'labora' ) ), $sub( 'text', __( 'Text', 'labora' ), 'textarea', $area ) ),
+				) ),
+
+				$tab( __( 'Principles', 'labora' ) ),
+				$f( 'beliefs_label', __( 'Label', 'labora' ) ),
+				$f( 'beliefs_title', __( 'Heading', 'labora' ) ),
+				$f( 'beliefs', __( 'Principles (numbered in order)', 'labora' ), 'repeater', array(
+					'layout'       => 'block',
+					'button_label' => __( 'Add a principle', 'labora' ),
+					'sub_fields'   => array( $sub( 'title', __( 'Title', 'labora' ) ), $sub( 'text', __( 'Text (links allowed)', 'labora' ), 'textarea', $area ) ),
+				) ),
+
+				$tab( __( 'Lab types', 'labora' ) ),
+				$f( 'labs_label', __( 'Label', 'labora' ) ),
+				$f( 'labs_title', __( 'Heading', 'labora' ) ),
+				$f( 'labs', __( 'Lab types', 'labora' ), 'repeater', array(
+					'layout'       => 'table',
+					'button_label' => __( 'Add a lab type', 'labora' ),
+					'sub_fields'   => array( $sub( 'icon', __( 'Icon', 'labora' ), 'select', $icons ), $sub( 'name', __( 'Name', 'labora' ) ) ),
+				) ),
+				$f( 'labs_note', __( 'Note under the list', 'labora' ), 'textarea', $area ),
+
+				$tab( __( 'Growth', 'labora' ) ),
+			),
+			$feature( 'scale' ),
+			array( $tab( __( 'Security', 'labora' ) ) ),
+			$feature( 'sec' ),
+			array(
+				$tab( __( 'How we work', 'labora' ) ),
+				$f( 'work_label', __( 'Label', 'labora' ) ),
+				$f( 'work_title', __( 'Heading', 'labora' ) ),
+				$f( 'work_text', __( 'Text', 'labora' ), 'textarea', $area ),
+				$f( 'work', __( 'Commitments', 'labora' ), 'repeater', array(
+					'layout'       => 'table',
+					'button_label' => __( 'Add a commitment', 'labora' ),
+					'sub_fields'   => array( $sub( 'icon', __( 'Icon', 'labora' ), 'select', $icons ), $sub( 'title', __( 'Title', 'labora' ) ), $sub( 'text', __( 'Text', 'labora' ), 'textarea', $area ) ),
+				) ),
+				$f( 'team_title', __( 'Leadership: heading', 'labora' ) ),
+				$f( 'team', __( 'Leadership (shown only when filled in)', 'labora' ), 'repeater', array(
+					'layout'       => 'table',
+					'button_label' => __( 'Add a person', 'labora' ),
+					'sub_fields'   => array( $sub( 'photo', __( 'Photo (square)', 'labora' ), 'image', array( 'return_format' => 'id', 'preview_size' => 'thumbnail' ) ), $sub( 'name', __( 'Name', 'labora' ) ), $sub( 'role', __( 'Role', 'labora' ) ) ),
+				) ),
+
+				$tab( __( 'Questions and closing', 'labora' ) ),
+				$f( 'faq_title', __( 'Questions: heading', 'labora' ) ),
+				$f( 'faq_text', __( 'Questions: text', 'labora' ) ),
+				$f( 'faq_link_label', __( 'Questions: link to the FAQ page', 'labora' ) ),
+				$f( 'cta_title', __( 'Closing box: heading', 'labora' ) ),
+				$f( 'cta_text', __( 'Closing box: text', 'labora' ), 'textarea', $area ),
+				$f( 'cta_btn1_label', __( 'First button: text', 'labora' ), 'text', $half ),
+				$f( 'cta_btn1_url', __( 'First button: link', 'labora' ), 'text', $half ),
+				$f( 'cta_btn2_label', __( 'Second button: text', 'labora' ), 'text', $half ),
+				$f( 'cta_btn2_url', __( 'Second button: link', 'labora' ), 'text', $half ),
+			)
+		),
+	) );
+} );

@@ -22,6 +22,7 @@ function labora_pages_field_prefixes(): array {
 	return array(
 		'page-templates/faq.php'          => 'lfp',
 		'page-templates/trust-center.php' => 'ltc',
+		'page-templates/about.php'        => 'lab',
 	);
 }
 

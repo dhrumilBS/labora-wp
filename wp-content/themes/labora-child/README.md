@@ -48,16 +48,17 @@ URLs: posts `/blog/<slug>/`, topics `/blog/topic/<slug>/`, tags `/blog/tag/<slug
 one HTML file each, with a few extra tags converted to blocks; see the file's header). Run it on a new install;
 `--overwrite` replaces the articles with the files' version.
 
-## FAQ and Trust Center
+## FAQ, Trust Center, and About
 
 | What | Where |
 |---|---|
-| Questions and answers | **FAQ** in the admin menu: one entry per question (title = question, content = answer). "Show on" puts it on the FAQ page and/or the Trust Center; Order sets the position; "Link anchor" keeps links like `/faq/#q-is-labora-hipaa-compliant` working |
+| Questions and answers | **FAQ** in the admin menu: one entry per question (title = question, content = answer). "Show on" puts it on the FAQ page, the Trust Center, and/or the About page; Order sets the position; "Link anchor" keeps links like `/faq/#q-is-labora-hipaa-compliant` working |
 | FAQ topics (groups and the "Categories" list) | FAQ > Topics: name, icon, intro line, order; the slug is the group's anchor (`/faq/#security`) |
 | FAQ page intro, help box, help cards | Pages > FAQ (template "FAQ page") |
 | Trust Center texts and lists | Pages > Trust Center (template "Trust Center"), one tab per section. Lists are one item per line. The security email comes from Labora Settings (`{security_email}` in a text) |
+| About texts, lists, screenshots | Pages > About (template "About"), one tab per section. Leadership and extra "At a glance" facts appear only when filled in |
 
-Both pages send FAQ structured data built from exactly the questions they show. In answers, `[labora_email key="security"]`
+All three pages send FAQ structured data built from exactly the questions they show. In answers, `[labora_email key="security"]`
 (or contact, sales) prints that email address from Labora Settings. The Trust Center's product pictures are part of the
 design (parent `template-parts/trust/`). Content source: `data/faq.json` and `data/pages/*.json`, created by
 `wp labora pages-setup` (`--overwrite` replaces the pages' fields and the entries with the files' version).

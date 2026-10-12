@@ -206,7 +206,8 @@
       "topic": "implementation",
       "order": 401,
       "show_on": [
-        "faq"
+        "faq",
+        "about"
       ]
     },
     {
@@ -287,6 +288,46 @@
       "order": 602,
       "show_on": [
         "faq"
+      ]
+    },
+    {
+      "anchor": "q-who-is-labora-for",
+      "question": "Who is Labora for?",
+      "answer": "<p>Diagnostic labs: independent pathology labs, imaging and diagnostic centers, multi-center lab chains, hospital laboratories, home collection services, and cardiology and ECG clinics.</p>",
+      "topic": "general",
+      "order": 1,
+      "show_on": [
+        "about"
+      ]
+    },
+    {
+      "anchor": "q-how-is-labora-different-from-a-lims",
+      "question": "How is Labora different from a LIMS?",
+      "answer": "<p>A LIMS is usually sample-centered and built for research and industrial labs. Labora is built around the patient case for diagnostic labs: it covers what a LIS does and adds radiology reporting, home collection, multi-center management, and business insights.</p>",
+      "topic": "general",
+      "order": 2,
+      "show_on": [
+        "about"
+      ]
+    },
+    {
+      "anchor": "q-where-is-our-data-and-who-can-see-it",
+      "question": "Where is our data, and who can see it?",
+      "answer": "<p>Labora runs on secured, monitored cloud infrastructure with regular backups. Inside your lab, each person sees only what their role allows, and every action is recorded. The details are in our Trust Center.</p>",
+      "topic": "general",
+      "order": 901,
+      "show_on": [
+        "about"
+      ]
+    },
+    {
+      "anchor": "q-can-we-see-labora-with-our-own-tests-first",
+      "question": "Can we see Labora with our own tests first?",
+      "answer": "<p>Yes. Book a demo and bring your test menu and price list. We will walk through a patient case configured the way your team works.</p>",
+      "topic": "general",
+      "order": 902,
+      "show_on": [
+        "about"
       ]
     }
   ]

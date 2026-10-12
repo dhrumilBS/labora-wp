@@ -1,0 +1,169 @@
+{
+  "template": "page-templates/about.php",
+  "title": "About",
+  "slug": "about",
+  "seo_title": "About Labora | Software for Diagnostic Labs",
+  "seo_description": "Labora builds laboratory management software for diagnostic labs: one patient case for the front desk, collection, lab, reporting doctors, and delivery.",
+  "fields": {
+    "hero_eyebrow": "About Labora",
+    "hero_title": "We build the software diagnostic labs run on.",
+    "hero_lead": "Labora connects the front desk, the collection team, the bench, and the reporting doctor in one patient case. Results reach patients and doctors sooner, and every step leaves a record.",
+    "hero_btn1_label": "Book a demo",
+    "hero_btn1_url": "/#demo",
+    "hero_btn2_label": "Watch the product tour",
+    "hero_btn2_url": "/#product-tour",
+    "glance": [
+      {
+        "term": "Built for",
+        "text": "Diagnostic labs, from a single center to a multi-center chain"
+      },
+      {
+        "term": "Covers",
+        "text": "Registration, collection, testing, reporting, and delivery"
+      },
+      {
+        "term": "Specialties",
+        "text": "Pathology, radiology, and ECG in one patient case"
+      },
+      {
+        "term": "Runs on",
+        "text": "Secured, monitored cloud infrastructure"
+      }
+    ],
+    "hero_screen": "patient-case",
+    "hero_alt": "A Labora patient case: Emily Carter's tests across hematology, biochemistry, radiology, and cardiology, with each role's step from registration to delivery",
+    "hero_caption": "One patient case in Labora: every role's step, every test, and the activity behind it.",
+    "story_label": "Why we exist",
+    "story_title": "Labs rarely lose time at the analyzer. They lose it between people.",
+    "story_text": "In a diagnostic lab, one test passes through many hands. The front desk registers the patient, a phlebotomist collects the sample, a technician runs and validates it, a doctor reviews and signs, and someone sends the report.\n\nWhen each of those steps lives in a different register, spreadsheet, or phone call, the work itself is not the problem. The handoffs are. Samples get searched for, results get retyped, and patients call to ask whether their report is ready.\n\nLabora exists to close those gaps: one patient case that every role works in, with the status of every sample visible to everyone who needs it.",
+    "quote_text": "The analyzer is rarely the bottleneck. The wait is almost always in the handoff between two people.",
+    "quote_link_label": "From our guide to cutting turnaround time",
+    "quote_link_url": "/blog/how-to-cut-lab-turnaround-time/",
+    "journey_label": "How it fits together",
+    "journey_title": "One patient case, five roles",
+    "journey_text": "Each person sees the step that is theirs, and everyone sees where the case stands.",
+    "journey_steps": [
+      {
+        "icon": "users",
+        "title": "Front desk",
+        "text": "Registers the patient, tests, and payment on one screen."
+      },
+      {
+        "icon": "truck",
+        "title": "Collection",
+        "text": "Labels each tube at the point of collection. Home visits are tracked on a live map."
+      },
+      {
+        "icon": "barcode",
+        "title": "Lab",
+        "text": "Scans every sample into a rack and slot, with a turnaround timer on every case."
+      },
+      {
+        "icon": "edit",
+        "title": "Reporting",
+        "text": "Uses templates for pathology, radiology, and ECG. Reports release after an authorized doctor signs."
+      },
+      {
+        "icon": "send",
+        "title": "Delivery",
+        "text": "Sends the signed PDF to the patient and the referring doctor the moment it is approved."
+      }
+    ],
+    "beliefs_label": "What we believe",
+    "beliefs_title": "The principles behind every screen",
+    "beliefs": [
+      {
+        "title": "Time is a patient outcome.",
+        "text": "A faster report means an earlier answer for a patient and their doctor. We judge our product by the minutes it removes from a lab's day."
+      },
+      {
+        "title": "One record, entered once.",
+        "text": "Every role works in the same patient case, so nothing is retyped, and nothing is lost between a register, a spreadsheet, and a phone call."
+      },
+      {
+        "title": "Fit the lab, not the other way around.",
+        "text": "Tests, price lists, report templates, and workflows are set up to match how each lab already works, so teams keep their habits and lose the paperwork."
+      },
+      {
+        "title": "Trust is shown, not claimed.",
+        "text": "Role-based access, audit trails, and signed releases make every action visible to the people responsible for it. <a href=\"/security/\">See how we protect patient data</a>."
+      }
+    ],
+    "labs_label": "Who we build for",
+    "labs_title": "Labs where every hour shows up in a patient's wait",
+    "labs": [
+      {
+        "icon": "flask",
+        "name": "Independent pathology labs"
+      },
+      {
+        "icon": "scan",
+        "name": "Imaging and diagnostic centers"
+      },
+      {
+        "icon": "building",
+        "name": "Multi-center lab chains"
+      },
+      {
+        "icon": "hospital",
+        "name": "Hospital laboratories"
+      },
+      {
+        "icon": "home",
+        "name": "Home collection services"
+      },
+      {
+        "icon": "heart",
+        "name": "Cardiology and ECG clinics"
+      }
+    ],
+    "labs_note": "Front desk staff, phlebotomists, technicians, reporting doctors, and owners all work in the same system, each with access suited to their role.",
+    "scale_label": "As you grow",
+    "scale_title": "From one lab to many centers, on one system",
+    "scale_text": "Most labs do not stay at one center for long. Labora runs branches, collection points, home collection, and partner labs together, with one setup shared by all of them.",
+    "scale_checks": "Switch between centers in one click\nCompare cases, turnaround, and revenue by center\nOne test menu, price list, and template library for every center\nPartner and B2B work on the same record",
+    "scale_link_label": "See plans for multi-center labs",
+    "scale_link_url": "/pricing/",
+    "scale_screen": "centers-overview",
+    "scale_alt": "Labora centers overview: cases, on-time rate, and status for each center, with a setup shared by every center",
+    "sec_label": "Security and access",
+    "sec_title": "Patient data deserves more than a shared password",
+    "sec_text": "Everyone works under their own account and sees only what their role needs. Reports are released only after an authorized doctor signs them, and every action leaves a record.",
+    "sec_checks": "Each person signs in as themselves\nAccess set by role and by center\nEvery registration, edit, signature, and payment recorded\nSecured, monitored cloud with regular backups",
+    "sec_link_label": "Visit the Trust Center",
+    "sec_link_url": "/security/",
+    "sec_screen": "roles-access",
+    "sec_alt": "Labora users and roles: each person with a role and center, and the permissions for the front desk role",
+    "work_label": "How we work with labs",
+    "work_title": "We stay with you until the switch is done",
+    "work_text": "Changing lab software is a big decision for any team. These are the parts we take on, so yours can keep serving patients.",
+    "work": [
+      {
+        "icon": "sliders",
+        "title": "Guided rollout",
+        "text": "We set Labora up one center at a time, so your team keeps working while the switch happens."
+      },
+      {
+        "icon": "refresh",
+        "title": "Your data, moved for you",
+        "text": "We migrate your tests, price lists, report templates, and referring doctors, so you start with your own setup."
+      },
+      {
+        "icon": "users",
+        "title": "Training for every role",
+        "text": "Front desk, phlebotomists, technicians, and pathologists each learn the parts of Labora they use every day."
+      }
+    ],
+    "team_title": "The people behind Labora",
+    "team": [],
+    "faq_title": "Questions about Labora",
+    "faq_text": "What lab owners and IT teams usually ask us first.",
+    "faq_link_label": "See all FAQs",
+    "cta_title": "See Labora set up for your lab",
+    "cta_text": "Bring your test menu and price list. We will show you a patient case from registration to signed report, configured the way your team works.",
+    "cta_btn1_label": "Book a demo",
+    "cta_btn1_url": "/#demo",
+    "cta_btn2_label": "Visit the Trust Center",
+    "cta_btn2_url": "/security/"
+  }
+}

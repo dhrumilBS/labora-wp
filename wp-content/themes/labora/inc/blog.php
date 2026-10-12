@@ -90,14 +90,55 @@ function labora_cover_screens(): array {
 	);
 }
 
-/** A screenshot <img> with the same sizes as the HTML site (480 to 1200 wide). */
+/** Widths of a product screenshot that exist in assets/img/screens/ ($variant 'm' = the phone crop). */
+function labora_screen_widths( string $name, string $variant = '' ): array {
+	static $cache = array();
+	$key = $name . '|' . $variant;
+	if ( ! isset( $cache[ $key ] ) ) {
+		$base  = get_theme_file_path( 'assets/img/screens/' );
+		$found = array();
+		foreach ( (array) glob( $base . $name . ( $variant ? "-{$variant}" : '' ) . '-*.webp' ) as $file ) {
+			if ( preg_match( '/-(\d+)\.webp$/', $file, $m ) && ( $variant || ! str_contains( basename( $file ), '-m-' ) ) ) {
+				$found[] = (int) $m[1];
+			}
+		}
+		sort( $found );
+		$cache[ $key ] = $found;
+	}
+	return $cache[ $key ];
+}
+
+/** srcset for a screenshot, from the widths that exist between $min and $max. */
+function labora_screen_srcset( string $name, string $variant = '', int $min = 0, int $max = 9999 ): string {
+	$path = 'img/screens/' . $name . ( $variant ? "-{$variant}" : '' );
+	return implode( ', ', array_map( fn( $w ) => labora_asset( "{$path}-{$w}.webp" ) . " {$w}w", array_filter( labora_screen_widths( $name, $variant ), fn( $w ) => $w >= $min && $w <= $max ) ) );
+}
+
+/** A screenshot <img> as on the HTML blog (files up to 1200 wide, 800 as the fallback). */
 function labora_screen_img( string $name, string $sizes, bool $eager = false, string $alt = '' ): string {
-	$srcset = implode( ', ', array_map( fn( $w ) => labora_asset( "img/screens/{$name}-{$w}.webp" ) . " {$w}w", array( 480, 640, 800, 1200 ) ) );
 	return sprintf(
 		'<img src="%s" srcset="%s" sizes="%s" width="800" height="690" alt="%s" %s>',
 		esc_url( labora_asset( "img/screens/{$name}-800.webp" ) ),
-		esc_attr( $srcset ),
+		esc_attr( labora_screen_srcset( $name, '', 0, 1200 ) ),
 		esc_attr( $sizes ),
+		esc_attr( $alt ),
+		$eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"'
+	);
+}
+
+/**
+ * A screenshot <picture> as on the HTML pages: the phone crop up to 640px wide screens, the full screenshot
+ * (800, 1200, 1600) above.
+ */
+function labora_screen_picture( string $name, string $alt, bool $eager = false ): string {
+	$mobile = labora_screen_widths( $name, 'm' )
+		? sprintf( '<source media="(max-width: 640px)" type="image/webp" srcset="%s" sizes="calc(100vw - 40px)" width="640" height="644">', esc_attr( labora_screen_srcset( $name, 'm' ) ) )
+		: '';
+	return sprintf(
+		'<picture>%s<img src="%s" srcset="%s" sizes="(max-width: 1240px) calc(100vw - 40px), 1200px" width="2320" height="2000" alt="%s" %s></picture>',
+		$mobile,
+		esc_url( labora_asset( "img/screens/{$name}-1200.webp" ) ),
+		esc_attr( labora_screen_srcset( $name, '', 800, 1600 ) ),
 		esc_attr( $alt ),
 		$eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"'
 	);

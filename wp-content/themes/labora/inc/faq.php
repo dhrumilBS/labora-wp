@@ -3,7 +3,8 @@
  * FAQ entries, shared by the FAQ page and the Trust Center (admin menu "FAQ").
  *
  *   Entry   the question is the title, the answer is the content; "Show on" chooses the pages (FAQ page, Trust
- *           Center); "Link anchor" keeps links like /faq/#q-is-labora-hipaa-compliant working; order: Order box
+ *           Center, About page); "Link anchor" keeps links like /faq/#q-is-labora-hipaa-compliant working;
+ *           order: Order box
  *   Topic   name, icon, intro line, and order (the FAQ page's groups and the "Categories" list)
  *
  * Answers may use [labora_email key="security"] (or contact, sales) to show an email address from Labora Settings.
@@ -22,6 +23,7 @@ function labora_faq_places(): array {
 	return array(
 		'faq'      => __( 'FAQ page', 'labora' ),
 		'security' => __( 'Trust Center', 'labora' ),
+		'about'    => __( 'About page', 'labora' ),
 	);
 }
 
@@ -168,16 +170,19 @@ function labora_faq_answer( WP_Post $post ): string {
 	return trim( str_replace( ']]>', ']]&gt;', $html ) );
 }
 
-/** One question: the HTML site's <details class="faq-item">, with "Copy link" and "Was this helpful?" when $tools. */
-function labora_faq_item( WP_Post $post, bool $tools = true ): string {
+/**
+ * One question: the HTML site's <details class="faq-item">, with "Copy link" and "Was this helpful?" when $tools,
+ * and its link anchor as id when $anchor (the About page shows plain questions, as on the HTML site).
+ */
+function labora_faq_item( WP_Post $post, bool $tools = true, bool $anchor = true ): string {
 	$tools_html = $tools ? '<div class="faq-tools"><button type="button" data-copy-q>' . labora_icon( 'link' ) . esc_html__( 'Copy link', 'labora' ) . '</button>'
 		. '<span class="sep" aria-hidden="true"></span><span>' . esc_html__( 'Was this helpful?', 'labora' ) . '</span>'
 		. '<button type="button" data-helpful="yes" aria-pressed="false">' . esc_html__( 'Yes', 'labora' ) . '</button>'
 		. '<button type="button" data-helpful="no" aria-pressed="false">' . esc_html__( 'No', 'labora' ) . '</button>'
 		. '<span class="faq-thanks" aria-live="polite"></span></div>' : '';
 	return sprintf(
-		'<details class="faq-item" id="%1$s"><summary><h3>%2$s</h3><span class="plus" aria-hidden="true"><svg class="icon"><use href="#i-plus"/></svg></span></summary><div class="faq-answer">%3$s</div>%4$s</details>',
-		esc_attr( labora_faq_anchor( $post ) ),
+		'<details class="faq-item"%1$s><summary><h3>%2$s</h3><span class="plus" aria-hidden="true"><svg class="icon"><use href="#i-plus"/></svg></span></summary><div class="faq-answer">%3$s</div>%4$s</details>',
+		$anchor ? ' id="' . esc_attr( labora_faq_anchor( $post ) ) . '"' : '',
 		esc_html( get_the_title( $post ) ),
 		labora_faq_answer( $post ),
 		$tools_html
@@ -224,6 +229,8 @@ add_filter( 'wpseo_schema_graph', function ( $graph ) {
 		$posts = array_merge( ...array_map( fn( $g ) => $g['items'], labora_faq_groups( 'faq' ) ) ?: array( array() ) );
 	} elseif ( 'page-templates/trust-center.php' === $template ) {
 		$posts = labora_faq_entries( 'security' );
+	} elseif ( 'page-templates/about.php' === $template ) {
+		$posts = labora_faq_entries( 'about' );
 	} else {
 		return $graph;
 	}
