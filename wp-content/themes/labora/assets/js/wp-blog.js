@@ -1,5 +1,6 @@
 /*!
- * Labora blog additions for WordPress: the interactive checklist block and "Was this article helpful?".
+ * Labora blog additions for WordPress: the "Checklist" list style and the interactive checklist block (tick, copy,
+ * reset), and "Was this article helpful?".
  * Vanilla JS, no dependencies. Loaded with `defer` after blog.min.js (the HTML site's file, unchanged).
  */
 (function () {
@@ -39,7 +40,71 @@
     });
   }
 
-  /* ---------- Interactive checklist: progress, ticks kept per reader, copy, reset ---------- */
+  // "Copy checklist": heading, then one "[x] item" / "[ ] item" line each, then where it came from
+  function copyChecklist(title, rows) {
+    var lines = [title, ''];
+    rows.forEach(function (r) { lines.push((r.checked ? '[x] ' : '[ ] ') + r.text); });
+    var url = (doc.querySelector('link[rel="canonical"]') || {}).href || location.href;
+    lines.push('', 'From: ' + doc.title + '\n' + url);
+    copyText(lines.join('\n')).then(function () { say('Checklist copied'); }, function () { say('Copy did not work in this browser'); });
+  }
+
+  /* ---------- "Checklist" list style: rows readers tick off, with count, copy, and reset ---------- */
+  var icon = function (name) { return '<svg class="icon icon-sm" aria-hidden="true"><use href="#i-' + name + '"/></svg>'; };
+  $$('.prose ul.checklist, .prose ol.checklist').forEach(function (list, n) {
+    var items = $$(':scope > li', list);
+    if (!items.length) return;
+    var key = 'labora:list:' + location.pathname + ':' + n;
+    // Its title: the nearest heading above it
+    var title = 'Checklist';
+    for (var el = list.previousElementSibling; el; el = el.previousElementSibling) {
+      if (/^H[23]$/.test(el.tagName)) { title = el.textContent.trim(); break; }
+    }
+    list.classList.add('checklist--live');
+    list.setAttribute('role', 'group');
+    list.setAttribute('aria-label', title);
+
+    var tools = doc.createElement('div');
+    tools.className = 'lchk-actions checklist-tools';
+    tools.innerHTML = '<p class="lchk-count" aria-live="polite"><span>0</span> of ' + items.length + ' done</p>' +
+      '<button type="button" class="btn btn--ghost btn--sm" data-copy>' + icon('clipboard') + 'Copy checklist</button>' +
+      '<button type="button" class="lchk-reset" data-reset>' + icon('refresh') + 'Reset</button>';
+    list.parentNode.insertBefore(tools, list.nextSibling);
+    var done = $('.lchk-count span', tools);
+
+    var update = function (save) {
+      var ticked = [];
+      items.forEach(function (li, i) { if (li.getAttribute('aria-checked') === 'true') ticked.push(i); });
+      done.textContent = ticked.length;
+      tools.classList.toggle('is-complete', ticked.length === items.length);
+      if (save) store.set(key, ticked);
+    };
+    var toggle = function (li) { li.setAttribute('aria-checked', String(li.getAttribute('aria-checked') !== 'true')); update(true); };
+
+    var saved = store.get(key);
+    items.forEach(function (li, i) {
+      li.setAttribute('role', 'checkbox');
+      li.setAttribute('tabindex', '0');
+      li.setAttribute('aria-checked', String(Array.isArray(saved) && saved.indexOf(i) !== -1));
+      li.addEventListener('click', function (e) { if (!e.target.closest('a')) toggle(li); });
+      li.addEventListener('keydown', function (e) {
+        if (e.target !== li) return;
+        if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); toggle(li); }
+      });
+    });
+    update(false);
+
+    $('[data-copy]', tools).addEventListener('click', function () {
+      copyChecklist(title, items.map(function (li) { return { checked: li.getAttribute('aria-checked') === 'true', text: li.textContent.replace(/\s+/g, ' ').trim() }; }));
+    });
+    $('[data-reset]', tools).addEventListener('click', function () {
+      items.forEach(function (li) { li.setAttribute('aria-checked', 'false'); });
+      update(true);
+      items[0].focus();
+    });
+  });
+
+  /* ---------- Interactive checklist block: progress, ticks kept per reader, copy, reset ---------- */
   $$('[data-checklist]').forEach(function (box) {
     var key = 'labora:checklist:' + box.getAttribute('data-checklist');
     var boxes = $$('input[type="checkbox"]', box);
@@ -68,16 +133,12 @@
 
     var copyBtn = $('[data-chk-copy]', box);
     if (copyBtn) copyBtn.addEventListener('click', function () {
-      var lines = [title ? title.textContent.trim() : '', ''];
-      boxes.forEach(function (cb) {
+      copyChecklist(title ? title.textContent.trim() : 'Checklist', boxes.map(function (cb) {
         var text = $('.lchk-text', cb.closest('label'));
         var detail = $('small', text);
         var main = text.firstChild ? text.firstChild.textContent.trim() : text.textContent.trim();
-        lines.push((cb.checked ? '[x] ' : '[ ] ') + main + (detail ? ' (' + detail.textContent.trim() + ')' : ''));
-      });
-      var url = (doc.querySelector('link[rel="canonical"]') || {}).href || location.href;
-      lines.push('', 'From: ' + doc.title + '\n' + url);
-      copyText(lines.join('\n')).then(function () { say('Checklist copied'); }, function () { say('Copy did not work in this browser'); });
+        return { checked: cb.checked, text: main + (detail ? ' (' + detail.textContent.trim() + ')' : '') };
+      }));
     });
 
     var resetBtn = $('[data-chk-reset]', box);
