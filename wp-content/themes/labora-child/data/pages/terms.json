@@ -1,0 +1,15 @@
+{
+  "template": "page-templates/legal.php",
+  "title": "Terms of service",
+  "slug": "terms",
+  "order": 2,
+  "excerpt": "The terms for using this website and the Labora service.",
+  "content": "legal/terms.html",
+  "seo_title": "Terms of Service %%sep%% %%sitename%%",
+  "seo_description": "The terms that govern use of the Labora website and laboratory management service.",
+  "fields": {
+    "updated": "20261006",
+    "draft": 1,
+    "draft_text": "<b>Draft for legal review.</b> This policy is not yet in effect. Highlighted items are to be confirmed by counsel before launch."
+  }
+}

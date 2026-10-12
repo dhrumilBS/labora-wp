@@ -84,6 +84,11 @@ Models:
 echo tlc_gated_html( 'marketing', $html ); // any markup, inserted after consent
 ```
 
+Shortcodes: `[tlc_preferences text="Cookie settings" class="btn"]` (a button; without `class` it looks like a text
+link), `[tlc_dnss_link]`, `[tlc_cookie_table]` (every category with its cookies) or
+`[tlc_cookie_table layout="summary" class="..."]` (one table, a row per category: type, purpose, cookies; labels:
+`type_label`, `purpose_label`, `cookies_label`, `none_label`), `[tlc_consent_details]`.
+
 Links that open the banner: `<a href="#tlc-preferences">`, `<a href="#tlc-dnss">`, `[data-tlc-open]`,
 `[data-tlc-dnss]`, or your own selectors (General tab). A page opened with `#tlc-preferences` or `#tlc-dnss` in the
 address opens that view.

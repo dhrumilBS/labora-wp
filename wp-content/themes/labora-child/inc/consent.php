@@ -29,10 +29,19 @@ add_filter( 'tlc_defaults', function ( array $d ): array {
 		'prefs_text'     => 'Choose what we may store. You can change this at any time from "Cookie settings" at the bottom of every page.',
 	) );
 
-	// The site uses no functional cookies today: hide the category until it does
+	// The site uses no functional cookies today: hide the category until it does.
+	// HandL UTM Grabber (form attribution) sets user_agent on every visit: listed under Analytics.
 	foreach ( $d['categories'] as &$cat ) {
 		if ( 'functional' === $cat['id'] ) {
 			$cat['enabled'] = 0;
+		}
+		if ( 'analytics' === $cat['id'] ) {
+			$cat['cookies'][] = array(
+				'name'     => 'user_agent',
+				'provider' => 'This site (HandL UTM Grabber)',
+				'purpose'  => 'Records your browser type with the source of your visit, sent with forms you submit',
+				'duration' => 'Session',
+			);
 		}
 	}
 	unset( $cat );

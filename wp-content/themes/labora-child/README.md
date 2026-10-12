@@ -79,6 +79,16 @@ parents use the "Redirect" template: `/platform/` and `/solutions/` lead to the 
 
 Content source: `data/pages/platform*.json`, `data/pages/solutions*.json`, created by `wp labora pages-setup`.
 
+## Legal pages
+
+Privacy, Terms, and Cookies use the "Legal page" template and are edited in the block editor. The excerpt is the line
+under the title; "Last updated" and the draft notice are in the sidebar; each Heading starts a section of "On this
+page" (its link is the heading's HTML anchor, Block > Advanced); the links to the other legal pages are added
+automatically. Mark wording counsel still has to confirm with the "To confirm" format (toolbar, flag icon).
+The Cookies page shows TrustLayer's live cookie list (`[tlc_cookie_table layout="summary" class="lg-table"]`) and an
+"Open cookie settings" button (`[tlc_preferences ...]`); cookies are declared in TrustLayer > Categories and cookies
+(Labora's defaults: `inc/consent.php`). Content source: `data/legal/*.html`, created by `wp labora pages-setup`.
+
 ## Cookie consent
 
 The TrustLayer Consent plugin shows the banner. `inc/consent.php` sets its defaults for this site (the wording of

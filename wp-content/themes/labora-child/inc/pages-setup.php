@@ -26,6 +26,7 @@ function labora_pages_field_prefixes(): array {
 		'page-templates/platform.php'     => 'lpm',
 		'page-templates/solution.php'     => 'lso',
 		'page-templates/redirect.php'     => 'lrd',
+		'page-templates/legal.php'        => 'lgl',
 	);
 }
 
@@ -143,6 +144,12 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 		if ( $p['new'] || $overwrite ) {
 			foreach ( $p['fields'] as $name => $value ) {
 				update_field( "field_{$prefix}_{$name}", $resolve( $value ), $id );
+			}
+			// Text in the block editor: data/<content file>, converted like the blog articles (inc/blog-setup.php)
+			if ( ! empty( $p['content'] ) && is_readable( "{$dir}/{$p['content']}" ) ) {
+				$html = (string) file_get_contents( "{$dir}/{$p['content']}" );
+				$html = preg_replace_callback( '#href="(/[^"]*)"#', fn( $m ) => 'href="' . esc_url( home_url( $m[1] ) ) . '"', $html );
+				wp_update_post( array( 'ID' => $id, 'post_content' => wp_slash( labora_blog_seed_blocks( $html ) ), 'post_excerpt' => (string) ( $p['excerpt'] ?? '' ) ) );
 			}
 			if ( isset( $p['seo_title'] ) ) {
 				update_post_meta( $id, '_yoast_wpseo_title', $p['seo_title'] );

@@ -1,0 +1,15 @@
+{
+  "template": "page-templates/legal.php",
+  "title": "Privacy policy",
+  "slug": "privacy",
+  "order": 1,
+  "excerpt": "How Labora collects, uses, and protects personal information on this website.",
+  "content": "legal/privacy.html",
+  "seo_title": "Privacy Policy %%sep%% %%sitename%%",
+  "seo_description": "How Labora collects, uses, shares, and protects personal information on its website, and the choices and rights you have.",
+  "fields": {
+    "updated": "20261006",
+    "draft": 1,
+    "draft_text": "<b>Draft for legal review.</b> This policy is not yet in effect. Highlighted items are to be confirmed by counsel before launch."
+  }
+}

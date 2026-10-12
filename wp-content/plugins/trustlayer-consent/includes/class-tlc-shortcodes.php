@@ -3,9 +3,12 @@
  * Shortcodes for policy pages and footers. Links can also be plain menu items:
  * a custom link to "#tlc-preferences" opens the preferences, "#tlc-dnss" opens Do Not Sell or Share.
  *
- *   [tlc_preferences text="Cookie settings" class=""]   button that opens the preferences center
+ *   [tlc_preferences text="Cookie settings" class=""]   button that opens the preferences center (with class: the
+ *                                                      theme's styling, e.g. class="btn"; without: a text link)
  *   [tlc_dnss_link text="" class=""]                   Do Not Sell or Share link (shown only where it applies)
  *   [tlc_cookie_table category=""]                     the cookies of every category (or one), for a cookie policy
+ *   [tlc_cookie_table layout="summary" class=""]       one table, one row per category: type, purpose, cookies
+ *       (labels: type_label, purpose_label, cookies_label, none_label; class goes on the wrapper)
  *   [tlc_consent_details]                              the visitor's consent ID, date, and choices
  *
  * @package TrustLayer_Consent
@@ -24,7 +27,8 @@ final class TLC_Shortcodes {
 
 	public static function preferences( $atts ): string {
 		$a = shortcode_atts( array( 'text' => tlc_setting( 'texts.reopen' ), 'class' => '' ), $atts, 'tlc_preferences' );
-		return sprintf( '<button type="button" class="tlc-link %s" data-tlc-open>%s</button>', esc_attr( $a['class'] ), esc_html( $a['text'] ) );
+		$class = trim( (string) $a['class'] ) ?: 'tlc-link'; // tlc-link: plain text-link look; a class of your own replaces it
+		return sprintf( '<button type="button" class="%s" data-tlc-open>%s</button>', esc_attr( $class ), esc_html( $a['text'] ) );
 	}
 
 	public static function dnss( $atts ): string {
@@ -33,8 +37,19 @@ final class TLC_Shortcodes {
 	}
 
 	public static function cookie_table( $atts ): string {
-		$a     = shortcode_atts( array( 'category' => '' ), $atts, 'tlc_cookie_table' );
+		$a     = shortcode_atts( array(
+			'category'      => '',
+			'layout'        => '',
+			'class'         => '',
+			'type_label'    => __( 'Type', 'trustlayer-consent' ),
+			'purpose_label' => __( 'Purpose', 'trustlayer-consent' ),
+			'cookies_label' => __( 'Cookies', 'trustlayer-consent' ),
+			'none_label'    => __( 'None', 'trustlayer-consent' ),
+		), $atts, 'tlc_cookie_table' );
 		$texts = (array) tlc_setting( 'texts', array() );
+		if ( 'summary' === $a['layout'] ) {
+			return self::cookie_summary( $a );
+		}
 		$html  = '';
 		foreach ( TLC_Settings::categories() as $cat ) {
 			if ( $a['category'] && $a['category'] !== $cat['id'] ) {
@@ -63,6 +78,25 @@ final class TLC_Shortcodes {
 			$html .= '</section>';
 		}
 		return '<div class="tlc-cookie-table">' . $html . '</div>';
+	}
+
+	/** One table, one row per category: name, description, and its cookies with how long each is kept. */
+	private static function cookie_summary( array $a ): string {
+		$rows = '';
+		foreach ( TLC_Settings::categories() as $cat ) {
+			$cookies = array_map( function ( $c ) {
+				return '<code>' . esc_html( $c['name'] ) . '</code>' . ( '' !== trim( (string) $c['duration'] ) ? ' (' . esc_html( $c['duration'] ) . ')' : '' );
+			}, (array) $cat['cookies'] );
+			$rows .= '<tr><td>' . esc_html( $cat['title'] ) . '</td><td>' . wp_kses( $cat['description'], TLC_Settings::allowed_html() ) . '</td><td>' . ( $cookies ? implode( ', ', $cookies ) : esc_html( $a['none_label'] ) ) . '</td></tr>';
+		}
+		return sprintf(
+			'<div class="%1$s"><table><thead><tr><th scope="col">%2$s</th><th scope="col">%3$s</th><th scope="col">%4$s</th></tr></thead><tbody>%5$s</tbody></table></div>',
+			esc_attr( trim( 'tlc-cookie-summary ' . $a['class'] ) ),
+			esc_html( $a['type_label'] ),
+			esc_html( $a['purpose_label'] ),
+			esc_html( $a['cookies_label'] ),
+			$rows
+		);
 	}
 
 	/** Filled in by consent.js from the visitor's cookie (pages stay cacheable). */

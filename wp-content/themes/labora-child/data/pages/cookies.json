@@ -1,0 +1,15 @@
+{
+  "template": "page-templates/legal.php",
+  "title": "Cookie policy",
+  "slug": "cookies",
+  "order": 3,
+  "excerpt": "Which cookies this website uses, and how to control them.",
+  "content": "legal/cookies.html",
+  "seo_title": "Cookie Policy %%sep%% %%sitename%%",
+  "seo_description": "Which cookies and similar technologies the Labora website uses today, and how to control them.",
+  "fields": {
+    "updated": "20261006",
+    "draft": 1,
+    "draft_text": "<b>Draft for legal review.</b> This policy is not yet in effect. Highlighted items are to be confirmed by counsel before launch."
+  }
+}
