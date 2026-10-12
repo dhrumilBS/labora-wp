@@ -1,7 +1,7 @@
 <?php
 /**
- * Shared parts of the Platform module and Solution templates (page-templates/platform.php, solution.php),
- * and the Redirect template (pages that only group others: /platform/ and /solutions/ lead to the homepage).
+ * Shared parts of the Platform module, Solution and Hub templates (page-templates/platform.php, solution.php,
+ * hub.php), and the Redirect template (a page that only sends visitors elsewhere).
  *
  * @package Labora
  */
@@ -19,6 +19,38 @@ function labora_heading( string $name, string $default ): string {
 	return str_replace( '{noun}', (string) labora_field( 'noun' ), '' !== $value ? $value : $default );
 }
 
+/** The short line on a page's card: its excerpt, else its first feature (Platform), else the first sentence of its heading text. */
+function labora_card_line( int $id ): string {
+	$first = trim( (string) get_post_field( 'post_excerpt', $id ) );
+	if ( '' === $first ) {
+		$first = trim( (string) strtok( (string) labora_page_field( 'features', $id ), "\r\n" ) );
+	}
+	if ( '' === $first && preg_match( '/^.+?[.!?](?=\s|$)/u', trim( (string) labora_page_field( 'hero_lead', $id ) ), $m ) ) {
+		$first = $m[0];
+	}
+	return $first;
+}
+
+/** The pages a hub lists: its "Cards" choice, or every published page under it in page order. */
+function labora_hub_pages( int $hub ): array {
+	$chosen = array_filter( array_map( 'intval', (array) labora_page_field( 'cards', $hub ) ) );
+	if ( $chosen ) {
+		return array_values( $chosen );
+	}
+	return get_posts( array( 'post_type' => 'page', 'post_parent' => $hub, 'post_status' => 'publish', 'numberposts' => -1, 'orderby' => array( 'menu_order' => 'ASC', 'title' => 'ASC' ), 'fields' => 'ids' ) );
+}
+
+/** Where a link to a parent page goes: a Redirect page's target, otherwise the page itself (e.g. a hub). */
+function labora_parent_url( int $parent ): string {
+	if ( 'page-templates/redirect.php' === get_page_template_slug( $parent ) ) {
+		$target = trim( (string) labora_page_field( 'redirect_url', $parent ) );
+		if ( '' !== $target ) {
+			return labora_link( $target );
+		}
+	}
+	return (string) get_permalink( $parent );
+}
+
 /** Module cards (the HTML site's .pr-mod): icon, name (page title), and first feature of each Platform page. */
 function labora_module_cards( array $ids ): string {
 	$html = '';
@@ -26,7 +58,7 @@ function labora_module_cards( array $ids ): string {
 		if ( 'publish' !== get_post_status( $id ) ) {
 			continue;
 		}
-		$first = trim( (string) strtok( (string) labora_page_field( 'features', $id ), "\r\n" ) );
+		$first = labora_card_line( $id );
 		$html .= sprintf(
 			'<a class="pr-mod reveal" href="%1$s"><span class="t-ic">%2$s</span><span><b>%3$s</b><small>%4$s</small></span>%5$s</a>',
 			esc_url( get_permalink( $id ) ),
@@ -80,13 +112,12 @@ function labora_product_cta(): void {
 	<?php
 }
 
-/** Breadcrumbs of Platform and Solution pages: Home > parent (its redirect target) > this page. */
+/** Breadcrumbs of Platform, Solution and hub pages: Home > parent (its hub, or a Redirect page's target) > this page. */
 function labora_product_crumbs(): string {
 	$parent = wp_get_post_parent_id( get_the_ID() );
 	$link   = '';
 	if ( $parent ) {
-		$target = (string) labora_page_field( 'redirect_url', $parent );
-		$link   = sprintf( '<a href="%s">%s</a>%s', esc_url( $target ? labora_link( $target ) : get_permalink( $parent ) ), esc_html( get_the_title( $parent ) ), labora_icon( 'chev' ) );
+		$link = sprintf( '<a href="%s">%s</a>%s', esc_url( labora_parent_url( $parent ) ), esc_html( get_the_title( $parent ) ), labora_icon( 'chev' ) );
 	}
 	return sprintf(
 		'<nav class="pr-crumbs" aria-label="%1$s"><a href="%2$s">%3$s</a>%4$s%5$s<span aria-current="page">%6$s</span></nav>',

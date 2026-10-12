@@ -4,6 +4,7 @@
   "slug": "cardiology-clinics",
   "parent": "solutions",
   "order": 6,
+  "excerpt": "ECG, 2D echo, and treadmill reports in the same record.",
   "seo_title": "Software for Cardiology and ECG clinics %%sep%% %%sitename%%",
   "seo_description": "Software for cardiology and ECG clinics: templates for ECG, 2D echo, and treadmill reports, one patient record with lab and imaging, and signed delivery.",
   "fields": {

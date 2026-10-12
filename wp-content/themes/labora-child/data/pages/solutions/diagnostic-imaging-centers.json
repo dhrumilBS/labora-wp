@@ -4,6 +4,7 @@
   "slug": "diagnostic-imaging-centers",
   "parent": "solutions",
   "order": 2,
+  "excerpt": "Ultrasound, X-ray, CT, and MRI templates beside lab results.",
   "seo_title": "Software for Diagnostic and imaging centers %%sep%% %%sitename%%",
   "seo_description": "Software for diagnostic and imaging centers: radiology templates for ultrasound, X-ray, CT, and MRI, lab results on the same patient case, and signed report delivery.",
   "fields": {

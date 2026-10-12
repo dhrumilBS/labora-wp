@@ -42,3 +42,8 @@
 .wp-search input[type="search"] { flex: 1; min-width: 0; min-height: 48px; padding: .7rem 1rem; border: 1px solid var(--line-strong); border-radius: 12px; background: #fff; font-size: 1rem; }
 .wp-search input[type="search"]:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--mint); }
 @media (max-width: 560px) { .wp-search { flex-direction: column; } }
+
+/* ---------- Hub pages (page-templates/hub.php): the pages under the hub as two columns of module cards ---------- */
+.hub-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.hub-other-link { margin-top: 1.25rem; }
+@media (max-width: 720px) { .hub-cards { grid-template-columns: 1fr; } }

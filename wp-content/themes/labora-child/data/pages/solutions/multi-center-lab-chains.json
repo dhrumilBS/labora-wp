@@ -4,6 +4,7 @@
   "slug": "multi-center-lab-chains",
   "parent": "solutions",
   "order": 3,
+  "excerpt": "Every branch and collection point on one setup.",
   "seo_title": "Software for Multi-center lab chains %%sep%% %%sitename%%",
   "seo_description": "Software for multi-center lab chains: run branches and collection centers in one system, compare revenue and turnaround, and keep one set of roles and permissions.",
   "fields": {

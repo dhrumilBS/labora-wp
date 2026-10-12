@@ -59,15 +59,14 @@ add_filter( 'wpseo_next_rel_link', '__return_false' );
 /**
  * Breadcrumbs (visible ones and the BreadcrumbList data):
  *  - names without HTML entities ("Centers & outsource labs", not "&#038;")
- *  - Platform and Solutions pages: the parent links to where its page leads (the homepage section)
+ *  - Platform and Solutions pages: the parent links to its hub (or, for a Redirect page, to where that leads)
  *  - topic pages: Home > Blog > topic
  */
 add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
 	if ( is_page() && in_array( get_page_template_slug(), array( 'page-templates/platform.php', 'page-templates/solution.php' ), true ) ) {
 		$parent = wp_get_post_parent_id( get_the_ID() );
-		$target = $parent ? (string) labora_page_field( 'redirect_url', $parent ) : '';
-		if ( $parent && $target ) {
-			$crumb = array( 'url' => labora_link( $target ), 'text' => get_the_title( $parent ) );
+		if ( $parent ) {
+			$crumb = array( 'url' => labora_parent_url( $parent ), 'text' => get_the_title( $parent ) );
 			$found = false;
 			foreach ( $links as &$link ) {
 				if ( (int) ( $link['id'] ?? 0 ) === $parent ) {
@@ -83,7 +82,7 @@ add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
 	}
 	if ( ( is_category() || is_tag() ) && labora_blog_page_id() ) {
 		$blog = array( 'url' => labora_blog_url(), 'text' => get_the_title( labora_blog_page_id() ) );
-		if ( ! in_array( $blog['url'], wp_list_pluck( $links, 'url' ), true ) ) {
+		if ( ! in_array( $blog['url'], array_column( array_filter( $links, 'is_array' ), 'url' ), true ) ) {
 			array_splice( $links, 1, 0, array( $blog ) );
 		}
 	}
@@ -100,6 +99,9 @@ add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
 add_filter( 'wpseo_schema_webpage_type', function ( $type ) {
 	if ( is_page() && 'page-templates/about.php' === get_page_template_slug() ) {
 		return array( 'WebPage', 'AboutPage' );
+	}
+	if ( is_page() && 'page-templates/hub.php' === get_page_template_slug() ) {
+		return array( 'WebPage', 'CollectionPage' ); // Platform and Solutions hubs list their pages
 	}
 	return $type;
 } );

@@ -3,6 +3,7 @@
  * Fields for the page templates whose layout is fixed but whose text is edited in WordPress:
  *   FAQ page       page-templates/faq.php           intro, help box, empty search message, help cards
  *   Trust Center   page-templates/trust-center.php  every heading, paragraph, and list of the Trust Center
+ *   Hub            page-templates/hub.php           Platform and Solutions: hero, cards of the pages under it, why, links
  * Lists of short lines are one text box with one line per item. The questions themselves are FAQ entries
  * (inc/faq.php). Product mockups on the Trust Center are part of the design (template-parts/trust/).
  *
@@ -221,7 +222,7 @@ add_action( 'acf/init', function () {
  * editor would show an empty canvas and tuck the fields away at the bottom). Filter: labora_field_templates.
  */
 add_filter( 'use_block_editor_for_post', function ( $use, $post ) {
-	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php', 'page-templates/about.php', 'page-templates/platform.php', 'page-templates/solution.php', 'page-templates/redirect.php' ) );
+	$templates = (array) apply_filters( 'labora_field_templates', array( 'page-templates/faq.php', 'page-templates/trust-center.php', 'page-templates/about.php', 'page-templates/platform.php', 'page-templates/solution.php', 'page-templates/hub.php', 'page-templates/redirect.php' ) );
 	return ( $post && 'page' === $post->post_type && in_array( get_page_template_slug( $post ), $templates, true ) ) ? false : $use;
 }, 10, 2 );
 
@@ -457,6 +458,43 @@ add_action( 'acf/init', function () {
 			$f( 'modules', __( 'Modules', 'labora' ), 'relationship', $modules ),
 			$heading( $f, 'other_label', __( 'Other labs: label', 'labora' ), 'Other labs' ),
 			$heading( $f, 'other_title', __( 'Other labs: heading', 'labora' ), 'Labora also runs' ),
+			$f( 'cta_title', __( 'Closing box: heading', 'labora' ) ),
+			$f( 'cta_text', __( 'Closing box: text', 'labora' ), 'textarea', $area ),
+		),
+	) );
+
+	// Hub (Platform, Solutions: the parent pages, listing their child pages)
+	[ 'tab' => $tab, 'f' => $f, 'sub' => $sub ] = $group( 'lhb' );
+	$pages = array( 'post_type' => array( 'page' ), 'filters' => array( 'search' ), 'return_format' => 'id' );
+	acf_add_local_field_group( array(
+		'key'            => 'group_labora_hub',
+		'title'          => __( 'Hub', 'labora' ),
+		'location'       => $tpl( 'page-templates/hub.php' ),
+		'position'       => 'acf_after_title',
+		'hide_on_screen' => array( 'the_content' ),
+		'fields'         => array(
+			array( 'key' => 'field_lhb_msg', 'name' => '', 'label' => '', 'type' => 'message', 'message' => __( 'A hub lists the pages placed under it (Page Attributes > Parent on each page), as cards in their page order. Each card shows the page\'s icon, title, and a short line: its excerpt (Page > Excerpt), else its first feature, else the first sentence of its heading text.', 'labora' ) ),
+			$tab( __( 'Top', 'labora' ) ),
+			$f( 'eyebrow', __( 'Label above the heading', 'labora' ), 'text', $half + array( 'placeholder' => __( 'The page title', 'labora' ) ) ),
+			$f( 'screen', __( 'Screenshot', 'labora' ), 'select', $screens + $half ),
+			$f( 'hero_title', __( 'Heading', 'labora' ) ),
+			$f( 'hero_lead', __( 'Text under the heading', 'labora' ), 'textarea', $area ),
+			$f( 'screen_alt', __( 'Screenshot description', 'labora' ), 'text', $half ),
+			$f( 'second_label', __( 'Second button: text', 'labora' ), 'text', $half + array( 'placeholder' => __( 'Watch the product tour', 'labora' ) ) ),
+			$f( 'second_url', __( 'Second button: link', 'labora' ), 'text', $half + array( 'placeholder' => '/#product-tour' ) ),
+			$tab( __( 'Cards', 'labora' ) ),
+			$heading( $f, 'cards_label', __( 'Cards: label', 'labora' ), 'All modules' ),
+			$heading( $f, 'cards_title', __( 'Cards: heading', 'labora' ), 'Everything your lab runs on, in one system' ),
+			$f( 'cards_text', __( 'Cards: text', 'labora' ), 'textarea', $area ),
+			$f( 'cards', __( 'Cards (optional)', 'labora' ), 'relationship', $pages + array( 'instructions' => __( 'Empty: every published page under this one, in page order. Choose pages here to pick and order them yourself.', 'labora' ) ) ),
+			$tab( __( 'Why and links', 'labora' ) ),
+			$heading( $f, 'why_label', __( 'Why: label', 'labora' ), 'Why one system' ),
+			$f( 'why_title', __( 'Why: heading', 'labora' ) ),
+			$f( 'why_points', __( 'Why: points', 'labora' ), 'textarea', array( 'rows' => 5, 'new_lines' => '', 'instructions' => __( 'One per line. Empty: the section is left out.', 'labora' ) ) ),
+			$f( 'other_hub', __( 'Other hub', 'labora' ), 'post_object', $pages + array( 'allow_null' => 1, 'instructions' => __( 'Optional: list the pages of another hub (e.g. Solutions on the Platform hub).', 'labora' ) ) ),
+			$f( 'other_label', __( 'Other hub: label', 'labora' ), 'text', $half ),
+			$f( 'other_title', __( 'Other hub: heading', 'labora' ), 'text', $half ),
+			$f( 'other_link', __( 'Other hub: link text', 'labora' ), 'text', array( 'placeholder' => __( 'All solutions', 'labora' ) ) ),
 			$f( 'cta_title', __( 'Closing box: heading', 'labora' ) ),
 			$f( 'cta_text', __( 'Closing box: text', 'labora' ), 'textarea', $area ),
 		),

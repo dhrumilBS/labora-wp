@@ -1,12 +1,13 @@
 <?php
 /**
- * WP-CLI: wp labora pages-setup [--overwrite]
+ * WP-CLI: wp labora pages-setup [--overwrite] [--only=<path>,<path>]
  *
  * Creates the content of the fixed-layout pages from the HTML site, and can be run again at any time:
  *   - FAQ topics and entries (data/faq.json): created when missing, matched by their link anchor
  *   - pages (data/pages/<slug>.json): the page, its template, its fields, and its search title and description
  * With --overwrite, existing entries and page fields are replaced with the files' version (edits made in
- * WordPress are lost). Data files use "/path/" for links on this site and {security_email} for the security email.
+ * WordPress are lost). With --only (e.g. --only=platform,solutions) only those pages are written, always with the
+ * files' version; other pages are not touched. Data files use "/path/" for links on this site and {security_email} for the security email.
  *
  * @package Labora_Child
  */
@@ -25,6 +26,7 @@ function labora_pages_field_prefixes(): array {
 		'page-templates/about.php'        => 'lab',
 		'page-templates/platform.php'     => 'lpm',
 		'page-templates/solution.php'     => 'lso',
+		'page-templates/hub.php'          => 'lhb',
 		'page-templates/redirect.php'     => 'lrd',
 		'page-templates/legal.php'        => 'lgl',
 	);
@@ -47,6 +49,7 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 		WP_CLI::error( 'Secure Custom Fields must be active.' );
 	}
 	$overwrite = ! empty( $assoc['overwrite'] );
+	$only      = array_values( array_filter( array_map( fn( $s ) => trim( $s, ' /' ), explode( ',', (string) ( $assoc['only'] ?? '' ) ) ) ) );
 	$dir       = LABORA_CHILD_DIR . '/data';
 
 	// FAQ topics and entries
@@ -117,10 +120,12 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 			'menu_order'     => (int) ( $p['order'] ?? 0 ),
 			'comment_status' => 'closed',
 		) );
-		if ( $page && $overwrite ) {
+		if ( $page && ( $overwrite || in_array( $p['path'], $only, true ) ) ) {
 			wp_update_post( array( 'ID' => $id, 'post_title' => $p['title'], 'post_parent' => $parent_id, 'menu_order' => (int) ( $p['order'] ?? 0 ) ) );
 		}
-		update_post_meta( $id, '_wp_page_template', $p['template'] );
+		if ( ! $only || in_array( $p['path'], $only, true ) ) {
+			update_post_meta( $id, '_wp_page_template', $p['template'] );
+		}
 		$ids[ $p['path'] ] = $id;
 	}
 	unset( $p );
@@ -141,7 +146,12 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 	foreach ( $pages as $p ) {
 		$id     = $ids[ $p['path'] ];
 		$prefix = labora_pages_field_prefixes()[ $p['template'] ];
-		if ( $p['new'] || $overwrite ) {
+		$write  = $only ? in_array( $p['path'], $only, true ) : ( $p['new'] || $overwrite );
+		if ( $write ) {
+			if ( 'page-templates/redirect.php' !== $p['template'] ) { // a former Redirect page (e.g. now a hub) keeps no stale target
+				delete_post_meta( $id, 'redirect_url' );
+				delete_post_meta( $id, '_redirect_url' );
+			}
 			foreach ( $p['fields'] as $name => $value ) {
 				update_field( "field_{$prefix}_{$name}", $resolve( $value ), $id );
 			}
@@ -150,13 +160,15 @@ WP_CLI::add_command( 'labora pages-setup', function ( $args, $assoc ) {
 				$html = (string) file_get_contents( "{$dir}/{$p['content']}" );
 				$html = preg_replace_callback( '#href="(/[^"]*)"#', fn( $m ) => 'href="' . esc_url( home_url( $m[1] ) ) . '"', $html );
 				wp_update_post( array( 'ID' => $id, 'post_content' => wp_slash( labora_blog_seed_blocks( $html ) ), 'post_excerpt' => (string) ( $p['excerpt'] ?? '' ) ) );
+			} elseif ( isset( $p['excerpt'] ) ) { // field-only pages: the excerpt is the short line on their hub card
+				wp_update_post( array( 'ID' => $id, 'post_excerpt' => (string) $p['excerpt'] ) );
 			}
 			if ( isset( $p['seo_title'] ) ) {
 				update_post_meta( $id, '_yoast_wpseo_title', $p['seo_title'] );
 				update_post_meta( $id, '_yoast_wpseo_metadesc', $p['seo_description'] );
 			}
 		}
-		WP_CLI::log( ( $p['new'] ? 'created ' : ( $overwrite ? 'updated ' : 'kept    ' ) ) . "/{$p['path']}/ (#{$id})" );
+		WP_CLI::log( ( $p['new'] ? 'created ' : ( $write ? 'updated ' : 'kept    ' ) ) . "/{$p['path']}/ (#{$id})" );
 	}
 	WP_CLI::success( 'Pages are set up.' );
 } );

@@ -4,6 +4,7 @@
   "slug": "hospital-laboratories",
   "parent": "solutions",
   "order": 4,
+  "excerpt": "Urgent cases on their own turnaround targets.",
   "seo_title": "Software for Hospital laboratories %%sep%% %%sitename%%",
   "seo_description": "Laboratory management software for hospital labs: sample tracking, turnaround targets for urgent cases, signed report release, role-based access, and audit trails.",
   "fields": {

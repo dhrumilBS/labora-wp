@@ -4,6 +4,7 @@
   "slug": "home-collection-services",
   "parent": "solutions",
   "order": 5,
+  "excerpt": "Bookings, live ETA, and automatic patient updates.",
   "seo_title": "Software for Home collection services %%sep%% %%sitename%%",
   "seo_description": "Software for home sample collection services: bookings, phlebotomist live map and ETA, automatic patient SMS, and samples that move straight into tracking.",
   "fields": {

@@ -4,6 +4,7 @@
   "slug": "pathology-labs",
   "parent": "solutions",
   "order": 1,
+  "excerpt": "Barcode tracking, validation, and signed reports.",
   "seo_title": "Software for Pathology labs %%sep%% %%sitename%%",
   "seo_description": "Laboratory management software for pathology labs: registration, barcode sample tracking, turnaround targets, validated results, and signed reports in one system.",
   "fields": {

@@ -1,9 +1,29 @@
 {
-  "template": "page-templates/redirect.php",
+  "template": "page-templates/hub.php",
   "title": "Platform",
   "slug": "platform",
   "order": 10,
+  "seo_title": "Lab Management Platform: Every Labora Module %%sep%% %%sitename%%",
+  "seo_description": "Registration, home collection, sample tracking, turnaround, pathology, radiology and ECG reporting, e-signatures, and business insights in one lab management platform.",
   "fields": {
-    "redirect_url": "/#home-collection"
+    "eyebrow": "Platform",
+    "hero_title": "One lab system, from booking to signed report",
+    "hero_lead": "Labora brings home collection, sample tracking, reporting, and billing into one patient case, so every team works from the same record and nothing is typed twice.",
+    "screen": "dashboard",
+    "screen_alt": "Labora dashboard with today's cases, turnaround against target, and revenue by center",
+    "second_label": "Watch the product tour",
+    "second_url": "/#product-tour",
+    "cards_label": "All modules",
+    "cards_title": "Ten modules that share one patient case",
+    "cards_text": "Start with what your lab needs today and switch on more as you grow. Every module reads and writes the same record.",
+    "why_label": "Why one platform",
+    "why_title": "Fewer handoffs, fewer places for work to get lost",
+    "why_points": "Patient details entered once and used everywhere\nEvery tube scanned at each handoff\nTurnaround measured against your own targets\nReports signed digitally and sent automatically\nRevenue by center, day, and referring doctor\nRoles and an audit trail for every change",
+    "other_hub": "@page:solutions",
+    "other_label": "Solutions",
+    "other_title": "Set up for the way your lab works",
+    "other_link": "All solutions",
+    "cta_title": "See the whole platform with your own tests",
+    "cta_text": "A 20-minute walkthrough of the modules your lab would use, set up with your test menu and centers."
   }
 }

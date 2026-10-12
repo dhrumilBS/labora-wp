@@ -1,9 +1,29 @@
 {
-  "template": "page-templates/redirect.php",
+  "template": "page-templates/hub.php",
   "title": "Solutions",
   "slug": "solutions",
   "order": 11,
+  "seo_title": "Lab Software for Every Type of Diagnostic Lab %%sep%% %%sitename%%",
+  "seo_description": "Labora for pathology labs, diagnostic and imaging centers, multi-center lab chains, hospital laboratories, home collection services, and cardiology clinics.",
   "fields": {
-    "redirect_url": "/#who-its-for"
+    "eyebrow": "Solutions",
+    "hero_title": "Built for every kind of diagnostic lab",
+    "hero_lead": "Pathology labs, imaging centers, multi-center chains, hospital labs, home collection services, and cardiology clinics run on the same Labora system, set up around their own work.",
+    "screen": "centers-overview",
+    "screen_alt": "Labora centers overview comparing cases, turnaround, and revenue across lab branches",
+    "second_label": "Explore the platform",
+    "second_url": "/platform/",
+    "cards_label": "Solutions",
+    "cards_title": "Find the setup for your lab",
+    "cards_text": "Each page shows the everyday problems Labora removes for that kind of lab, and the modules it uses most.",
+    "why_label": "Why labs choose Labora",
+    "why_title": "One system for the lab you run today, and the one you grow into",
+    "why_points": "Start with one center, add branches and collection points later\nPathology, imaging, and cardiology reports in one patient record\nUrgent cases on their own turnaround targets\nHome collection bookings flow straight into sample tracking\nGuided rollout, with your test menu and templates moved over",
+    "other_hub": "@page:platform",
+    "other_label": "Platform",
+    "other_title": "The modules behind every solution",
+    "other_link": "All modules",
+    "cta_title": "See Labora set up for your lab",
+    "cta_text": "Tell us how your lab works, and we will walk you through it with your own tests, centers, and report formats."
   }
 }
