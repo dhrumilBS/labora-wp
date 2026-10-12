@@ -52,3 +52,57 @@ add_filter( 'wpseo_schema_graph', function ( $graph ) {
 
 // Yoast: the homepage has no author archive, comments, or feed links worth exposing
 add_filter( 'wpseo_next_rel_link', '__return_false' );
+
+/* ---------- Breadcrumbs and page types, as on the HTML site ---------- */
+// (The default share image is Yoast's own setting, Settings > Site basics; `wp labora blog-setup` seeds it.)
+
+/**
+ * Breadcrumbs (visible ones and the BreadcrumbList data):
+ *  - names without HTML entities ("Centers & outsource labs", not "&#038;")
+ *  - Platform and Solutions pages: the parent links to where its page leads (the homepage section)
+ *  - topic pages: Home > Blog > topic
+ */
+add_filter( 'wpseo_breadcrumb_links', function ( $links ) {
+	if ( is_page() && in_array( get_page_template_slug(), array( 'page-templates/platform.php', 'page-templates/solution.php' ), true ) ) {
+		$parent = wp_get_post_parent_id( get_the_ID() );
+		$target = $parent ? (string) labora_page_field( 'redirect_url', $parent ) : '';
+		if ( $parent && $target ) {
+			$crumb = array( 'url' => labora_link( $target ), 'text' => get_the_title( $parent ) );
+			$found = false;
+			foreach ( $links as &$link ) {
+				if ( (int) ( $link['id'] ?? 0 ) === $parent ) {
+					$link  = $crumb;
+					$found = true;
+				}
+			}
+			unset( $link );
+			if ( ! $found ) {
+				array_splice( $links, count( $links ) - 1, 0, array( $crumb ) );
+			}
+		}
+	}
+	if ( ( is_category() || is_tag() ) && labora_blog_page_id() ) {
+		$blog = array( 'url' => labora_blog_url(), 'text' => get_the_title( labora_blog_page_id() ) );
+		if ( ! in_array( $blog['url'], wp_list_pluck( $links, 'url' ), true ) ) {
+			array_splice( $links, 1, 0, array( $blog ) );
+		}
+	}
+	foreach ( $links as &$link ) {
+		if ( isset( $link['text'] ) ) {
+			$link['text'] = html_entity_decode( (string) $link['text'], ENT_QUOTES, 'UTF-8' );
+		}
+	}
+	unset( $link );
+	return $links;
+} );
+
+// The About page is an AboutPage, blog posts are BlogPosting (as on the HTML site)
+add_filter( 'wpseo_schema_webpage_type', function ( $type ) {
+	if ( is_page() && 'page-templates/about.php' === get_page_template_slug() ) {
+		return array( 'WebPage', 'AboutPage' );
+	}
+	return $type;
+} );
+add_filter( 'wpseo_schema_article_type', function ( $type ) {
+	return is_singular( 'post' ) ? 'BlogPosting' : $type;
+} );

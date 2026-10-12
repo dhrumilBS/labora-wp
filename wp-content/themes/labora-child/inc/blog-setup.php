@@ -279,8 +279,19 @@ WP_CLI::add_command( 'labora blog-setup', function ( $args, $assoc ) {
 		}
 	}
 
+	// Default share image (Yoast > Settings > Site basics), used by pages without one of their own
+	if ( class_exists( 'WPSEO_Options' ) && ! WPSEO_Options::get( 'og_default_image_id' ) ) {
+		$share = labora_blog_seed_theme_image( 'img/og-image.png', 'Labora share image' );
+		if ( $share ) {
+			WPSEO_Options::set( 'og_default_image', (string) wp_get_attachment_url( $share ) );
+			WPSEO_Options::set( 'og_default_image_id', $share );
+			WP_CLI::log( 'Yoast default share image set.' );
+		}
+	}
+
 	// Topic and tag pages: the description is the search description
 	if ( class_exists( 'WPSEO_Options' ) ) {
+		WPSEO_Options::set( 'disable-author', true ); // one team author: its archive would repeat the blog (as on the HTML site, no author pages)
 		WPSEO_Options::set( 'metadesc-tax-category', '%%category_description%%' );
 		WPSEO_Options::set( 'metadesc-tax-post_tag', '%%tag_description%%' );
 		WPSEO_Options::set( 'title-tax-category', '%%term_title%% articles %%sep%% %%sitename%% blog' );
